@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class TestItem : IInteractable 
+public class TestInteractable : Interactable 
 {
     protected override void Interaction()
     {

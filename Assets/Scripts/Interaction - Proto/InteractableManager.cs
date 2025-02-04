@@ -11,8 +11,11 @@ public class InteractableManager : MonoBehaviour
     public InputAction TouchPos { get; private set; }
     public InputAction TouchPress { get; private set; }
 
-    [SerializeField, Range(0f, 10f)] float _itemInteractionDistance = 1f;
-    public float ItemInteractionDistance { get { return _itemInteractionDistance; } }
+    [SerializeField, Range(0f, 10f)] float _itemTouchRange = 1f, _itemInteractionRange = 2f;
+    public float ItemTouchRange { get { return _itemTouchRange; } }
+    public float ItemInteractionRange { get { return _itemInteractionRange; } }
+
+    public GameObject Player { get; private set; }
 
     private void Awake()
     {
@@ -23,5 +26,8 @@ public class InteractableManager : MonoBehaviour
 
         TouchPos = _inputs.actions["TouchPosition"];
         TouchPress = _inputs.actions["TouchPress"];
+
+        Player = GameObject.FindGameObjectWithTag("Player");
+        if (Player == null) { throw new System.Exception("No Player in Scene !"); }
     }
 }

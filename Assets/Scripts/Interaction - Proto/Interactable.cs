@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,9 +22,12 @@ public class Interactable : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (Vector2.Distance(mousePos, transform.position) < InteractableManager.Instance.ItemInteractionDistance)
+            if (Vector2.Distance(mousePos, transform.position) < InteractableManager.Instance.ItemTouchRange)
             {
-                Interaction();
+                if (!_isCoroutineRunning)
+                {
+                    StartCoroutine(StartInteraction());
+                }
             }
         }
 #endif
@@ -31,12 +36,29 @@ public class Interactable : MonoBehaviour
         if (_touchPress.WasPressedThisFrame())
         {
             Vector2 touchPos = _touchPos.ReadValue<Vector2>();
-            if (Vector2.Distance(touchPos, transform.position) < InteractableManager.Instance.ItemInteractionDistance)
+            if (Vector2.Distance(touchPos, transform.position) < InteractableManager.Instance.ItemTouchRange)
             {
-                Interaction();
+                if (!_isCoroutineRunning)
+                {
+                    StartCoroutine(StartInteraction());
+                }
             }
         }
 #endif
+    }
+
+    float RangeToPlayer => Vector2.Distance(InteractableManager.Instance.Player.transform.position, transform.position);
+    bool IsPlayerInRange => RangeToPlayer < InteractableManager.Instance.ItemInteractionRange;
+    bool _isCoroutineRunning;
+    IEnumerator StartInteraction()
+    {
+        _isCoroutineRunning = true;
+        while (!IsPlayerInRange)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        Interaction();
+        _isCoroutineRunning = false;
     }
 
     protected virtual void Interaction()
@@ -44,12 +66,21 @@ public class Interactable : MonoBehaviour
         OnInteraction?.Invoke(this);
     }
 
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+        _isCoroutineRunning = false;
+    }
+
     private void OnDrawGizmos()
     {
         if (Application.isPlaying)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, InteractableManager.Instance.ItemInteractionDistance);
+            Gizmos.DrawWireSphere(transform.position, InteractableManager.Instance.ItemTouchRange);
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, InteractableManager.Instance.ItemInteractionRange);
         }
     }
 }

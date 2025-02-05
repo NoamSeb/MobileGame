@@ -2,20 +2,26 @@ using UnityEngine;
 
 public class SlidingPuzzleCell : MonoBehaviour
 {
+    RectTransform _rect;
+
+    [SerializeField] SlidingPuzzleCellDataBase _cellsDatabase;
+    public SlidingPuzzleCellData Data { get; private set; }
     public bool IsMovable { get; private set; }    
 
-    void Start()
+    public void SimulateStart(int i, Vector2 anchor)
     {
-        
+        _rect = GetComponent<RectTransform>();
+        _rect.anchorMax = anchor;
+        _rect.anchorMin = anchor;
+        _rect.anchoredPosition = Vector2.zero;
+
+        Data = _cellsDatabase.slidingPuzzleCells[i];
+
+        IsMovable = false;
     }
 
-    void Update()
+    public void MarkAsMovable()
     {
-        
-    }
-
-    void MarkAsMovable()
-    {
-
+        IsMovable = true;
     }
 }

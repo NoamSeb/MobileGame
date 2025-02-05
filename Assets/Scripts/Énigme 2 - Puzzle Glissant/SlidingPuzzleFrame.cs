@@ -1,16 +1,34 @@
 using UnityEngine;
+using NaughtyAttributes;
+using NUnit.Framework;
 
 public class SlidingPuzzleFrame : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] SlidingPuzzleCellDataBase cellsDatabase;
+    [SerializeField] GameObject EmptyCell;
+    [SerializeField] GameObject NotEmptyCell;
+
+    Vector2[] anchors = new Vector2[9];
+
     void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    [Button]
+    void GetAllAnchors()
+    {
+        for (int i = 0; i < anchors.Length; i++)
+        {
+            {
+                GameObject obj = transform.GetChild(i).gameObject;
+                anchors[obj.transform.GetSiblingIndex()] = obj.GetComponent<RectTransform>().anchorMin;
+            }
+        }
     }
 }

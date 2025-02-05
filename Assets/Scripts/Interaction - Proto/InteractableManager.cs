@@ -11,8 +11,8 @@ public class InteractableManager : MonoBehaviour
     public InputAction TouchPos { get; private set; }
     public InputAction TouchPress { get; private set; }
 
-    [SerializeField, Range(0f, 10f)] float _itemInteractionDistance = 1f;
-    public float ItemInteractionDistance { get { return _itemInteractionDistance; } }
+    [SerializeField, Range(0f, 10f)] float _itemTouchRange = 1f;
+    public float ItemTouchRange { get { return _itemTouchRange; } }
 
     private void Awake()
     {

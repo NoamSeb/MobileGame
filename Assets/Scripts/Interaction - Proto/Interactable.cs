@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,7 +22,7 @@ public class Interactable : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (Vector2.Distance(mousePos, transform.position) < InteractableManager.Instance.ItemInteractionDistance)
+            if (IsClickOnTheSpot(mousePos))
             {
                 Interaction();
             }
@@ -31,7 +33,7 @@ public class Interactable : MonoBehaviour
         if (_touchPress.WasPressedThisFrame())
         {
             Vector2 touchPos = _touchPos.ReadValue<Vector2>();
-            if (Vector2.Distance(touchPos, transform.position) < InteractableManager.Instance.ItemInteractionDistance)
+            if (IsClickOnTheSpot(touchPos))
             {
                 Interaction();
             }
@@ -39,6 +41,11 @@ public class Interactable : MonoBehaviour
 #endif
     }
 
+    protected virtual bool IsClickOnTheSpot(Vector2 pos)
+    {
+        return Vector2.Distance(pos, transform.position) < InteractableManager.Instance.ItemTouchRange;
+    }
+    
     protected virtual void Interaction()
     {
         OnInteraction?.Invoke(this);
@@ -49,7 +56,7 @@ public class Interactable : MonoBehaviour
         if (Application.isPlaying)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, InteractableManager.Instance.ItemInteractionDistance);
+            Gizmos.DrawWireSphere(transform.position, InteractableManager.Instance.ItemTouchRange);
         }
     }
 }

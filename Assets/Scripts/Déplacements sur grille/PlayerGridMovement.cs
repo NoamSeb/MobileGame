@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using log4net.Util;
 
 public class PlayerGridMovement : MonoBehaviour
 {
@@ -66,6 +67,11 @@ public class PlayerGridMovement : MonoBehaviour
         float elapsedTime = 0f;
         float moveDuration = 0.2f;
 
+        // angle de rotation vers la nouvelle direction
+        Vector3 direction = targetPosition - startPosition;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle - 90); 
+
         while (elapsedTime < moveDuration)
         {
             transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / moveDuration);
@@ -77,8 +83,6 @@ public class PlayerGridMovement : MonoBehaviour
         isMoving = false;
     }
 }
-
-
 
 
 

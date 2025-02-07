@@ -1,32 +1,27 @@
 using UnityEngine;
-using UnityEngine.Tilemaps;
+using System.Collections;
 
 public class PlayerGridMovement : MonoBehaviour
 {
-    public TilemapCollider2D playzoneCollider; // Référence au TilemapCollider2D
-    private Vector2Int minBounds;
-    private Vector2Int maxBounds;
-
-    public float moveSpeed = 5f; // vitesse de déplacement
-    public Vector2Int gridPosition; // position actuelle du joueur sur la grille
-    private bool isMoving = false;
+    public Grid grid; // Référence au composant Grid
+    public float moveSpeed = 5f; // vitesse du déplacement
+    public Vector2Int gridPosition; // position actuelle du joueur en coordonnées de grille
+    private bool isMoving = false; // booléen pour éviter les déplacements en chaîne
 
     void Start()
     {
-        if (playzoneCollider != null)
+        if (grid == null)
         {
-            // récupérer les limites de "Playzone"
-            Bounds bounds = playzoneCollider.bounds;
-            minBounds = new Vector2Int(Mathf.FloorToInt(bounds.min.x), Mathf.FloorToInt(bounds.min.y));
-            maxBounds = new Vector2Int(Mathf.CeilToInt(bounds.max.x), Mathf.CeilToInt(bounds.max.y));
-        }
-        else
-        {
-            Debug.LogError("Playzone Collider non assigné dans l'Inspector !");
+            Debug.LogError("Le Grid n'est pas assigné dans l'inspector.");
+            return;
         }
 
-        // placer le joueur au centre d’une case
-        transform.position = new Vector3(gridPosition.x, 0, gridPosition.y);
+        // aligner le joueur sur une case de la grille au démarrage
+        Vector3Int cellPosition = grid.WorldToCell(transform.position);
+        gridPosition = new Vector2Int(cellPosition.x, cellPosition.y);
+        transform.position = grid.GetCellCenterWorld(cellPosition);
+
+        // s'abonner à l'événement de swipe
         SwipeMovement.OnSwipeEnd += HandleSwipe;
     }
 
@@ -37,11 +32,11 @@ public class PlayerGridMovement : MonoBehaviour
 
     void HandleSwipe(SwipeMovement.SwipeDirection direction)
     {
-        if (isMoving) return; // éviter un autre déplacement pendant l'animation
+        if (isMoving) return;
 
         Vector2Int targetPosition = gridPosition;
 
-        // déterminer la direction du mouvement
+        // déterminer la direction du déplacement en fonction du swipe
         switch (direction)
         {
             case SwipeMovement.SwipeDirection.Up:
@@ -56,47 +51,34 @@ public class PlayerGridMovement : MonoBehaviour
             case SwipeMovement.SwipeDirection.Right:
                 targetPosition += Vector2Int.right;
                 break;
-            default:
-                return;
         }
 
-        // vérifier que la position cible est bien dans "Playzone"
-        if (targetPosition.x >= minBounds.x && targetPosition.x < maxBounds.x &&
-            targetPosition.y >= minBounds.y && targetPosition.y < maxBounds.y)
-        {
-            gridPosition = targetPosition;
-            StartCoroutine(MoveCoroutine());
-        }
+        // mettre à jour la position et lancer l'animation du déplacement
+        gridPosition = targetPosition;
+        StartCoroutine(MoveCoroutine());
     }
 
-    System.Collections.IEnumerator MoveCoroutine()
+    IEnumerator MoveCoroutine()
     {
         isMoving = true;
         Vector3 startPosition = transform.position;
-        Vector3 targetPosition = new Vector3(gridPosition.x, 0, gridPosition.y);
+        Vector3 targetPosition = grid.GetCellCenterWorld(new Vector3Int(gridPosition.x, gridPosition.y, 0));
         float elapsedTime = 0f;
+        float moveDuration = 0.2f;
 
-        while (elapsedTime < (1f / moveSpeed)) //plus move speed est grand plus deplacement sera rapide
+        while (elapsedTime < moveDuration)
         {
-            transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime * moveSpeed);
+            transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / moveDuration);
             elapsedTime += Time.deltaTime;
-            yield return null; //attendre la prochaine frame avant de continuer la boucle
+            yield return null;
         }
 
-        transform.position = targetPosition; // assurer que le joueur finit bien sur la case
+        transform.position = targetPosition;
         isMoving = false;
     }
-
-    void OnDrawGizmos()
-    {
-        if (playzoneCollider != null)
-        {
-            // dessiner la vraie zone en rouge en fonction du TilemapCollider2D
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(playzoneCollider.bounds.center, playzoneCollider.bounds.size);
-        }
-    }
 }
+
+
 
 
 

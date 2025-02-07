@@ -76,11 +76,11 @@ public class PlayerGridMovement : MonoBehaviour
         Vector3 targetPosition = new Vector3(gridPosition.x, 0, gridPosition.y);
         float elapsedTime = 0f;
 
-        while (elapsedTime < 1f / moveSpeed)
+        while (elapsedTime < (1f / moveSpeed)) //plus move speed est grand plus deplacement sera rapide
         {
             transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime * moveSpeed);
             elapsedTime += Time.deltaTime;
-            yield return null;
+            yield return null; //attendre la prochaine frame avant de continuer la boucle
         }
 
         transform.position = targetPosition; // assurer que le joueur finit bien sur la case

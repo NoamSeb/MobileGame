@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa91f5b5b4e133e40924fc758761c752, type: 3}
+  m_Name: Puzzle1
+  m_EditorClassIdentifier: 
+  ID: 1
+  slidingPuzzleCells:
+  - ID: Cell1
+    Texture: {fileID: 0}
+    IsEmptyCell: 0
+    CorrectPosition: 2
+  - ID: Cell2
+    Texture: {fileID: 0}
+    IsEmptyCell: 0
+    CorrectPosition: 8
+  - ID: Cell3
+    Texture: {fileID: 0}
+    IsEmptyCell: 0
+    CorrectPosition: 6
+  - ID: Cell4
+    Texture: {fileID: 0}
+    IsEmptyCell: 0
+    CorrectPosition: 7
+  - ID: Cell5
+    Texture: {fileID: 0}
+    IsEmptyCell: 0
+    CorrectPosition: 3
+  - ID: Cell6
+    Texture: {fileID: 0}
+    IsEmptyCell: 0
+    CorrectPosition: 5
+  - ID: Cell7
+    Texture: {fileID: 0}
+    IsEmptyCell: 0
+    CorrectPosition: 4
+  - ID: Cell8
+    Texture: {fileID: 0}
+    IsEmptyCell: 0
+    CorrectPosition: 9
+  - ID: Cell9
+    Texture: {fileID: 0}
+    IsEmptyCell: 1
+    CorrectPosition: 1

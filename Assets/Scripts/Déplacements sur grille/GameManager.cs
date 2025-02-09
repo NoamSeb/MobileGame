@@ -5,7 +5,27 @@ using UnityEngine.Tilemaps;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public TilemapCollider2D PlayZoneCollider { get; private set; }
+    public struct NotBounds
+    {
+        public Vector3 min { get; private set; }
+        public Vector3 max { get; private set; }
+
+        public NotBounds(Vector3 min, Vector3 max)
+        {
+            this.min = min;
+            this.max = max;
+        }
+
+        public bool Contains(Vector3 point)
+        {
+            if (point.x >= min.x && point.y >= min.y 
+                && point.x <= max.x && point.y <= max.y) { return true; }
+
+            return false;
+        }
+    }
+
+    public NotBounds PlayZone { get; private set; }
 
     private void Awake()
     {
@@ -14,7 +34,11 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
-        PlayZoneCollider = GameObject.FindGameObjectWithTag("Playzone").GetComponent<TilemapCollider2D>();
+        Tilemap playZoneMap = GameObject.FindGameObjectWithTag("Playzone").GetComponent<Tilemap>();
+        Vector3 min = playZoneMap.cellBounds.min;
+        Vector3 max = playZoneMap.cellBounds.max;
+
+        PlayZone = new NotBounds(min, max);
 
         SwipeMovement.OnSwipeEnd += DebugSwipe;
     }

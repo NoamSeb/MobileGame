@@ -247,8 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b41a916e583510418cb0965206b56dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minSwipeDist: 2
-  _swipeScreenDeadzonePercentage: 0.1
+  _minimalSwipeDistance: 0
 --- !u!1 &1718629238
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,6 +259,7 @@ GameObject:
   - component: {fileID: 1718629239}
   - component: {fileID: 1718629241}
   - component: {fileID: 1718629240}
+  - component: {fileID: 1718629242}
   m_Layer: 0
   m_Name: Playzone
   m_TagString: Playzone
@@ -1236,6 +1236,44 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &1718629242
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718629238}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1 &1783608711
 GameObject:
   m_ObjectHideFlags: 0

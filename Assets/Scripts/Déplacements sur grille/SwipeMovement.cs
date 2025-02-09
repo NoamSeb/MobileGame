@@ -11,8 +11,7 @@ public class SwipeMovement : MonoBehaviour
 
     private Vector3 _swipeStartPos;
 
-    [SerializeField, Range(0f, 10f)] float _minSwipeDist;
-    [SerializeField, Range(0f, 0.5f)] float _swipeScreenDeadzonePercentage;
+    [SerializeField, Range(0f, 10f)] float _minimalSwipeDistance;
 
     private bool IsSwiping => _swipeStartPos != Vector3.zero;
 
@@ -53,7 +52,11 @@ public class SwipeMovement : MonoBehaviour
     {
         Vector2 deltaPos = Camera.main.ScreenToWorldPoint(_touchPos.ReadValue<Vector2>()) - _swipeStartPos;
 
-        if(deltaPos.magnitude < _minSwipeDist ) { return; }
+        if(deltaPos.magnitude < _minimalSwipeDistance || !GameManager.Instance.PlayZone.Contains(_swipeStartPos)) 
+        {
+            _swipeStartPos = Vector2.zero;
+            return; 
+        }
 
         if (Mathf.Abs(deltaPos.x) >= Mathf.Abs(deltaPos.y))
         {

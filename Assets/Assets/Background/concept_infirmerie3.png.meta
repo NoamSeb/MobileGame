@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      concept_infirmerie3_0: -5480153947782925812
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -8,21 +8,16 @@ public class LevelManager : MonoBehaviour
     [SerializeField] Animator _animator;
     [SerializeField] float transitionTime = 1f;
     Coroutine _transition;
-
-    [Button("Change scene")]
-    void ChangeScene()
-    {
-        ChangeLevel("SampleScene");
-    }
-    private void ChangeLevel(string sceneName)
+    
+    public void ChangeLevel(string sceneName)
     {
         _transition = StartCoroutine(LoadLevel(sceneName));
     }
 
     IEnumerator LoadLevel(string levelName)
     {
-        _animator.SetTrigger("glitch");
+        _animator.SetTrigger("start");
         yield return new WaitForSeconds(transitionTime);
-        SceneManager.LoadScene(levelName);
+        SceneManager.LoadSceneAsync(levelName);
     }
 }

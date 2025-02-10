@@ -33,15 +33,15 @@ public class PlayerGridMovement : MonoBehaviour
         transform.position = grid.GetCellCenterWorld(cellPosition);
 
         // s'abonner à l'événement de swipe
-        SwipeMovement.OnSwipeEnd += HandleSwipe;
+        CodeblockMovement.OnMoveInstructed += HandleSwipe;
     }
 
     void OnDestroy()
     {
-        SwipeMovement.OnSwipeEnd -= HandleSwipe;
+        CodeblockMovement.OnMoveInstructed -= HandleSwipe;
     }
 
-    void HandleSwipe(SwipeMovement.SwipeDirection direction)
+    void HandleSwipe(CodeblockMovement.MoveInstruction direction)
     {
         if (isMoving || (oxygenManager != null && oxygenManager.IsDead())) return; // empêcher le déplacement si en mouvement ou si le joueur est mort
 
@@ -50,16 +50,16 @@ public class PlayerGridMovement : MonoBehaviour
         // déterminer la direction du déplacement en fonction du swipe
         switch (direction)
         {
-            case SwipeMovement.SwipeDirection.Up:
+            case CodeblockMovement.MoveInstruction.Up:
                 targetPosition += Vector2Int.up;
                 break;
-            case SwipeMovement.SwipeDirection.Down:
+            case CodeblockMovement.MoveInstruction.Down:
                 targetPosition += Vector2Int.down;
                 break;
-            case SwipeMovement.SwipeDirection.Left:
+            case CodeblockMovement.MoveInstruction.Left:
                 targetPosition += Vector2Int.left;
                 break;
-            case SwipeMovement.SwipeDirection.Right:
+            case CodeblockMovement.MoveInstruction.Right:
                 targetPosition += Vector2Int.right;
                 break;
         }

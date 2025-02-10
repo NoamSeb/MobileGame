@@ -15,6 +15,7 @@ public class SwipeMovement : MonoBehaviour
 
     private bool IsSwiping => _swipeStartPos != Vector3.zero;
 
+    //Ce qu'on va envoyer pour donner la direction du joueur
     public enum SwipeDirection
     {
         None,
@@ -41,7 +42,6 @@ public class SwipeMovement : MonoBehaviour
         if (_touchPress.WasReleasedThisFrame()) { EndSwipe(); }
     }
 
-
     void StartSwipe()
     {
         Vector2 touchPos = Camera.main.ScreenToWorldPoint(_touchPos.ReadValue<Vector2>());
@@ -52,12 +52,14 @@ public class SwipeMovement : MonoBehaviour
     {
         Vector2 deltaPos = Camera.main.ScreenToWorldPoint(_touchPos.ReadValue<Vector2>()) - _swipeStartPos;
 
+        //Si le mouvement de swipe est trop court, ou s'il a été effectué en dehors de la zone de jeu, on annule tout
         if(deltaPos.magnitude < _minimalSwipeDistance || !GameManager.Instance.PlayZone.Contains(_swipeStartPos)) 
         {
             _swipeStartPos = Vector2.zero;
             return; 
         }
 
+        //On détermine ensuite la direction de la swipe. None est envoyé si le mouvement est impossible
         if (Mathf.Abs(deltaPos.x) >= Mathf.Abs(deltaPos.y))
         {
             if (Vector2.Dot(deltaPos, Vector2.right) < 0) { OnSwipeEnd?.Invoke(SwipeDirection.Left); }

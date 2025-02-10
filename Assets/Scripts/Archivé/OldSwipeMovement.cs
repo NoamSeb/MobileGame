@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class SwipeMovement : MonoBehaviour
+public class OldSwipeMovement : MonoBehaviour
 {
     private PlayerInput _inputs;
     private InputAction _touchPress, _touchPos;
@@ -53,7 +53,7 @@ public class SwipeMovement : MonoBehaviour
         Vector2 deltaPos = Camera.main.ScreenToWorldPoint(_touchPos.ReadValue<Vector2>()) - _swipeStartPos;
 
         //Si le mouvement de swipe est trop court, ou s'il a été effectué en dehors de la zone de jeu, on annule tout
-        if(deltaPos.magnitude < _minimalSwipeDistance || !GameManager.Instance.PlayZone.Contains(_swipeStartPos)) 
+        if(deltaPos.magnitude < _minimalSwipeDistance) // || !GameManager.Instance.PlayZone.Contains(_swipeStartPos)) 
         {
             _swipeStartPos = Vector2.zero;
             return; 

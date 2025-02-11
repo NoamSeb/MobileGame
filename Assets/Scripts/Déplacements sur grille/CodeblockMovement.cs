@@ -9,6 +9,9 @@ public class CodeblockMovement : MonoBehaviour
 {
     [SerializeField, Range(0, 5000)] private int _instructionDelayMilliseconds;
 
+    public float InstructionDelayMS { get { return  _instructionDelayMilliseconds; } }
+    public float InstructionDelayS { get { return _instructionDelayMilliseconds/1000f; } }
+
     //Ce qu'on va envoyer pour donner la direction du joueur
     public enum MoveInstruction
     {

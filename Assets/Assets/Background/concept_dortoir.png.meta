@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      concept_dortoir_0: 2388061836453108812
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

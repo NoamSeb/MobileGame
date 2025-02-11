@@ -1,19 +1,25 @@
 using NaughtyAttributes;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CodeblockMovement : MonoBehaviour
 {
+    [SerializeField, Range(0, 5000)] private int _instructionDelayMilliseconds;
+
     //Ce qu'on va envoyer pour donner la direction du joueur
     public enum MoveInstruction
     {
         None,
         Walk,
         Turn,
-        Wait,
-        Launch
+        Wait
     }
+
+    //La file d'instructions
+    private List<MoveInstruction> _instructions = new();
 
     public static event Action<MoveInstruction> OnMoveInstructed;
 
@@ -36,21 +42,38 @@ public class CodeblockMovement : MonoBehaviour
 
     void Walk()
     {
-        OnMoveInstructed?.Invoke(MoveInstruction.Walk);
+        _instructions.Add(MoveInstruction.Walk);
     }
 
     void Turn()
     {
-        OnMoveInstructed?.Invoke(MoveInstruction.Turn);
+        _instructions.Add(MoveInstruction.Turn);
     }
 
     void Wait()
     {
-        OnMoveInstructed?.Invoke(MoveInstruction.Wait);
+        _instructions.Add(MoveInstruction.Wait);
     }
 
     void Launch()
     {
-        OnMoveInstructed?.Invoke(MoveInstruction.Launch);
+        PlayInstructions();
+    }
+
+    async void PlayInstructions()
+    {
+        for (int i = 0; i < _instructions.Count; i++)
+        {
+            await(StartInstruction(i));
+        }
+
+        _instructions.Clear();
+    }
+
+    async Task StartInstruction(int i)
+    {
+        OnMoveInstructed?.Invoke(_instructions[i]);
+
+        await Task.Delay(_instructionDelayMilliseconds);
     }
 }

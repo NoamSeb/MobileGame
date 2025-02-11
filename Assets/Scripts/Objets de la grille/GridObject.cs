@@ -1,10 +1,11 @@
 using NaughtyAttributes;
+using System;
 using UnityEngine;
 
 public class GridObject : MonoBehaviour
 {
-    private Grid _grid;
-    [ShowNonSerializedField] private Vector2Int _gridPosition;
+    protected Grid _grid;
+    public Vector2Int GridPosition { get; private set; }
 
     public bool IsImpassable {  get; private set; }
 
@@ -18,9 +19,11 @@ public class GridObject : MonoBehaviour
         _grid = GameManager.Instance.PlayGrid;
 
         Vector3Int cellPosition = _grid.WorldToCell(transform.position);
-        _gridPosition = new Vector2Int(cellPosition.x, cellPosition.y);
+        GridPosition = new Vector2Int(cellPosition.x, cellPosition.y);
         transform.position = _grid.GetCellCenterWorld(cellPosition);
     }
+
+    protected virtual void Effect() { throw new NotImplementedException(); }
 
     protected void SetImpassable()
     {

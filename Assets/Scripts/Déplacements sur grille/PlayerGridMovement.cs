@@ -50,18 +50,7 @@ public class PlayerGridMovement : MonoBehaviour
         // déterminer la direction du déplacement en fonction du swipe
         switch (direction)
         {
-            case CodeblockMovement.MoveInstruction.Up:
-                targetPosition += Vector2Int.up;
-                break;
-            case CodeblockMovement.MoveInstruction.Down:
-                targetPosition += Vector2Int.down;
-                break;
-            case CodeblockMovement.MoveInstruction.Left:
-                targetPosition += Vector2Int.left;
-                break;
-            case CodeblockMovement.MoveInstruction.Right:
-                targetPosition += Vector2Int.right;
-                break;
+            //Modifier ici !
         }
 
         // mettre à jour la position et lancer l'animation du déplacement

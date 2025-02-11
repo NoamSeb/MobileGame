@@ -3,17 +3,16 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 public class CodeblockMovement : MonoBehaviour
 {
     //Ce qu'on va envoyer pour donner la direction du joueur
     public enum MoveInstruction
     {
         None,
-        Left,
-        Up,
-        Right,
-        Down
+        Walk,
+        Turn,
+        Wait,
+        Launch
     }
 
     public static event Action<MoveInstruction> OnMoveInstructed;
@@ -37,21 +36,21 @@ public class CodeblockMovement : MonoBehaviour
 
     void Walk()
     {
-
+        OnMoveInstructed?.Invoke(MoveInstruction.Walk);
     }
 
     void Turn()
     {
-
+        OnMoveInstructed?.Invoke(MoveInstruction.Turn);
     }
 
     void Wait()
     {
-
+        OnMoveInstructed?.Invoke(MoveInstruction.Wait);
     }
 
     void Launch()
     {
-
+        OnMoveInstructed?.Invoke(MoveInstruction.Launch);
     }
 }

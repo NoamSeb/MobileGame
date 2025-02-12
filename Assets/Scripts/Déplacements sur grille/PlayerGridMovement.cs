@@ -1,92 +1,113 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerGridMovement : MonoBehaviour
 {
     public Grid grid; // référence au composant grid
     public float moveSpeed = 5f; // vitesse de déplacement
-    public Vector2Int gridPosition; // position actuelle du joueur sur la grille
-    private bool isMoving = false; // empêche plusieurs déplacements en même temps
+    public Vector2Int gridPosition; // position actuelle du joueur
+    private bool isMoving = false; // empêche les déplacements simultanés
+    private int currentRotation = 0; // rotation actuelle (0 = haut, 90 = droite, etc.)
 
-    private Oxygen oxygenManager; // référence au script oxygen
+    private Queue<ActionType> actionQueue = new Queue<ActionType>(); // file d'attente des actions
+    private Oxygen oxygenManager; // référence à l'oxygène
+
+    public enum ActionType { Move, TurnRight }
 
     void Start()
     {
         if (grid == null)
         {
-            Debug.LogError("le grid n'est pas assigné dans l'inspector.");
+            Debug.LogError("Le Grid n'est pas assigné dans l'inspector.");
             return;
         }
 
-        // récupérer le script oxygen pour gérer la consommation d'oxygène
+        // récupérer le script oxygen
         oxygenManager = (Oxygen)FindFirstObjectByType(typeof(Oxygen));
-
         if (oxygenManager == null)
         {
-            Debug.LogError("aucun script oxygen trouvé dans la scène !");
+            Debug.LogError("Aucun script Oxygen trouvé dans la scène !");
             return;
         }
 
-        // aligner le joueur sur une case de la grille au démarrage
+        // aligner le joueur sur une case de la grille
         Vector3Int cellPosition = grid.WorldToCell(transform.position);
         gridPosition = new Vector2Int(cellPosition.x, cellPosition.y);
         transform.position = grid.GetCellCenterWorld(cellPosition);
-
-        // s'abonner à l'événement de swipe
-        CodeblockMovement.OnMoveInstructed += HandleSwipe;
     }
 
-    void OnDestroy()
+    public void AddAction(ActionType action)
     {
-        CodeblockMovement.OnMoveInstructed -= HandleSwipe;
+        actionQueue.Enqueue(action);
     }
 
-    void HandleSwipe(CodeblockMovement.MoveInstruction direction)
+    public void ExecuteActions()
     {
-        if (isMoving || (oxygenManager != null && oxygenManager.IsDead())) return; // empêcher le déplacement si en mouvement ou si le joueur est mort
-
-        Vector2Int targetPosition = gridPosition;
-
-        // déterminer la direction du déplacement en fonction du swipe
-        switch (direction)
+        if (actionQueue.Count > 0 && !isMoving)
         {
-            //Modifier ici !
+            StartCoroutine(ExecuteActionQueue());
         }
+    }
 
-        // mettre à jour la position et lancer l'animation du déplacement
-        gridPosition = targetPosition;
-        StartCoroutine(MoveCoroutine());
+    IEnumerator ExecuteActionQueue()
+    {
+        while (actionQueue.Count > 0 && !oxygenManager.IsDead())
+        {
+            ActionType action = actionQueue.Dequeue();
+
+            if (action == ActionType.Move)
+            {
+                yield return StartCoroutine(MoveCoroutine());
+            }
+            else if (action == ActionType.TurnRight)
+            {
+                TurnRight();
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
     }
 
     IEnumerator MoveCoroutine()
     {
         isMoving = true;
-        Vector3 startPosition = transform.position;
-        Vector3 targetPosition = grid.GetCellCenterWorld(new Vector3Int(gridPosition.x, gridPosition.y, 0));
+        Vector2Int direction = GetDirectionVector();
+        Vector2Int targetPosition = gridPosition + direction;
 
-        // angle de rotation vers la nouvelle direction
-        Vector3 direction = targetPosition - startPosition;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+        Vector3 startPosition = transform.position;
+        Vector3 targetPositionWorld = grid.GetCellCenterWorld(new Vector3Int(targetPosition.x, targetPosition.y, 0));
 
         float elapsedTime = 0f;
         float moveDuration = 0.2f;
 
         while (elapsedTime < moveDuration)
         {
-            transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / moveDuration);
+            transform.position = Vector3.Lerp(startPosition, targetPositionWorld, elapsedTime / moveDuration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        transform.position = targetPosition;
+        transform.position = targetPositionWorld;
+        gridPosition = targetPosition;
         isMoving = false;
 
-        // consommer de l'oxygène après chaque déplacement
-        if (oxygenManager != null)
-        {
-            oxygenManager.LoseOxygen();
-        }
+        // consommer de l'oxygène après le déplacement
+        oxygenManager.LoseOxygen();
+    }
+
+    void TurnRight()
+    {
+        currentRotation = (currentRotation + 90) % 360;
+        transform.rotation = Quaternion.Euler(0, 0, -currentRotation);
+    }
+
+    Vector2Int GetDirectionVector()
+    {
+        if (currentRotation == 0) return Vector2Int.up;
+        if (currentRotation == 90) return Vector2Int.right;
+        if (currentRotation == 180) return Vector2Int.down;
+        if (currentRotation == 270) return Vector2Int.left;
+        return Vector2Int.up;
     }
 }
 

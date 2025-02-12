@@ -1,26 +1,29 @@
+using NaughtyAttributes;
 using System.Diagnostics;
+using System;
 using UnityEngine;
 
 public class GridComputer : GridObject
 {
-    private int _neededToolsNumber;
-    private int _currentTools;
+    [ShowNonSerializedField] private int _neededToolsNumber;
+    [ShowNonSerializedField] private int _currentTools;
     private bool _isEnoughToolsAcquired;
-    public bool IsBroken { get; private set; } //Utiliser ça pour contrôler la couleur de l'écran, et le sprite de l'ordi
+    public bool _isBroken { get; private set; }
 
+    public static event Action OnComputerRepair;
     protected override void Setup()
     {
         base.Setup();
 
-        IsBroken = true;
+        _isBroken = true;
         _neededToolsNumber = FindObjectsByType<GridRepairTool>(FindObjectsSortMode.None).Length;
         GridRepairTool.OnRepairPickup += AddTools;
     }
 
     void AddTools()
     {
-        if (_currentTools < _neededToolsNumber) 
-        { 
+        if (_currentTools < _neededToolsNumber)
+        {
             _currentTools++;
             if (_currentTools == _neededToolsNumber) { _isEnoughToolsAcquired = true; }
         }
@@ -28,9 +31,10 @@ public class GridComputer : GridObject
 
     protected override void Effect()
     {
-        if(_isEnoughToolsAcquired && IsBroken)
+        if (_isEnoughToolsAcquired && _isBroken)
         {
-            IsBroken = false;
+            _isBroken = false;
+            OnComputerRepair?.Invoke();
         }
     }
 }

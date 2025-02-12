@@ -7,5 +7,6 @@ public class GridRepairTool : GridObject
     protected override void Effect()
     {
         OnRepairPickup?.Invoke();
+        Destroy(gameObject);
     }
 }

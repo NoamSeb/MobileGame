@@ -15,7 +15,7 @@ public class GridPositionSetter : EditorWindow
         {
             foreach(var obj in FindObjectsByType<GridObject>(FindObjectsSortMode.None))
             {
-                obj.UpdateGridPosEditor();
+                obj.CheckPositionInGrid();
             }
         }
     }

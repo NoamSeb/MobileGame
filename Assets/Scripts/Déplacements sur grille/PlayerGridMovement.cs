@@ -13,7 +13,7 @@ public class PlayerGridMovement : MonoBehaviour
     private Queue<ActionType> actionQueue = new Queue<ActionType>(); // file d'attente des actions
     private Oxygen oxygenManager; // référence à l'oxygène
 
-    public enum ActionType { Move, TurnRight }
+    public enum ActionType { Move, TurnRight, TurnLeft }
 
     void Start()
     {
@@ -65,6 +65,11 @@ public class PlayerGridMovement : MonoBehaviour
                 TurnRight();
                 yield return new WaitForSeconds(0.2f);
             }
+            else if (action == ActionType.TurnLeft)
+            {
+                TurnLeft();
+                yield return new WaitForSeconds(0.2f);
+            }
         }
     }
 
@@ -101,6 +106,12 @@ public class PlayerGridMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, -currentRotation);
     }
 
+    void TurnLeft()
+    {
+        currentRotation = (currentRotation - 90 + 360) % 360; // éviter les valeurs négatives
+        transform.rotation = Quaternion.Euler(0, 0, -currentRotation);
+    }
+
     Vector2Int GetDirectionVector()
     {
         if (currentRotation == 0) return Vector2Int.up;
@@ -110,6 +121,7 @@ public class PlayerGridMovement : MonoBehaviour
         return Vector2Int.up;
     }
 }
+
 
 
 

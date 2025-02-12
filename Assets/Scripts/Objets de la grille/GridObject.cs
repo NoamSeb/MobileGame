@@ -6,9 +6,8 @@ using UnityEngine;
 public class GridObject : MonoBehaviour
 {
     protected Grid _grid;
-    public Vector2Int GridPosition { get; private set; }
-    [ShowNonSerializedField] protected Vector2Int _hoveredGridPosition;
-    protected Vector2 oldPos;
+    public Vector3Int GridPosition { get; private set; }
+    [ShowNonSerializedField] protected Vector3Int _gridPositionMemory;
     public bool IsImpassable { get; private set; }
 
     void Start()
@@ -18,15 +17,18 @@ public class GridObject : MonoBehaviour
 
     protected virtual void Setup()
     {
-        if (_grid == null) { _grid = GameManager.Instance.PlayGrid; }
+        _grid = GameManager.Instance.PlayGrid;
 
         Vector3Int cellPosition = _grid.WorldToCell(transform.position);
-        GridPosition = new Vector2Int(cellPosition.x, cellPosition.y);
+        GridPosition = new Vector3Int(cellPosition.x, cellPosition.y);
+        _gridPositionMemory = GridPosition;
         transform.position = _grid.GetCellCenterWorld(cellPosition);
+
+        PlayerGridMovement.OnInteraction += Interaction;
     }
 
     [Button]
-    public void UpdateGridPosEditor()
+    public void CheckPositionInGrid()
     {
         if (_grid == null)
         {
@@ -36,7 +38,7 @@ public class GridObject : MonoBehaviour
         }
 
         Vector3Int cellPosition = _grid.WorldToCell(transform.position);
-        _hoveredGridPosition = new Vector2Int(cellPosition.x, cellPosition.y);
+        _gridPositionMemory = new Vector3Int(cellPosition.x, cellPosition.y);
     }
 
     void DebugGridExistence(GameObject grid)
@@ -44,6 +46,10 @@ public class GridObject : MonoBehaviour
         if (grid == null) { throw new MissingReferenceException("Grid doesn't exist in scene"); }
     }
 
+    protected void Interaction(GridObject obj)
+    {
+        if(obj == this) { Effect(); }
+    }
     protected virtual void Effect() { throw new NotImplementedException(); }
 
     protected void SetImpassable()

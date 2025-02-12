@@ -5,9 +5,14 @@ using TMPro;
 
 public class ActionQueue : MonoBehaviour
 {
-    public PlayerGridMovement player;
+    private PlayerGridMovement _player;
     public TMP_Text actionListText; // référence à l'affichage des actions
-    private List<ActionEntry> actions = new List<ActionEntry>(); // liste des actions avec compteurs
+    readonly private List<ActionEntry> actions = new(); // liste des actions avec compteurs
+
+    private void Start()
+    {
+        _player = GameManager.Instance.PlayerScript;
+    }
 
     private class ActionEntry
     {
@@ -39,14 +44,14 @@ public class ActionQueue : MonoBehaviour
     private void AddAction(PlayerGridMovement.ActionType newAction)
     {
         // si la liste est vide ou si la dernière action est différente, on ajoute une nouvelle entrée
-        if (actions.Count == 0 || actions[actions.Count - 1].actionType != newAction)
+        if (actions.Count == 0 || actions[^1].actionType != newAction)
         {
             actions.Add(new ActionEntry(newAction));
         }
         else
         {
             // sinon, on incrémente le compteur de la dernière action
-            actions[actions.Count - 1].count++;
+            actions[^1].count++;
         }
         UpdateUI();
     }
@@ -63,10 +68,10 @@ public class ActionQueue : MonoBehaviour
         {
             for (int i = 0; i < actionEntry.count; i++)
             {
-                player.AddAction(actionEntry.actionType);
+                _player.AddAction(actionEntry.actionType);
             }
         }
-        player.ExecuteActions();
+        _player.ExecuteActions();
         ClearActions();
     }
 

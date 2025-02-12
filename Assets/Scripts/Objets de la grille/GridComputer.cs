@@ -8,14 +8,14 @@ public class GridComputer : GridObject
     [ShowNonSerializedField] private int _neededToolsNumber;
     [ShowNonSerializedField] private int _currentTools;
     private bool _isEnoughToolsAcquired;
-    public bool _isBroken { get; private set; }
+    public bool IsBroken { get; private set; }
 
     public static event Action OnComputerRepair;
     protected override void Setup()
     {
         base.Setup();
 
-        _isBroken = true;
+        IsBroken = true;
         _neededToolsNumber = FindObjectsByType<GridRepairTool>(FindObjectsSortMode.None).Length;
         GridRepairTool.OnRepairPickup += AddTools;
     }
@@ -31,9 +31,9 @@ public class GridComputer : GridObject
 
     protected override void Effect()
     {
-        if (_isEnoughToolsAcquired && _isBroken)
+        if (_isEnoughToolsAcquired && IsBroken)
         {
-            _isBroken = false;
+            IsBroken = false;
             OnComputerRepair?.Invoke();
         }
     }

@@ -15,14 +15,15 @@ public class Oxygen : MonoBehaviour
     [ProgressBar("Oxygen", nameof(_maxOxygen), EColor.Green)] [SerializeField]
     int _currentOxygen;
     
-    [Header("Oxygen Slider")]
-    [SerializeField] Slider _oxygenSlider;
+    private Slider _oxygenSlider;
 
     [Header("Smooth speeds")]
     [SerializeField] float _lerpSpeed = 5f;
 
     void Awake()
     {
+        _oxygenSlider = GameManager.Instance.OxygenSlider;
+
         _currentOxygen = _maxOxygen;
         if (_oxygenSlider != null)
         {

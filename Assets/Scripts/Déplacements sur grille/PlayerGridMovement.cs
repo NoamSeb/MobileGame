@@ -14,7 +14,7 @@ public class PlayerGridMovement : MonoBehaviour
     private Queue<ActionType> _actionQueue = new Queue<ActionType>(); // file d'attente des actions
     private Oxygen _oxygenManager; // référence à l'oxygène
 
-    public enum ActionType { Move, TurnRight, TurnLeft }
+    public enum ActionType { Move, TurnRight, TurnLeft, Wait }
 
     void Start()
     {
@@ -72,6 +72,10 @@ public class PlayerGridMovement : MonoBehaviour
                 TurnLeft();
                 yield return new WaitForSeconds(0.2f);
             }
+            if (action == ActionType.Wait)
+            {
+                yield return StartCoroutine(WaitCoroutine());
+            }
         }
     }
 
@@ -100,6 +104,12 @@ public class PlayerGridMovement : MonoBehaviour
 
         // consommer de l'oxygène après le déplacement
         _oxygenManager.LoseOxygen();
+    }
+    IEnumerator WaitCoroutine()
+    {
+        _isMoving = true;
+        yield return new WaitForSeconds(0.2f); // durée d'attente équivalente à un déplacement
+        _isMoving = false;
     }
 
     void TurnRight()

@@ -36,6 +36,12 @@ public class ActionQueue : MonoBehaviour
         AddAction(PlayerGridMovement.ActionType.TurnLeft);
     }
 
+    public void AddWait()
+    {
+        AddAction(PlayerGridMovement.ActionType.Wait);
+        UpdateUI();
+    }
+
     private void AddAction(PlayerGridMovement.ActionType newAction)
     {
         // si la liste est vide ou si la dernière action est différente, on ajoute une nouvelle entrée
@@ -87,6 +93,9 @@ public class ActionQueue : MonoBehaviour
                     break;
                 case PlayerGridMovement.ActionType.TurnLeft:
                     actionName = "Tourner Gauche";
+                    break;
+                case PlayerGridMovement.ActionType.Wait:
+                    actionName = "Attendre";
                     break;
             }
 

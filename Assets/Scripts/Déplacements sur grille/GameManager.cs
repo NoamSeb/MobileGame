@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     //L'objet GameManager est un singleton présent dans chaque scène
     public static GameManager Instance;
-    public Grid PlayGrid { get; private set; }
+    [SerializeField] public Grid PlayGrid { get; private set; }
 
     private void Awake()
     {

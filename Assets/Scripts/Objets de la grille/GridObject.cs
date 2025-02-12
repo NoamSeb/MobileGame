@@ -26,7 +26,7 @@ public class GridObject : MonoBehaviour
     }
 
     [Button]
-    protected void UpdateGridPosEditor()
+    public void UpdateGridPosEditor()
     {
         if (_grid == null)
         {

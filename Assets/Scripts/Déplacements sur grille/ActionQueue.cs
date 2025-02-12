@@ -7,23 +7,47 @@ public class ActionQueue : MonoBehaviour
 {
     public PlayerGridMovement player;
     public TMP_Text actionListText; // référence à l'affichage des actions
-    private List<PlayerGridMovement.ActionType> actions = new List<PlayerGridMovement.ActionType>();
+    private List<ActionEntry> actions = new List<ActionEntry>(); // liste des actions avec compteurs
+
+    private class ActionEntry
+    {
+        public PlayerGridMovement.ActionType actionType;
+        public int count;
+
+        public ActionEntry(PlayerGridMovement.ActionType actionType)
+        {
+            this.actionType = actionType;
+            this.count = 1; // par défaut, une action est ajoutée une fois
+        }
+    }
 
     public void AddMove()
     {
-        actions.Add(PlayerGridMovement.ActionType.Move);
-        UpdateUI();
+        AddAction(PlayerGridMovement.ActionType.Move);
     }
 
     public void AddTurnRight()
     {
-        actions.Add(PlayerGridMovement.ActionType.TurnRight);
-        UpdateUI();
+        AddAction(PlayerGridMovement.ActionType.TurnRight);
     }
 
     public void AddTurnLeft()
     {
-        actions.Add(PlayerGridMovement.ActionType.TurnLeft);
+        AddAction(PlayerGridMovement.ActionType.TurnLeft);
+    }
+
+    private void AddAction(PlayerGridMovement.ActionType newAction)
+    {
+        // si la liste est vide ou si la dernière action est différente, on ajoute une nouvelle entrée
+        if (actions.Count == 0 || actions[actions.Count - 1].actionType != newAction)
+        {
+            actions.Add(new ActionEntry(newAction));
+        }
+        else
+        {
+            // sinon, on incrémente le compteur de la dernière action
+            actions[actions.Count - 1].count++;
+        }
         UpdateUI();
     }
 
@@ -35,9 +59,12 @@ public class ActionQueue : MonoBehaviour
 
     public void ExecuteActions()
     {
-        foreach (var action in actions)
+        foreach (var actionEntry in actions)
         {
-            player.AddAction(action);
+            for (int i = 0; i < actionEntry.count; i++)
+            {
+                player.AddAction(actionEntry.actionType);
+            }
         }
         player.ExecuteActions();
         ClearActions();
@@ -46,18 +73,25 @@ public class ActionQueue : MonoBehaviour
     void UpdateUI()
     {
         actionListText.text = "";
-        int moveCount = 0, turnRightCount = 0, turnLeftCount = 0;
-
-        foreach (var action in actions)
+        foreach (var actionEntry in actions)
         {
-            if (action == PlayerGridMovement.ActionType.Move) moveCount++;
-            if (action == PlayerGridMovement.ActionType.TurnRight) turnRightCount++;
-            if (action == PlayerGridMovement.ActionType.TurnLeft) turnLeftCount++;
-        }
+            string actionName = "";
 
-        if (moveCount > 0) actionListText.text += $"Avancer x{moveCount}\n";
-        if (turnRightCount > 0) actionListText.text += $"Tourner Droite x{turnRightCount}\n";
-        if (turnLeftCount > 0) actionListText.text += $"Tourner Gauche x{turnLeftCount}\n";
+            switch (actionEntry.actionType)
+            {
+                case PlayerGridMovement.ActionType.Move:
+                    actionName = "Avancer";
+                    break;
+                case PlayerGridMovement.ActionType.TurnRight:
+                    actionName = "Tourner Droite";
+                    break;
+                case PlayerGridMovement.ActionType.TurnLeft:
+                    actionName = "Tourner Gauche";
+                    break;
+            }
+
+            actionListText.text += $"{actionName} x{actionEntry.count}\n";
+        }
     }
 }
 

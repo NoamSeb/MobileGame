@@ -39,11 +39,11 @@ public class Oxygen : MonoBehaviour
     }
 
     [Button("Loss Oxygen")]
-    void LoseOxygen()
+    void LossOxygen()
     {
-        LoseOxygen(_lossOxygen);
+        LossOxygen(_lossOxygen);
     }
-    private void LoseOxygen(int _value)
+    private void LossOxygen(int _value)
     {
         _currentOxygen -= _value;
     }
@@ -59,7 +59,23 @@ public class Oxygen : MonoBehaviour
     {
         _currentOxygen = _maxOxygen;
     }
-    
+
+    public bool IsDead()
+    {
+        return _currentOxygen <= 0;
+    }
+
+    public void LoseOxygen()
+    {
+        _currentOxygen -= _lossOxygen;
+
+        if (_currentOxygen <= 0)
+        {
+            _currentOxygen = 0;
+            Die();
+        }
+    }
+
     private void Die()
     {
         Debug.Log("You are dead ! Loser !");

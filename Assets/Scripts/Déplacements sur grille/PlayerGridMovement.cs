@@ -104,6 +104,10 @@ public class PlayerGridMovement : MonoBehaviour
         {
             TurnLeft();
         }
+        else if (action == ActionType.Wait)
+        {
+            StartCoroutine(WaitCoroutine());
+        }
         StartCoroutine(WaitTurn());
 
     }
@@ -144,7 +148,7 @@ public class PlayerGridMovement : MonoBehaviour
     IEnumerator WaitCoroutine()
     {
         _isMoving = true;
-        yield return new WaitForSeconds(0.2f); // dur�e d'attente �quivalente � un d�placement
+        yield return new WaitForSeconds(_moveDuration); // dur�e d'attente �quivalente � un d�placement
         _isMoving = false;
     }
 

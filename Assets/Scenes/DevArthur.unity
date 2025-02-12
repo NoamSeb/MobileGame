@@ -369,11 +369,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &764426354 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6479232860094043307, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
-  m_PrefabInstance: {fileID: 7457418067534879300}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1024456609
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,7 +779,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4564511097835768470, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
   m_PrefabInstance: {fileID: 7457418067534879300}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 764426354}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68775e368ecc75448adb1e7ef64f08a4, type: 3}
@@ -2749,20 +2744,28 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3865123840605278686, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3865123840605278686, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3865123840605278686, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 764426354}
+      objectReference: {fileID: 1196380577}
     - target: {fileID: 3865123840605278686, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3865123840605278686, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: AddWait
+      objectReference: {fileID: 0}
+    - target: {fileID: 3865123840605278686, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ActionQueue, GameAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 3865123840605278686, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName

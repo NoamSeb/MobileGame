@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    //L'objet GameManager est un singleton présent dans chaque scène
+    //L'objet GameManager est un singleton prï¿½sent dans chaque scï¿½ne
     public static GameManager Instance;
     public Grid PlayGrid { get; private set; }
     public Slider OxygenSlider { get; private set; }

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 032d169e24813e849aa171afa1204fcc
+guid: 311d28f68ddd0c7469fc95ea5250e14b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4931892860894333448
-    second: MenuPause_bouton3_0
+      213: 4216323784882546683
+    second: MenuPause_Planete_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,17 +109,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MenuPause_bouton3_0
+      name: MenuPause_Planete_0
       rect:
         serializedVersion: 2
-        x: 62
-        y: 33
-        width: 1778
-        height: 363
+        x: 5
+        y: 5
+        width: 114
+        height: 115
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8f5bb14c2956e8bb0800000000000000
-      internalID: -4931892860894333448
+      spriteID: bf764ffa424638a30800000000000000
+      internalID: 4216323784882546683
       vertices: []
       indices: 
       edges: []
@@ -148,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      MenuPause_bouton3_0: -4931892860894333448
+      MenuPause_Planete_0: 4216323784882546683
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

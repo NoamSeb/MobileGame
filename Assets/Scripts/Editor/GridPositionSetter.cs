@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.Search;
 using UnityEngine;
 
 public class GridPositionSetter : EditorWindow
@@ -11,12 +12,20 @@ public class GridPositionSetter : EditorWindow
 
     private void OnGUI()
     {
-        if(GUILayout.Button("Set all positions"))
+        GUILayout.Label("Set Positions");
+
+        if (GUILayout.Button("Set all positions"))
         {
-            foreach(var obj in FindObjectsByType<GridObject>(FindObjectsSortMode.None))
+            foreach (GridObject obj in FindObjectsByType<GridObject>(FindObjectsSortMode.None))
             {
-                obj.CheckPositionInGrid();
+                obj.PlaceItemInGrid();
             }
+        }
+
+        if(GUILayout.Button("Set player position"))
+        {
+            PlayerGridMovement player = FindFirstObjectByType<PlayerGridMovement>();
+            player.SetPositionInGrid();
         }
     }
 }

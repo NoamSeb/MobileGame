@@ -1,9 +1,11 @@
 using System;
 using UnityEngine;
+using NaughtyAttributes;
 
 public class GridOxygenBottle : GridObject
 {
-    [SerializeField] private int _oxygenRefillAmount;
+    [SerializeField, ValidateInput(nameof(IsGreaterThanZero))] private int _oxygenRefillAmount;
+    bool IsGreaterThanZero(int n) => n > 0;
 
     public static event Action<int> OnOxygenBottleRefill; 
 

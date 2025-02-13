@@ -4,32 +4,33 @@ using UnityEngine;
 
 public class GridTeleporter : GridObject
 {
-    [ShowNonSerializedField] private Transform _otherTeleporter;
-    bool IsNoSecondTeleporter()
-    {
-        return _otherTeleporter == null;
-    }
+    [SerializeField] private GridTeleporter _otherTeleporter;
+    bool IsNoSecondTeleporter => _otherTeleporter == null;
 
-    [Button, ShowIf(nameof(IsNoSecondTeleporter))]
-    void CreateSecondTeleporter()
+    [Button, ShowIf(nameof(IsNoSecondTeleporter)), ExecuteInEditMode]
+    public void CreateSecondTeleporter()
     {
+        PlaceItemInGrid();
         GridTeleporter temp = Instantiate(this.gameObject).GetComponent<GridTeleporter>();
+        temp.PlaceItemInGrid();
 
         SetOtherTeleporter(temp);
         temp.SetOtherTeleporter(this);
     }
 
+    [ExecuteInEditMode]
     void SetOtherTeleporter(GridTeleporter tp)
     {
         if (_otherTeleporter == null)
         {
-            _otherTeleporter = tp.transform;
+            _otherTeleporter = tp;
         }
     }
 
-    public static event Action<Vector2> OnTeleport;
+    public static event Action<Vector3Int> OnTeleport;
     protected override void Effect()
     {
-        OnTeleport?.Invoke(_otherTeleporter.position);
+        print("c");
+        OnTeleport?.Invoke(_otherTeleporter.GridPosition);
     }
 }

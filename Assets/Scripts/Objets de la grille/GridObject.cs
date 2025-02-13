@@ -6,8 +6,8 @@ using UnityEngine;
 public class GridObject : MonoBehaviour
 {
     protected Grid _grid;
-    public Vector3Int GridPosition { get; private set; }
-    [ShowNonSerializedField] protected Vector3Int _gridPositionMemory;
+    [ShowNonSerializedField] protected Vector3Int _gridPosition;
+    public Vector3Int GridPosition { get { return _gridPosition; } }
     public bool IsImpassable { get; private set; }
 
     void Start()
@@ -18,27 +18,22 @@ public class GridObject : MonoBehaviour
     protected virtual void Setup()
     {
         _grid = GameManager.Instance.PlayGrid;
+        DebugGridExistence(_grid.gameObject);
 
-        Vector3Int cellPosition = _grid.WorldToCell(transform.position);
-        GridPosition = new Vector3Int(cellPosition.x, cellPosition.y);
-        _gridPositionMemory = GridPosition;
-        transform.position = _grid.GetCellCenterWorld(cellPosition);
+        PlaceItemInGrid();
 
         PlayerGridMovement.OnInteraction += Interaction;
     }
 
-    [Button]
-    public void CheckPositionInGrid()
+    [ExecuteInEditMode]
+    public void PlaceItemInGrid()
     {
-        if (_grid == null)
-        {
-            var temp = GameObject.FindGameObjectWithTag("Playzone");
-            DebugGridExistence(temp);
-            _grid = temp.GetComponent<Grid>();
-        }
+        _grid = GameObject.FindGameObjectWithTag("Playzone").GetComponent<Grid>();
+        DebugGridExistence(_grid.gameObject);
 
         Vector3Int cellPosition = _grid.WorldToCell(transform.position);
-        _gridPositionMemory = new Vector3Int(cellPosition.x, cellPosition.y);
+        _gridPosition = new Vector3Int(cellPosition.x, cellPosition.y);
+        transform.position = _grid.GetCellCenterWorld(_gridPosition);
     }
 
     void DebugGridExistence(GameObject grid)
@@ -48,7 +43,7 @@ public class GridObject : MonoBehaviour
 
     protected void Interaction(GridObject obj)
     {
-        if(obj == this) { Effect(); }
+        if (obj == this) { Effect(); }
     }
     protected virtual void Effect() { throw new NotImplementedException(); }
 

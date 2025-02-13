@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using NaughtyAttributes;
 using Codice.CM.Client.Differences;
 using UnityEngine.Tilemaps;
+using TMPro;
 
 public class PlayerGridMovement : MonoBehaviour
 {
     private Grid _grid; // r�f�rence au composant grid
     [SerializeField] private float _moveSpeed = 5f; // vitesse de d�placement
-    [ShowNonSerializedField] private Vector2Int _gridPositionMemory; // position actuelle du joueur
+    [ShowNonSerializedField] private Vector2Int _gridPosition; // position actuelle du joueur
     [SerializeField, Range(0f, 1f)] private float _moveDuration = 0.2f;
     private bool _isMoving = false; // emp�che les d�placements simultan�s
     private int _currentRotation = 0; // rotation actuelle (0 = haut, 90 = droite, etc.)
@@ -45,13 +46,13 @@ public class PlayerGridMovement : MonoBehaviour
 
         // aligner le joueur sur une case de la grille
 
-        Vector3Int cellPosition = _grid.WorldToCell(transform.position);
-        _gridPositionMemory = new Vector2Int(cellPosition.x, cellPosition.y);
-        transform.position = _grid.GetCellCenterWorld(cellPosition);
+        SetPositionInGrid();
+
+        GridTeleporter.OnTeleport += Teleport;
     }
 
-    [Button]
-    public void CheckPositionInGrid()
+    [ExecuteInEditMode]
+    public void SetPositionInGrid()
     {
         if (_grid == null)
         {
@@ -60,7 +61,8 @@ public class PlayerGridMovement : MonoBehaviour
         }
 
         Vector3Int cellPosition = _grid.WorldToCell(transform.position);
-        _gridPositionMemory = new Vector2Int(cellPosition.x, cellPosition.y);
+        _gridPosition = new Vector2Int(cellPosition.x, cellPosition.y);
+        transform.position = _grid.GetCellCenterWorld(cellPosition);
     }
 
     public void AddAction(ActionType action)
@@ -80,13 +82,12 @@ public class PlayerGridMovement : MonoBehaviour
         {
             _isInAction = true;
             ExecuteActionQueue();
-        }else if(_actionQueue.Count <= 0)
+        }
+        else if (_actionQueue.Count <= 0)
         {
             _executeAction = false;
         }
     }
-
-
 
     private void ExecuteActionQueue()
     {
@@ -116,12 +117,12 @@ public class PlayerGridMovement : MonoBehaviour
     {
         _isMoving = true;
         Vector2Int direction = GetDirectionVector();
-        Vector2Int targetPosition = _gridPositionMemory + direction;
+        Vector2Int targetPosition = _gridPosition + direction;
 
         Vector3 startPosition = transform.position;
         Vector3 targetPositionWorld = _grid.GetCellCenterWorld(new Vector3Int(targetPosition.x, targetPosition.y, 0));
 
-        if (IsNextGridCaseAValidDestination(targetPositionWorld)) // PROBLEME ICI
+        if (IsNextGridCaseAValidDestination(targetPositionWorld))
         {
             float elapsedTime = 0f;
 
@@ -133,16 +134,16 @@ public class PlayerGridMovement : MonoBehaviour
             }
 
             transform.position = targetPositionWorld;
-            _gridPositionMemory = targetPosition;
+            _gridPosition = targetPosition;
             _isMoving = false;
 
             // consommer de l'oxyg�ne apr�s le d�placement
             _oxygenManager.LoseOxygen();
         }
-        else 
+        else
         {
             _isMoving = false;
-            yield return new WaitForSeconds(_moveDuration); 
+            yield return new WaitForSeconds(_moveDuration);
         }
     }
     IEnumerator WaitCoroutine()
@@ -182,9 +183,9 @@ public class PlayerGridMovement : MonoBehaviour
             distance: Mathf.Infinity
             );
 
-        if(hit.collider != null)
+        if (hit.collider != null)
         {
-            if(hit.collider is TilemapCollider2D && hit.collider.gameObject.layer == _playzoneLayer)
+            if (hit.collider is TilemapCollider2D && hit.collider.gameObject.layer == _playzoneLayer)
             {
                 return true;
             }
@@ -206,12 +207,27 @@ public class PlayerGridMovement : MonoBehaviour
     IEnumerator StartInteraction(GridObject obj)
     {
         yield return new WaitForSeconds(_moveDuration);
-        OnInteraction?.Invoke(obj);        
+        OnInteraction?.Invoke(obj);
     }
 
-    private IEnumerator WaitTurn()
+    IEnumerator WaitTurn()
     {
         yield return new WaitForSeconds(_moveDuration);
         _isInAction = false;
+    }
+
+    void Teleport(Vector3Int pos)
+    {
+        print("a");
+        StartCoroutine(TeleportMovement(pos));
+    }
+
+    IEnumerator TeleportMovement(Vector3Int pos)
+    {
+        Vector3 targetPos = _grid.GetCellCenterWorld(new Vector3Int(pos.x, pos.y, 0));
+        yield return new WaitForSeconds(_moveDuration);
+        print("b");
+        transform.position = targetPos;
+        _gridPosition = (Vector2Int)pos;
     }
 }

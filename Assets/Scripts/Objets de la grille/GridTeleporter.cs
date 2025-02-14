@@ -30,7 +30,6 @@ public class GridTeleporter : GridObject
     public static event Action<Vector3Int> OnTeleport;
     protected override void Effect()
     {
-        print("c");
         OnTeleport?.Invoke(_otherTeleporter.GridPosition);
     }
 }

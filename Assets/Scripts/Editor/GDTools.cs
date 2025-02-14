@@ -2,19 +2,19 @@ using UnityEditor;
 using UnityEditor.Search;
 using UnityEngine;
 
-public class GridPositionSetter : EditorWindow
+public class GDTools : EditorWindow
 {
-    [MenuItem("Tools/Grid Position Setter")]
+    [MenuItem("Tools/GD tools")]
     public static void ShowWindow()
     {
-        GetWindow<GridPositionSetter>();
+        GetWindow<GDTools>();
     }
 
     private void OnGUI()
     {
         GUILayout.Label("Set Positions");
 
-        if (GUILayout.Button("Set all positions"))
+        if (GUILayout.Button("Set objects positions"))
         {
             foreach (GridObject obj in FindObjectsByType<GridObject>(FindObjectsSortMode.None))
             {

@@ -51,4 +51,7 @@ public class GridObject : MonoBehaviour
     {
         IsImpassable = true;
     }
+
+    [ExecuteInEditMode]
+    protected virtual void BugFix() { }
 }

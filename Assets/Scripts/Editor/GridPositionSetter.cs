@@ -14,7 +14,7 @@ public class GridPositionSetter : EditorWindow
     {
         GUILayout.Label("Set Positions");
 
-        if (GUILayout.Button("Set all positions"))
+        if (GUILayout.Button("Set objects positions"))
         {
             foreach (GridObject obj in FindObjectsByType<GridObject>(FindObjectsSortMode.None))
             {

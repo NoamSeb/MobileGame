@@ -218,16 +218,16 @@ public class PlayerGridMovement : MonoBehaviour
 
     void Teleport(Vector3Int pos)
     {
-        print("a");
         StartCoroutine(TeleportMovement(pos));
     }
 
     IEnumerator TeleportMovement(Vector3Int pos)
     {
+        _isMoving = true;
         Vector3 targetPos = _grid.GetCellCenterWorld(new Vector3Int(pos.x, pos.y, 0));
         yield return new WaitForSeconds(_moveDuration);
-        print("b");
         transform.position = targetPos;
         _gridPosition = (Vector2Int)pos;
+        _isMoving = false;
     }
 }

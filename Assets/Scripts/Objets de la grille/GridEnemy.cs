@@ -1,14 +1,181 @@
+using NaughtyAttributes;
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class GridEnemy : GridObject
 {
-    private float _moveDuration;
+    [ShowNonSerializedField] private float _moveDuration;
+    [ShowNonSerializedField] private int _currentRotation = 0;
+
+    public enum MovementType
+    {
+        None,
+        Vertical,
+        Horizontal
+    }
+    [SerializeField, ValidateInput(nameof(IsMovementNone), "None is invalid")] 
+    private MovementType _movementType;
+    bool IsVertical() { return _movementType == MovementType.Vertical; }
+    bool IsHorizontal() { return _movementType == MovementType.Horizontal; }
+    bool IsMovementNone() { return _movementType != MovementType.None; }
+
+    public enum VerticalInitialDir
+    {
+        None,
+        Up,
+        Down
+    }
+    [SerializeField, ShowIf(nameof(IsVertical)), ValidateInput(nameof(IsVerticalNone), "None is invalid")] 
+    private VerticalInitialDir _verticalInitialDirection;
+    bool IsVerticalNone() { return _verticalInitialDirection != VerticalInitialDir.None; }
+
+    public enum HorizontalInitialDir
+    {
+        None,
+        Right,
+        Left
+    }
+    [SerializeField, ShowIf(nameof(IsHorizontal)), ValidateInput(nameof(IsHorizontalNone), "None is invalid")] 
+    private HorizontalInitialDir _horizontalInitialDirection;
+    bool IsHorizontalNone() { return _horizontalInitialDirection != HorizontalInitialDir.None; }
+
 
     protected override void Setup()
     {
         base.Setup();
-        _moveDuration = GameManager.Instance.PlayerScript.MoveDuration;
+        _moveDuration = GameManager.Instance.PlayerScript.MoveDuration/2f;
+        PlayerGridMovement.OnActionExecuted += StartMovement;
+        SetupRotation();
     }
 
+    void SetupRotation()
+    {
+        switch (_movementType)
+        {
+            case MovementType.Vertical:
+                switch (_verticalInitialDirection)
+                {
+                    case VerticalInitialDir.Up:
+                        _currentRotation = 0; break;
+                    case VerticalInitialDir.Down:
+                        _currentRotation = 180; break;
+                }
+                break;
+            case MovementType.Horizontal:
+                switch (_horizontalInitialDirection)
+                {
+                    case HorizontalInitialDir.Right:
+                        _currentRotation = 90; break;
+                    case HorizontalInitialDir.Left:
+                        _currentRotation = 270; break;
+                }
+                break;
+        }
+    }
 
+    void StartMovement()
+    {
+        BugFix();
+        StartCoroutine(MoveCoroutine());
+    }
+
+    IEnumerator MoveCoroutine()
+    {
+        Vector2Int direction = GetDirectionVector();
+        Vector2Int targetPosition = (Vector2Int)_gridPosition + direction;
+
+        Vector3 startPosition = transform.position;
+        Vector3 targetPositionWorld = _grid.GetCellCenterWorld(new Vector3Int(targetPosition.x, targetPosition.y, 0));
+
+        if (!IsNextGridCaseAValidDestination(targetPositionWorld))
+        {
+            InvertRotation();
+            direction = GetDirectionVector();
+            targetPosition = (Vector2Int)_gridPosition + direction;
+            targetPositionWorld = _grid.GetCellCenterWorld(new Vector3Int(targetPosition.x, targetPosition.y, 0));
+        }
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < _moveDuration)
+        {
+            transform.position = Vector3.Lerp(startPosition, targetPositionWorld, elapsedTime / _moveDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = targetPositionWorld;
+        _gridPosition = (Vector3Int)targetPosition;
+
+
+    }
+
+    void InvertRotation()
+    {
+        switch (_currentRotation)
+        {
+            case 0:
+                _currentRotation = 180; break;
+            case 90:
+                _currentRotation = 270; break;
+            case 180:
+                _currentRotation = 0; break;
+            case 270:
+                _currentRotation = 90; break;
+        }
+    }
+
+    bool IsNextGridCaseAValidDestination(Vector3 pos)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(pos, pos, Mathf.Infinity);
+        if (hit.collider != null) 
+        {
+            if (hit.collider.gameObject.TryGetComponent(out GridObject obj))
+            {
+                if (obj.IsImpassable) { return false; }
+                return true;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    Vector2Int GetDirectionVector()
+    {
+        if (_currentRotation == 0) return Vector2Int.up;
+        if (_currentRotation == 90) return Vector2Int.right;
+        if (_currentRotation == 180) return Vector2Int.down;
+        if (_currentRotation == 270) return Vector2Int.left;
+        return Vector2Int.up;
+    }
+
+    private void Update()
+    {
+        KillPlayerIfOverThem();
+    }
+
+    void KillPlayerIfOverThem()
+    {
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.position, Mathf.Infinity);
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider.gameObject.TryGetComponent(out Oxygen playerOxygenScript))
+            {
+                playerOxygenScript.SetOxygenToZero();
+            }
+        }
+    }
+
+    [ExecuteInEditMode]
+    protected override void BugFix()
+    {
+        if (_movementType == MovementType.None) { throw new ArgumentException("Movement type shouldn't be None"); }
+        if ((IsVertical() && _verticalInitialDirection == VerticalInitialDir.None)
+            || (IsHorizontal() && _horizontalInitialDirection == HorizontalInitialDir.None))
+        {
+            throw new ArgumentException("Direction shouldn't be None");
+        }
+    }
 }

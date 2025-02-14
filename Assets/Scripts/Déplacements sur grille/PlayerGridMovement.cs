@@ -10,7 +10,6 @@ using TMPro;
 public class PlayerGridMovement : MonoBehaviour
 {
     private Grid _grid; // r�f�rence au composant grid
-    [SerializeField] private float _moveSpeed = 5f; // vitesse de d�placement
     [ShowNonSerializedField] private Vector2Int _gridPosition; // position actuelle du joueur
     [SerializeField, Range(0f, 1f)] private float _moveDuration = 0.2f;
     public float MoveDuration { get { return _moveDuration; } }

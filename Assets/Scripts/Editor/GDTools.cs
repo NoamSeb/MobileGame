@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GDTools : EditorWindow
 {
-    [MenuItem("Tools/GD tools")]
+    [MenuItem("Tools/GD Tools")]
     public static void ShowWindow()
     {
         GetWindow<GDTools>();

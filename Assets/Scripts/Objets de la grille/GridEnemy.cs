@@ -107,6 +107,8 @@ public class GridEnemy : GridObject
 
         transform.position = targetPositionWorld;
         _gridPosition = (Vector3Int)targetPosition;
+
+
     }
 
     void InvertRotation()
@@ -129,8 +131,6 @@ public class GridEnemy : GridObject
         RaycastHit2D hit = Physics2D.Raycast(pos, pos, Mathf.Infinity);
         if (hit.collider != null) 
         {
-            print(hit.collider.gameObject.name);
-
             if (hit.collider.gameObject.TryGetComponent(out GridObject obj))
             {
                 if (obj.IsImpassable) { return false; }
@@ -148,6 +148,24 @@ public class GridEnemy : GridObject
         if (_currentRotation == 180) return Vector2Int.down;
         if (_currentRotation == 270) return Vector2Int.left;
         return Vector2Int.up;
+    }
+
+    private void Update()
+    {
+        KillPlayerIfOverThem();
+    }
+
+    void KillPlayerIfOverThem()
+    {
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.position, Mathf.Infinity);
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider.gameObject.TryGetComponent(out Oxygen playerOxygenScript))
+            {
+                playerOxygenScript.SetOxygenToZero();
+            }
+        }
     }
 
     [ExecuteInEditMode]

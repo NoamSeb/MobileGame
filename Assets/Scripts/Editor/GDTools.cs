@@ -2,12 +2,12 @@ using UnityEditor;
 using UnityEditor.Search;
 using UnityEngine;
 
-public class GridPositionSetter : EditorWindow
+public class GDTools : EditorWindow
 {
-    [MenuItem("Tools/Grid Position Setter")]
+    [MenuItem("Tools/GD tools")]
     public static void ShowWindow()
     {
-        GetWindow<GridPositionSetter>();
+        GetWindow<GDTools>();
     }
 
     private void OnGUI()

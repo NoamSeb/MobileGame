@@ -13,6 +13,7 @@ public class PlayerGridMovement : MonoBehaviour
     [SerializeField] private float _moveSpeed = 5f; // vitesse de d�placement
     [ShowNonSerializedField] private Vector2Int _gridPosition; // position actuelle du joueur
     [SerializeField, Range(0f, 1f)] private float _moveDuration = 0.2f;
+    public float MoveDuration { get { return _moveDuration; } }
     private bool _isMoving = false; // emp�che les d�placements simultan�s
     private int _currentRotation = 0; // rotation actuelle (0 = haut, 90 = droite, etc.)
 
@@ -89,8 +90,10 @@ public class PlayerGridMovement : MonoBehaviour
         }
     }
 
+    public static event Action OnActionExecuted;
     private void ExecuteActionQueue()
     {
+        OnActionExecuted?.Invoke();
         ActionType action = _actionQueue.Dequeue();
 
         if (action == ActionType.Move)
@@ -110,7 +113,6 @@ public class PlayerGridMovement : MonoBehaviour
             StartCoroutine(WaitCoroutine());
         }
         StartCoroutine(WaitTurn());
-
     }
 
     IEnumerator MoveCoroutine()

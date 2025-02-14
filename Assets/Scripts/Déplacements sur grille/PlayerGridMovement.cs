@@ -232,17 +232,4 @@ public class PlayerGridMovement : MonoBehaviour
         _gridPosition = (Vector2Int)pos;
         _isMoving = false;
     }
-
-    void CheckForAdjacentLaser()
-    {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.5f); 
-
-        foreach (Collider2D collider in colliders)
-        {
-            if (collider.CompareTag("Laser") && collider.GetComponent<GridLaser>().IsActive())
-            {
-                Oxygen.Instance.IsDead();
-            }
-        }
-    }
 }

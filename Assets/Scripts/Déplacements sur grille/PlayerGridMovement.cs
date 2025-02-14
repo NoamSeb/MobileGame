@@ -25,7 +25,20 @@ public class PlayerGridMovement : MonoBehaviour
     readonly private Queue<ActionType> _actionQueue = new(); // file d'attente des actions
     private Oxygen _oxygenManager; // r�f�rence � l'oxyg�ne
 
+    public static PlayerGridMovement Instance;
     public enum ActionType { Move, TurnRight, TurnLeft, Wait }
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -86,6 +99,7 @@ public class PlayerGridMovement : MonoBehaviour
         else if (_actionQueue.Count <= 0)
         {
             _executeAction = false;
+            StopMovement();
         }
     }
 
@@ -230,5 +244,12 @@ public class PlayerGridMovement : MonoBehaviour
         transform.position = targetPos;
         _gridPosition = (Vector2Int)pos;
         _isMoving = false;
+    }
+
+    public void StopMovement()
+    {
+        _isMoving = false;
+        _executeAction = false;
+        Debug.Log("Le joueur ne bouge plus !");
     }
 }

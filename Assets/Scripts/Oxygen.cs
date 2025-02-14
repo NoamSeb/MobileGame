@@ -22,11 +22,22 @@ public class Oxygen : MonoBehaviour
     [BoxGroup("Smooth speed")]
     [SerializeField] float _lerpSpeed = 5f;
 
+    public static Oxygen Instance;
+
     void Awake()
     {
-        _oxygenSlider = GameManager.Instance.OxygenSlider;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
 
+        _oxygenSlider = GameManager.Instance.OxygenSlider;
         _currentOxygen = _maxOxygen;
+
         if (_oxygenSlider != null)
         {
             _oxygenSlider.maxValue = _maxOxygen;
@@ -81,14 +92,28 @@ public class Oxygen : MonoBehaviour
         }
     }
 
-    void GainOxygen(int amount)
+    public void SetOxygenToZero()
+    {
+        _currentOxygen = 0;
+    }
+
+    public void GainOxygen(int amount)
     {
         if (amount <= 0) { throw new ArgumentException("The value should be a strict positive"); }
-        _currentOxygen = Mathf.Clamp(_currentOxygen + amount, _currentOxygen, _maxOxygen);
+        _currentOxygen = Mathf.Clamp(_currentOxygen + amount, 0, _maxOxygen);
+        Debug.Log($"Oxygène augmenté de {amount} Nouveau total : {_currentOxygen}");
     }
 
     private void Die()
     {
         Debug.Log("You are dead ! Loser !");
+    }
+
+    public void StopPlayer()
+    {
+        SetOxygenToZero();
+        IsDead();
+        PlayerGridMovement.Instance.StopMovement();
+        Debug.Log("Le joueur est touché par un laser !");
     }
 }

@@ -97,10 +97,11 @@ public class Oxygen : MonoBehaviour
         _currentOxygen = 0;
     }
 
-    void GainOxygen(int amount)
+    public void GainOxygen(int amount)
     {
         if (amount <= 0) { throw new ArgumentException("The value should be a strict positive"); }
-        _currentOxygen = Mathf.Clamp(_currentOxygen + amount, _currentOxygen, _maxOxygen);
+        _currentOxygen = Mathf.Clamp(_currentOxygen + amount, 0, _maxOxygen);
+        Debug.Log($"Oxygène augmenté de {amount} Nouveau total : {_currentOxygen}");
     }
 
     private void Die()

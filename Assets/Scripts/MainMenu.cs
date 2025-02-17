@@ -36,7 +36,7 @@ public class MainMenu : MonoBehaviour
     [Foldout("Settings")]
     [SerializeField] Toggle _isHapticEnable;
 
-    private void Start()
+    private void Awake()
     {
         _audioSource.PlayOneShot(_menuMusic);
         _audioSource.volume = PlayerPrefs.GetFloat("volume");

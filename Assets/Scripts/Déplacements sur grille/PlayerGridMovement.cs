@@ -303,6 +303,7 @@ public class PlayerGridMovement : MonoBehaviour
     {
         _isMoving = false;
         _executeAction = false;
+        _actionQueue.Clear();
         Debug.Log("Le joueur ne bouge plus !");
     }
 }

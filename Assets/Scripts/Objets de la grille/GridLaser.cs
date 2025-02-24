@@ -1,36 +1,38 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class GridLaser : GridObject
 {
     private bool _isActive = false;
     private SpriteRenderer _spriteRenderer;
     private Collider2D _laserCollider;
+    private int _movementCount = 0; // compteur de mouvements
 
     [SerializeField] private Color _activeColor = Color.red; // couleur du laser activé
     [SerializeField] private Color _inactiveColor = Color.gray; // couleur du laser désactivé
-    public static PlayerGridMovement Instance;
 
-    GameObject laser;
     void Start()
     {
-        laser.transform.localPosition = new Vector3(0, 0, 0);
-
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _laserCollider = GetComponent<Collider2D>();
 
-        // on commence avec le laser désactivé
         UpdateLaserState();
 
-        // abonnement aux actions du joueur pour alterner ON/OFF
-        PlayerGridMovement.OnActionExecuted += ToggleLaser;
+        PlayerGridMovement.OnActionExecuted += OnPlayerMoved;
     }
 
     private void OnDestroy()
     {
-        PlayerGridMovement.OnActionExecuted -= ToggleLaser;
+        PlayerGridMovement.OnActionExecuted -= OnPlayerMoved;
     }
 
+    private void OnPlayerMoved()
+    {
+        _movementCount++;
+        if (_movementCount % 2 == 0)
+        {
+            ToggleLaser();
+        }
+    }
     private void ToggleLaser()
     {
         _isActive = !_isActive;
@@ -47,16 +49,8 @@ public class GridLaser : GridObject
     {
         if (_isActive && other.CompareTag("Player"))
         {
-            Debug.Log("Le joueur a touché un laser activé !");
-
-            if (Oxygen.Instance == null)
-            {
-                Debug.LogError("Oxygen.Instance est NULL, on attend un frame...");
-            }
-            else
-            {
-                Oxygen.Instance.StopPlayer();
-            }
+            Oxygen.Instance.StopPlayer();
         }
     }
 }
+

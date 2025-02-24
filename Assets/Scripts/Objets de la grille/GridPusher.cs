@@ -11,13 +11,13 @@ public class GridPusher : GridObject
         Up,
         Down
     }
-    [SerializeField] private PushDirection _direction;
+    [SerializeField] private PushDirection _pushDirection;
 
     private Vector2Int _pushVector;
 
     private void OnValidate()
     {
-        switch (_direction)
+        switch (_pushDirection)
         {
             case PushDirection.Left:
                 transform.rotation = Quaternion.Euler(0, 0, 90); 

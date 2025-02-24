@@ -10,7 +10,6 @@ using TMPro;
 public class PlayerGridMovement : MonoBehaviour
 {
     private Grid _grid; // r�f�rence au composant grid
-    [SerializeField] private float _moveSpeed = 5f; // vitesse de d�placement
     [ShowNonSerializedField] private Vector2Int _gridPosition; // position actuelle du joueur
     [SerializeField, Range(0f, 1f)] private float _moveDuration = 0.2f;
     public float MoveDuration { get { return _moveDuration; } }
@@ -26,7 +25,20 @@ public class PlayerGridMovement : MonoBehaviour
     readonly private Queue<ActionType> _actionQueue = new(); // file d'attente des actions
     private Oxygen _oxygenManager; // r�f�rence � l'oxyg�ne
 
+    public static PlayerGridMovement Instance;
     public enum ActionType { Move, TurnRight, TurnLeft, Wait }
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -50,6 +62,7 @@ public class PlayerGridMovement : MonoBehaviour
         SetPositionInGrid();
 
         GridTeleporter.OnTeleport += Teleport;
+        GridPusher.OnPush += Push;
     }
 
     [ExecuteInEditMode]
@@ -87,6 +100,7 @@ public class PlayerGridMovement : MonoBehaviour
         else if (_actionQueue.Count <= 0)
         {
             _executeAction = false;
+            StopMovement();
         }
     }
 
@@ -231,5 +245,48 @@ public class PlayerGridMovement : MonoBehaviour
         transform.position = targetPos;
         _gridPosition = (Vector2Int)pos;
         _isMoving = false;
+    }
+
+    void Push(Vector2Int direction)
+    {
+        OnActionExecuted?.Invoke();
+        StartCoroutine(PushMovement(direction));
+    }
+
+    IEnumerator PushMovement(Vector2Int direction)
+    {
+        _isMoving = true;
+        Vector2Int targetPosition = _gridPosition + direction;
+
+        Vector3 startPosition = transform.position;
+        Vector3 targetPositionWorld = _grid.GetCellCenterWorld(new Vector3Int(targetPosition.x, targetPosition.y, 0));
+
+        if (IsNextGridCaseAValidDestination(targetPositionWorld))
+        {
+            float elapsedTime = 0f;
+
+            while (elapsedTime < _moveDuration)
+            {
+                transform.position = Vector3.Lerp(startPosition, targetPositionWorld, elapsedTime / _moveDuration);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            transform.position = targetPositionWorld;
+            _gridPosition = targetPosition;
+            _isMoving = false;
+        }
+        else
+        {
+            _isMoving = false;
+            yield return new WaitForSeconds(_moveDuration);
+        }
+    }
+    
+    public void StopMovement()
+    {
+        _isMoving = false;
+        _executeAction = false;
+        Debug.Log("Le joueur ne bouge plus !");
     }
 }

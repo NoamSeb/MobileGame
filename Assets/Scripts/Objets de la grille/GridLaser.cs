@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class GridLaser : GridObject
 {
@@ -8,10 +9,13 @@ public class GridLaser : GridObject
 
     [SerializeField] private Color _activeColor = Color.red; // couleur du laser activé
     [SerializeField] private Color _inactiveColor = Color.gray; // couleur du laser désactivé
+    public static PlayerGridMovement Instance;
 
-    protected override void Setup()
+    GameObject laser;
+    void Start()
     {
-        base.Setup();
+        laser.transform.localPosition = new Vector3(0, 0, 0);
+
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _laserCollider = GetComponent<Collider2D>();
 

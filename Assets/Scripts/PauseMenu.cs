@@ -1,70 +1,62 @@
 using System;
 using System.Collections;
-using NaughtyAttributes;
 using UnityEngine;
+using NaughtyAttributes;
 using UnityEngine.Events;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
 
-public class MainMenu : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
-    [Header("Level Manager")] [SerializeField]
-    private LevelManager _levelManager;
-
+    private bool IsPaused = false;
+    
     [Header("Load screen information")] [SerializeField]
     private GameObject _loadScreen;
-
+    
     [SerializeField] private TextMeshProUGUI _progressValue;
     
-    [Space]
+    [Header("Menu elements")]
+    [SerializeField] private GameObject _pauseMenuUI;
+    [SerializeField] private GameObject _pauseButton;
     
-    [Foldout("Audio")]
-    [SerializeField] private AudioClip _launchSFX;
-    [Foldout("Audio")]
-    [SerializeField] private AudioClip _menuMusic;
-    [Foldout("Audio")]
-    [SerializeField] private AudioSource _audioSource;
+    [Header("Level Manager")] [SerializeField]
+    private LevelManager _levelManager;
     
     [Foldout("Events")]
     [SerializeField] UnityEvent OpenSettingsMenu;
     [Foldout("Events")]
     [SerializeField] UnityEvent CloseSettingsMenu;
-
+    
+    [Foldout("Audio")]
+    [SerializeField] private AudioClip _launchSFX;
+    [Foldout("Audio")]
+    [SerializeField] private AudioSource _audioSource;
+    
     [Foldout("Settings")]
     [SerializeField] Slider _volume;
     [Foldout("Settings")]
     [SerializeField] Toggle _isHapticEnable;
 
-    private void Awake()
+    private void Start()
     {
-        _audioSource.PlayOneShot(_menuMusic);
         _audioSource.volume = PlayerPrefs.GetFloat("volume");
     }
 
-    public void Play()
+    public void Pause()
     {
-        StartCoroutine(PlayLaunchSFXAndLoadScene());
+        _pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        IsPaused = true;
     }
-
-    // ReSharper disable Unity.PerformanceAnalysis
-    private IEnumerator PlayLaunchSFXAndLoadScene()
+    
+    public void Resume()
     {
-        if (_launchSFX != null)
-        {
-            _audioSource.PlayOneShot(_launchSFX);
-            _levelManager.ChangeLevel("DevNoam");
-            _loadScreen.SetActive(true);
-            yield return new WaitForSeconds(_launchSFX.length);
-            StartCoroutine(LoadNextLevelAsync());
-        }
-        else
-        {
-            Debug.LogWarning("Launch SFX is not assigned.");
-        }
-        SceneManager.LoadScene("DevNoam");
+        _pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        IsPaused = false;
     }
-
+    
     #region Settings
 
     public void OpenSettings()
@@ -93,11 +85,32 @@ public class MainMenu : MonoBehaviour
     }
 
     #endregion
-
-
+    public void LoadMenu()
+    {
+        StartCoroutine(PlayLaunchSFXAndLoadMenuScene());
+    }
+    
+    // ReSharper disable Unity.PerformanceAnalysis
+    private IEnumerator PlayLaunchSFXAndLoadMenuScene()
+    {
+        if (_launchSFX)
+        {
+            _audioSource.PlayOneShot(_launchSFX);
+            _levelManager.ChangeLevel("MainMenu");
+            _loadScreen.SetActive(true);
+            yield return new WaitForSecondsRealtime(_launchSFX.length);
+            StartCoroutine(LoadNextLevelAsync());
+        }
+        else
+        {
+            Debug.LogWarning("Launch SFX is not assigned.");
+        }
+        SceneManager.LoadSceneAsync("MainMenu");
+    }
+    
     private IEnumerator LoadNextLevelAsync()
     {
-        AsyncOperation loadOperation = SceneManager.LoadSceneAsync("GameScene");
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync("MainMenu");
 
         while (!loadOperation.isDone)
         {

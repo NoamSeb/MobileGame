@@ -24,7 +24,7 @@ public class Oxygen : MonoBehaviour
 
     public static Oxygen Instance;
 
-    void Awake()
+    void Start()
     {
         if (Instance == null)
         {

@@ -6,6 +6,7 @@ using NaughtyAttributes;
 using Codice.CM.Client.Differences;
 using UnityEngine.Tilemaps;
 using TMPro;
+using static GridRotationLocker;
 
 public class PlayerGridMovement : MonoBehaviour
 {
@@ -15,6 +16,40 @@ public class PlayerGridMovement : MonoBehaviour
     public float MoveDuration { get { return _moveDuration; } }
     private bool _isMoving = false; // emp�che les d�placements simultan�s
     private int _currentRotation = 0; // rotation actuelle (0 = haut, 90 = droite, etc.)
+
+    enum InitialMoveDirection
+    {
+        None,
+        Up,
+        Left,
+        Down,
+        Right
+    }
+
+    [SerializeField] private InitialMoveDirection _initialMoveDirection;
+
+    private void OnValidate()
+    {
+        switch(_initialMoveDirection)
+        {
+            case InitialMoveDirection.Left:
+                transform.rotation = Quaternion.Euler(0, 0, 90);
+                _currentRotation = 90;
+                break;
+            case InitialMoveDirection.Down:
+                transform.rotation = Quaternion.Euler(0, 0, 180);
+                _currentRotation = 180;
+                break;
+            case InitialMoveDirection.Right:
+                transform.rotation = Quaternion.Euler(0, 0, -90);
+                _currentRotation = 270;
+                break;
+            case InitialMoveDirection.Up:
+                transform.rotation = Quaternion.identity;
+                _currentRotation = 0;
+                break;
+        }
+    }
 
     [SerializeField, Layer] int _playzoneLayer;
     [SerializeField, Layer] int _objectLayer;
@@ -196,7 +231,7 @@ public class PlayerGridMovement : MonoBehaviour
         if (_currentRotation == 90) return Vector2Int.right;
         if (_currentRotation == 180) return Vector2Int.down;
         if (_currentRotation == 270) return Vector2Int.left;
-        return Vector2Int.up;
+        throw new ArgumentException("The player's rotation doesn't match this script's");
     }
 
     bool IsNextGridCaseAValidDestination(Vector3 pos)

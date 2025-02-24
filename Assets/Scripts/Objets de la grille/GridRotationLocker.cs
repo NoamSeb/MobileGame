@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class GridRotationLocker : GridObject
 {
-    public enum LockDirection
+    public enum InitialMoveDirection
     {
         Left,
         Right,
         Up,
         Down
     }
-    [SerializeField] private LockDirection _rotateDirection;
+    [SerializeField] private InitialMoveDirection _rotateDirection;
 
     private int _rotation;
 
@@ -19,19 +19,19 @@ public class GridRotationLocker : GridObject
     {
         switch (_rotateDirection)
         {
-            case LockDirection.Left:
+            case InitialMoveDirection.Left:
                 transform.rotation = Quaternion.Euler(0, 0, 90);
                 _rotation = 90;
                 break;
-            case LockDirection.Down:
+            case InitialMoveDirection.Down:
                 transform.rotation = Quaternion.Euler(0, 0, 180);
                 _rotation = 180;
                 break;
-            case LockDirection.Right:
+            case InitialMoveDirection.Right:
                 transform.rotation = Quaternion.Euler(0, 0, -90);
                 _rotation = 270;
                 break;
-            case LockDirection.Up:
+            case InitialMoveDirection.Up:
                 transform.rotation = Quaternion.identity;
                 _rotation = 0;
                 break;

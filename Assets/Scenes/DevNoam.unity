@@ -628,7 +628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &458667059
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1380,9 +1380,9 @@ RectTransform:
   - {fileID: 1350729122}
   m_Father: {fileID: 1195920332}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 503.125, y: -87.005005}
   m_SizeDelta: {x: 1006.25, y: 174.01}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &908277549
@@ -1534,9 +1534,9 @@ RectTransform:
   - {fileID: 1412607600}
   m_Father: {fileID: 1195920332}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 503.125, y: -521.60504}
   m_SizeDelta: {x: 1006.25, y: 174.01}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &924543650
@@ -2466,13 +2466,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1274672389}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.5764706, b: 0.43529415, a: 1}
+  m_Color: {r: 0, g: 0.5764706, b: 0.43529415, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4500,9 +4500,9 @@ RectTransform:
   - {fileID: 1316610081}
   m_Father: {fileID: 1195920332}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 503.125, y: -304.30502}
   m_SizeDelta: {x: 1006.25, y: 174.01}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2000416232
@@ -4753,7 +4753,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3256600927617652959, guid: d5b9b0b3515940241ab7b8379df92c66, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -62,6 +62,7 @@ public class PlayerGridMovement : MonoBehaviour
         SetPositionInGrid();
 
         GridTeleporter.OnTeleport += Teleport;
+        GridPusher.OnPush += Push;
     }
 
     [ExecuteInEditMode]
@@ -246,6 +247,42 @@ public class PlayerGridMovement : MonoBehaviour
         _isMoving = false;
     }
 
+    void Push(Vector2Int direction)
+    {
+        OnActionExecuted?.Invoke();
+        StartCoroutine(PushMovement(direction));
+    }
+
+    IEnumerator PushMovement(Vector2Int direction)
+    {
+        _isMoving = true;
+        Vector2Int targetPosition = _gridPosition + direction;
+
+        Vector3 startPosition = transform.position;
+        Vector3 targetPositionWorld = _grid.GetCellCenterWorld(new Vector3Int(targetPosition.x, targetPosition.y, 0));
+
+        if (IsNextGridCaseAValidDestination(targetPositionWorld))
+        {
+            float elapsedTime = 0f;
+
+            while (elapsedTime < _moveDuration)
+            {
+                transform.position = Vector3.Lerp(startPosition, targetPositionWorld, elapsedTime / _moveDuration);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            transform.position = targetPositionWorld;
+            _gridPosition = targetPosition;
+            _isMoving = false;
+        }
+        else
+        {
+            _isMoving = false;
+            yield return new WaitForSeconds(_moveDuration);
+        }
+    }
+    
     public void StopMovement()
     {
         _isMoving = false;

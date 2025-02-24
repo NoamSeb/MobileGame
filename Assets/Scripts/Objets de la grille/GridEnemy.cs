@@ -40,6 +40,10 @@ public class GridEnemy : GridObject
     private HorizontalInitialDir _horizontalInitialDirection;
     bool IsHorizontalNone() { return _horizontalInitialDirection != HorizontalInitialDir.None; }
 
+    private void OnValidate()
+    {
+        
+    }
 
     protected override void Setup()
     {

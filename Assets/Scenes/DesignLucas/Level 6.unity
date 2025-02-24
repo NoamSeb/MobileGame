@@ -573,7 +573,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 153977272998217363, guid: 116dad63bbcca154397c7e8804468aae, type: 3}
       propertyPath: _oxygenRefillAmount
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2485536994506532453, guid: 116dad63bbcca154397c7e8804468aae, type: 3}
       propertyPath: m_LocalPosition.x

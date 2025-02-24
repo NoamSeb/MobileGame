@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
     {
         _animator.SetTrigger("start");
         yield return new WaitForSeconds(transitionTime);
+        Debug.Log(levelName);
         SceneManager.LoadSceneAsync(levelName);
     }
 }

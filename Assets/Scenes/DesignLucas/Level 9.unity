@@ -1758,8 +1758,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2079153360814878317, guid: 2776f2c6f19beeb44b98b07d0e0bdf64, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079153360814878317, guid: 2776f2c6f19beeb44b98b07d0e0bdf64, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2079153360814878317, guid: 2776f2c6f19beeb44b98b07d0e0bdf64, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1795,6 +1799,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2079153360814878317, guid: 2776f2c6f19beeb44b98b07d0e0bdf64, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2292298956231603031, guid: 2776f2c6f19beeb44b98b07d0e0bdf64, type: 3}
+      propertyPath: m_SpriteSortPoint
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7545492039899867885, guid: 2776f2c6f19beeb44b98b07d0e0bdf64, type: 3}

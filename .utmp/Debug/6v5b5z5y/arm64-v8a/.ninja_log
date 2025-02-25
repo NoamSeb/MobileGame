@@ -1,0 +1,23 @@
+# ninja log v5
+1	3558	7621971164954521	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	f14c4523ec5d254
+157	1582	7621971144108092	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	d298e7a1e1002f80
+1586	2225	7621971151900029	C:/Users/nofla/Documents/IIM/Annee1/MobileGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/6v5b5z5y/obj/arm64-v8a/libswappywrapper.so	aed37b37d4945352
+99	3181	7621971160870500	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	a7fa4a3d24a72029
+145	3246	7621971161603618	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	697f497ef9c55945
+13	3190	7621971161091569	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	8b63e0dd914ee11b
+26	3371	7621971163057203	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	a0bc4f812bbb2fb4
+113	3268	7621971161684797	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	14fae84913b892b4
+82	3488	7621971164301486	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	6d603e1887c4e903
+65	3498	7621971164301486	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	28237e8b83bdc987
+3558	3799	7621971167539238	C:/Users/nofla/Documents/IIM/Annee1/MobileGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/6v5b5z5y/obj/arm64-v8a/libgame.so	2cec864b3c6e2fcf
+169	732	7622031859975799	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	d298e7a1e1002f80
+733	1158	7622031864309577	C:/Users/nofla/Documents/IIM/Annee1/MobileGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/6v5b5z5y/obj/arm64-v8a/libswappywrapper.so	aed37b37d4945352
+36	2237	7622031874951054	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	8b63e0dd914ee11b
+99	2252	7622031875109357	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	a7fa4a3d24a72029
+134	2269	7622031875300664	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	14fae84913b892b4
+157	2305	7622031875625532	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	697f497ef9c55945
+84	2387	7622031876459213	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	a0bc4f812bbb2fb4
+47	2412	7622031876747810	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	28237e8b83bdc987
+110	2477	7622031877418329	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	6d603e1887c4e903
+21	2558	7622031878196478	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	f14c4523ec5d254
+2559	2792	7622031880585058	C:/Users/nofla/Documents/IIM/Annee1/MobileGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/6v5b5z5y/obj/arm64-v8a/libgame.so	2cec864b3c6e2fcf

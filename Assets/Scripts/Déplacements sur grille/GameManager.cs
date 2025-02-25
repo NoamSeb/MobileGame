@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public Grid PlayGrid { get; private set; }
     public Slider OxygenSlider { get; private set; }
     public PlayerGridMovement PlayerScript { get; private set; }
+    public PlayerMirrorMovement MirrorScript { get; private set; }
 
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
         PlayGrid = GameObject.FindGameObjectWithTag("Playzone").GetComponent<Grid>();
         OxygenSlider = GameObject.FindGameObjectWithTag("Oxygen").GetComponent<Slider>();
         PlayerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerGridMovement>();
+        MirrorScript = FindFirstObjectByType<PlayerMirrorMovement>();
     }
 
     void CheckForCorrectSceneSetup()

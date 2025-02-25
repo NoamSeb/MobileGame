@@ -202,7 +202,6 @@ public class PlayerMirrorMovement : MonoBehaviour
 
     bool IsNextGridCaseAValidDestination(Vector3 pos)
     {
-        Debug.DrawLine(transform.position, pos);
         RaycastHit2D hit = Physics2D.Raycast
             (
             origin: pos,

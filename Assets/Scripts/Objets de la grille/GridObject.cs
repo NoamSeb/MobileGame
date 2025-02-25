@@ -1,0 +1,57 @@
+using NaughtyAttributes;
+using System;
+using System.ComponentModel;
+using UnityEngine;
+
+public class GridObject : MonoBehaviour
+{
+    protected Grid _grid;
+    [ShowNonSerializedField] protected Vector3Int _gridPosition;
+    public Vector3Int GridPosition { get { return _gridPosition; } }
+    public bool IsImpassable { get; private set; }
+
+    void Start()
+    {
+        Setup();
+    }
+
+    protected virtual void Setup()
+    {
+        _grid = GameManager.Instance.PlayGrid;
+        DebugGridExistence(_grid.gameObject);
+
+        PlaceItemInGrid();
+
+        PlayerGridMovement.OnInteraction += Interaction;
+    }
+
+    [ExecuteInEditMode]
+    public void PlaceItemInGrid()
+    {
+        _grid = GameObject.FindGameObjectWithTag("Playzone").GetComponent<Grid>();
+        DebugGridExistence(_grid.gameObject);
+
+        Vector3Int cellPosition = _grid.WorldToCell(transform.position);
+        _gridPosition = new Vector3Int(cellPosition.x, cellPosition.y);
+        transform.position = _grid.GetCellCenterWorld(_gridPosition);
+    }
+
+    void DebugGridExistence(GameObject grid)
+    {
+        if (grid == null) { throw new MissingReferenceException("Grid doesn't exist in scene"); }
+    }
+
+    protected void Interaction(GridObject obj)
+    {
+        if (obj == this) { Effect(); }
+    }
+    protected virtual void Effect() { throw new NotImplementedException(); }
+
+    protected void SetImpassable()
+    {
+        IsImpassable = true;
+    }
+
+    [ExecuteInEditMode]
+    protected virtual void BugFix() { }
+}

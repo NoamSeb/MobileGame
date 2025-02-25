@@ -49,7 +49,10 @@ public class PlayerGridMovement : MonoBehaviour
                 break;
         }
 
-        FindFirstObjectByType<PlayerMirrorMovement>().MatchPlayerRotation(_initialMoveDirection);
+        if (FindFirstObjectByType<PlayerMirrorMovement>() != null) 
+        {
+            FindFirstObjectByType<PlayerMirrorMovement>().MatchPlayerRotation(_initialMoveDirection); 
+        }
     }
 
     [SerializeField, Layer] int _playzoneLayer;
@@ -245,30 +248,33 @@ public class PlayerGridMovement : MonoBehaviour
 
     bool IsNextGridCaseAValidDestination(Vector3 pos)
     {
-        RaycastHit2D hit = Physics2D.Raycast
-            (
-            origin: pos,
-            direction: pos,
-            distance: Mathf.Infinity
-            );
+        Collider2D[] colliders = Physics2D.OverlapPointAll(pos);
 
-        if (hit.collider != null)
+        bool hasGroundBeenDetected = false;
+
+        if (colliders.Length > 0)
         {
-            if (hit.collider is TilemapCollider2D && hit.collider.gameObject.layer == _playzoneLayer)
+            foreach (Collider2D collider in colliders)
             {
-                return true;
-            }
-            if (hit.collider.gameObject.TryGetComponent(out GridObject obj))
-            {
-                if (obj.IsImpassable) { return false; }
-                else { StartCoroutine(StartInteraction(obj)); return true; }
+                if (collider.TryGetComponent(out GridObject obj))
+                {
+                    if (obj != null && !obj.IsImpassable)
+                    {
+                        StartCoroutine(StartInteraction(obj));
+                    }
+                    else if (obj.IsImpassable) { return false; }
+                }
+                if (collider.TryGetComponent(out Tilemap map))
+                {
+                    if (map != null && map.gameObject.layer == _playzoneLayer)
+                    {
+                        hasGroundBeenDetected = true;
+                    }
+                }
             }
         }
-        else
-        {
-            _isInAction = false;
-        }
 
+        if (hasGroundBeenDetected) { return true; }
         return false;
     }
 

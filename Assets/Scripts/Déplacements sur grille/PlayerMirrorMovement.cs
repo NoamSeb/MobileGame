@@ -36,7 +36,7 @@ public class PlayerMirrorMovement : MonoBehaviour
         }
     }
 
-    [SerializeField] int _mirrorLayer;
+    [SerializeField, Layer] int _mirrorLayer;
 
     private bool _isInAction = false;
     private bool _executeAction = false;
@@ -64,9 +64,9 @@ public class PlayerMirrorMovement : MonoBehaviour
 
         SetPositionInGrid();
 
-        GridTeleporter.OnTeleport += Teleport;
-        GridPusher.OnPush += Push;
-        GridRotationLocker.OnRotate += ForceRotation;
+        GridTeleporter.OnTeleportMirror += Teleport;
+        GridPusher.OnPushMirror += Push;
+        GridRotationLocker.OnRotateMirror += ForceRotation;
 
         _moveDuration = GameManager.Instance.PlayerScript.MoveDuration;
     }
@@ -202,12 +202,14 @@ public class PlayerMirrorMovement : MonoBehaviour
 
     bool IsNextGridCaseAValidDestination(Vector3 pos)
     {
+        Debug.DrawLine(transform.position, pos);
         RaycastHit2D hit = Physics2D.Raycast
             (
             origin: pos,
             direction: pos,
             distance: Mathf.Infinity
             );
+
 
         if (hit.collider != null)
         {

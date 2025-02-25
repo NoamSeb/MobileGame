@@ -86,6 +86,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveDuration: 0.2
+  _initialMoveDirection: 0
   _playzoneLayer: 6
   _objectLayer: 7
 --- !u!114 &7896423860038032568

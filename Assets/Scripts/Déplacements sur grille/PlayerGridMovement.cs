@@ -19,7 +19,6 @@ public class PlayerGridMovement : MonoBehaviour
 
     enum InitialMoveDirection
     {
-        None,
         Up,
         Left,
         Down,

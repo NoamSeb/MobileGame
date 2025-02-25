@@ -12,9 +12,11 @@ public class BiomeManager : MonoBehaviour
     {
         public int idBiome; 
         public GameObject biome; 
+        public List<GameObject> levelPrefab;
     }
 
     private int currentBiomeIndex = 0; 
+    private GameObject activeLevelPrefab = null; 
 
     void Start()
     {
@@ -34,6 +36,27 @@ public class BiomeManager : MonoBehaviour
 
         PlayerPrefs.SetInt("CurrentBiomeIndex", biomeIndex);
         PlayerPrefs.Save();
+    }
+
+    public void OpenLevel(int levelIndex)
+    {
+        if (activeLevelPrefab != null) return; // empêche d'ouvrir plusieurs niveaux en même temps
+
+        if (levelIndex >= 0 && levelIndex < Levels[currentBiomeIndex].levelPrefab.Count)
+        {
+            activeLevelPrefab = Levels[currentBiomeIndex].levelPrefab[levelIndex];
+            activeLevelPrefab.SetActive(true);
+        }
+    }
+
+    // ferme le niveau et revient au biome
+    public void CloseLevel()
+    {
+        if (activeLevelPrefab != null)
+        {
+            activeLevelPrefab.SetActive(false);
+            activeLevelPrefab = null;
+        }
     }
 
     // passe au biome suivant (si possible)
@@ -56,3 +79,4 @@ public class BiomeManager : MonoBehaviour
         }
     }
 }
+

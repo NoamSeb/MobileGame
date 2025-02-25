@@ -43,4 +43,10 @@ public class GridPusher : GridObject
     {
         OnPush?.Invoke(_pushVector);
     }
+
+    public static event Action<Vector2Int> OnPushMirror;
+    protected override void MirrorEffect()
+    {
+        OnPushMirror?.Invoke(_pushVector);
+    }
 }

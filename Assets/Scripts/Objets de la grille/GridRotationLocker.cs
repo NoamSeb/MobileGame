@@ -43,4 +43,10 @@ public class GridRotationLocker : GridObject
     {
         OnRotate?.Invoke(_rotation);
     }
+
+    public static event Action<int> OnRotateMirror;
+    protected override void MirrorEffect()
+    {
+        OnRotateMirror?.Invoke(_rotation);
+    }
 }

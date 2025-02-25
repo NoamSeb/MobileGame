@@ -22,6 +22,9 @@ public class GDTools : EditorWindow
 
         PlayerGridMovement player = FindFirstObjectByType<PlayerGridMovement>();
         if (player != null) { player.SetPositionInGrid(); }
+
+        PlayerMirrorMovement mirror = FindFirstObjectByType<PlayerMirrorMovement>();
+        if (player != null) {  mirror.SetPositionInGrid(); }
     }
 
     bool _isInitialize;

@@ -6,6 +6,7 @@ using NaughtyAttributes;
 using Codice.CM.Client.Differences;
 using UnityEngine.Tilemaps;
 using TMPro;
+using static GridRotationLocker;
 
 public class PlayerGridMovement : MonoBehaviour
 {
@@ -16,8 +17,45 @@ public class PlayerGridMovement : MonoBehaviour
     private bool _isMoving = false; // emp�che les d�placements simultan�s
     private int _currentRotation = 0; // rotation actuelle (0 = haut, 90 = droite, etc.)
 
+    public enum InitialMoveDirection
+    {
+        Up,
+        Left,
+        Down,
+        Right
+    }
+
+    [SerializeField] private InitialMoveDirection _initialMoveDirection;
+
+    private void OnValidate()
+    {
+        switch(_initialMoveDirection)
+        {
+            case InitialMoveDirection.Left:
+                transform.rotation = Quaternion.Euler(0, 0, 90);
+                _currentRotation = 90;
+                break;
+            case InitialMoveDirection.Down:
+                transform.rotation = Quaternion.Euler(0, 0, 180);
+                _currentRotation = 180;
+                break;
+            case InitialMoveDirection.Right:
+                transform.rotation = Quaternion.Euler(0, 0, -90);
+                _currentRotation = 270;
+                break;
+            case InitialMoveDirection.Up:
+                transform.rotation = Quaternion.identity;
+                _currentRotation = 0;
+                break;
+        }
+
+        if (FindFirstObjectByType<PlayerMirrorMovement>() != null) 
+        {
+            FindFirstObjectByType<PlayerMirrorMovement>().MatchPlayerRotation(_initialMoveDirection); 
+        }
+    }
+
     [SerializeField, Layer] int _playzoneLayer;
-    [SerializeField, Layer] int _objectLayer;
 
     private bool _isInAction = false;
     private bool _executeAction = false;
@@ -29,6 +67,8 @@ public class PlayerGridMovement : MonoBehaviour
     public enum ActionType { Move, TurnRight, TurnLeft, Wait }
 
     private bool _isRotationLocked;
+
+    private PlayerMirrorMovement _playerMirror;
     void Awake()
     {
         if (Instance == null)
@@ -65,6 +105,11 @@ public class PlayerGridMovement : MonoBehaviour
         GridTeleporter.OnTeleport += Teleport;
         GridPusher.OnPush += Push;
         GridRotationLocker.OnRotate += ForceRotation;
+
+        if (GameManager.Instance.MirrorScript != null)
+        {
+            _playerMirror = GameManager.Instance.MirrorScript;
+        }
     }
 
     [ExecuteInEditMode]
@@ -84,11 +129,13 @@ public class PlayerGridMovement : MonoBehaviour
     public void AddAction(ActionType action)
     {
         _actionQueue.Enqueue(action);
+        _playerMirror.AddAction(action);
     }
 
     public void ExecuteActions()
     {
         _executeAction = true;
+        _playerMirror.ExecuteActions();
     }
 
     private void Update()
@@ -161,8 +208,8 @@ public class PlayerGridMovement : MonoBehaviour
         }
         else
         {
-            _isMoving = false;
             yield return new WaitForSeconds(_moveDuration);
+            _isMoving = false;
         }
     }
     IEnumerator WaitCoroutine()
@@ -196,35 +243,38 @@ public class PlayerGridMovement : MonoBehaviour
         if (_currentRotation == 90) return Vector2Int.right;
         if (_currentRotation == 180) return Vector2Int.down;
         if (_currentRotation == 270) return Vector2Int.left;
-        return Vector2Int.up;
+        throw new ArgumentException("The player's rotation doesn't match this script's");
     }
 
     bool IsNextGridCaseAValidDestination(Vector3 pos)
     {
-        RaycastHit2D hit = Physics2D.Raycast
-            (
-            origin: pos,
-            direction: pos,
-            distance: Mathf.Infinity
-            );
+        Collider2D[] colliders = Physics2D.OverlapPointAll(pos);
 
-        if (hit.collider != null)
+        bool hasGroundBeenDetected = false;
+
+        if (colliders.Length > 0)
         {
-            if (hit.collider is TilemapCollider2D && hit.collider.gameObject.layer == _playzoneLayer)
+            foreach (Collider2D collider in colliders)
             {
-                return true;
-            }
-            if (hit.collider.gameObject.TryGetComponent(out GridObject obj))
-            {
-                if (obj.IsImpassable) { return false; }
-                else { StartCoroutine(StartInteraction(obj)); return true; }
+                if (collider.TryGetComponent(out GridObject obj))
+                {
+                    if (obj != null && !obj.IsImpassable)
+                    {
+                        StartCoroutine(StartInteraction(obj));
+                    }
+                    else if (obj.IsImpassable) { return false; }
+                }
+                if (collider.TryGetComponent(out Tilemap map))
+                {
+                    if (map != null && map.gameObject.layer == _playzoneLayer)
+                    {
+                        hasGroundBeenDetected = true;
+                    }
+                }
             }
         }
-        else
-        {
-            _isInAction = false;
-        }
 
+        if (hasGroundBeenDetected) { return true; }
         return false;
     }
 
@@ -303,6 +353,7 @@ public class PlayerGridMovement : MonoBehaviour
     {
         _isMoving = false;
         _executeAction = false;
+        _actionQueue.Clear();
         Debug.Log("Le joueur ne bouge plus !");
     }
 }

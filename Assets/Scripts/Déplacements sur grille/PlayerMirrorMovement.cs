@@ -1,81 +1,56 @@
-using UnityEngine;
-using System;
+﻿using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
-using NaughtyAttributes;
-using Codice.CM.Client.Differences;
+using System;
+using UnityEngine;
 using UnityEngine.Tilemaps;
-using TMPro;
-using static GridRotationLocker;
 
-public class PlayerGridMovement : MonoBehaviour
+public class PlayerMirrorMovement : MonoBehaviour
 {
     private Grid _grid; // r�f�rence au composant grid
     [ShowNonSerializedField] private Vector2Int _gridPosition; // position actuelle du joueur
-    [SerializeField, Range(0f, 1f)] private float _moveDuration = 0.2f;
-    public float MoveDuration { get { return _moveDuration; } }
+    private float _moveDuration;
     private bool _isMoving = false; // emp�che les d�placements simultan�s
     private int _currentRotation = 0; // rotation actuelle (0 = haut, 90 = droite, etc.)
 
-    public enum InitialMoveDirection
+    public void MatchPlayerRotation(PlayerGridMovement.InitialMoveDirection playerDirection)
     {
-        Up,
-        Left,
-        Down,
-        Right
-    }
-
-    [SerializeField] private InitialMoveDirection _initialMoveDirection;
-
-    private void OnValidate()
-    {
-        switch(_initialMoveDirection)
+        switch (playerDirection)
         {
-            case InitialMoveDirection.Left:
+            case PlayerGridMovement.InitialMoveDirection.Left:
                 transform.rotation = Quaternion.Euler(0, 0, 90);
                 _currentRotation = 90;
                 break;
-            case InitialMoveDirection.Down:
+            case PlayerGridMovement.InitialMoveDirection.Down:
                 transform.rotation = Quaternion.Euler(0, 0, 180);
                 _currentRotation = 180;
                 break;
-            case InitialMoveDirection.Right:
+            case PlayerGridMovement.InitialMoveDirection.Right:
                 transform.rotation = Quaternion.Euler(0, 0, -90);
                 _currentRotation = 270;
                 break;
-            case InitialMoveDirection.Up:
+            case PlayerGridMovement.InitialMoveDirection.Up:
                 transform.rotation = Quaternion.identity;
                 _currentRotation = 0;
                 break;
         }
-
-        FindFirstObjectByType<PlayerMirrorMovement>().MatchPlayerRotation(_initialMoveDirection);
     }
 
-    [SerializeField, Layer] int _playzoneLayer;
+    [SerializeField] int _mirrorLayer;
 
     private bool _isInAction = false;
     private bool _executeAction = false;
 
-    readonly private Queue<ActionType> _actionQueue = new(); // file d'attente des actions
-    private Oxygen _oxygenManager; // r�f�rence � l'oxyg�ne
-
-    public static PlayerGridMovement Instance;
-    public enum ActionType { Move, TurnRight, TurnLeft, Wait }
+    readonly private Queue<PlayerGridMovement.ActionType> _actionQueue = new(); // file d'attente des actions
 
     private bool _isRotationLocked;
 
-    private PlayerMirrorMovement _playerMirror;
-    void Awake()
+    public static PlayerMirrorMovement Instance;
+
+    private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        if (Instance == null) { Instance = this; }
+        else { Destroy(gameObject); }
     }
 
     void Start()
@@ -87,26 +62,13 @@ public class PlayerGridMovement : MonoBehaviour
             return;
         }
 
-        // r�cup�rer le script oxygen
-        _oxygenManager = GetComponent<Oxygen>();
-        if (_oxygenManager == null)
-        {
-            Debug.LogError("Aucun script Oxygen trouv� dans la sc�ne !");
-            return;
-        }
-
-        // aligner le joueur sur une case de la grille
-
         SetPositionInGrid();
 
         GridTeleporter.OnTeleport += Teleport;
         GridPusher.OnPush += Push;
         GridRotationLocker.OnRotate += ForceRotation;
 
-        if (GameManager.Instance.MirrorScript != null)
-        {
-            _playerMirror = GameManager.Instance.MirrorScript;
-        }
+        _moveDuration = GameManager.Instance.PlayerScript.MoveDuration;
     }
 
     [ExecuteInEditMode]
@@ -123,16 +85,14 @@ public class PlayerGridMovement : MonoBehaviour
         transform.position = _grid.GetCellCenterWorld(cellPosition);
     }
 
-    public void AddAction(ActionType action)
+    public void AddAction(PlayerGridMovement.ActionType action)
     {
         _actionQueue.Enqueue(action);
-        _playerMirror.AddAction(action);
     }
 
     public void ExecuteActions()
     {
         _executeAction = true;
-        _playerMirror.ExecuteActions();
     }
 
     private void Update()
@@ -154,21 +114,21 @@ public class PlayerGridMovement : MonoBehaviour
     private void ExecuteActionQueue()
     {
         OnActionExecuted?.Invoke();
-        ActionType action = _actionQueue.Dequeue();
+        PlayerGridMovement.ActionType action = _actionQueue.Dequeue();
 
-        if (action == ActionType.Move)
+        if (action == PlayerGridMovement.ActionType.Move)
         {
             StartCoroutine(MoveCoroutine());
         }
-        else if (action == ActionType.TurnRight)
+        else if (action == PlayerGridMovement.ActionType.TurnRight)
         {
             TurnRight();
         }
-        else if (action == ActionType.TurnLeft)
+        else if (action == PlayerGridMovement.ActionType.TurnLeft)
         {
             TurnLeft();
         }
-        else if (action == ActionType.Wait)
+        else if (action == PlayerGridMovement.ActionType.Wait)
         {
             StartCoroutine(WaitCoroutine());
         }
@@ -198,9 +158,6 @@ public class PlayerGridMovement : MonoBehaviour
             transform.position = targetPositionWorld;
             _gridPosition = targetPosition;
             _isMoving = false;
-
-            // consommer de l'oxyg�ne apr�s le d�placement
-            _oxygenManager.LoseOxygen();
             _isRotationLocked = false;
         }
         else
@@ -254,7 +211,7 @@ public class PlayerGridMovement : MonoBehaviour
 
         if (hit.collider != null)
         {
-            if (hit.collider is TilemapCollider2D && hit.collider.gameObject.layer == _playzoneLayer)
+            if (hit.collider is TilemapCollider2D && hit.collider.gameObject.layer == _mirrorLayer)
             {
                 return true;
             }

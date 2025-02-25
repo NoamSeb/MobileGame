@@ -22,7 +22,6 @@ public class BiomeManager : MonoBehaviour
         ActivateBiome(currentBiomeIndex);
     }
 
-    // active le biome correspondant à l'index donné et désactive les autres
     private void ActivateBiome(int biomeIndex)
     {
         for (int i = 0; i < Levels.Count; i++)

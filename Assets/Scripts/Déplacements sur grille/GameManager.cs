@@ -75,4 +75,9 @@ public class GameManager : MonoBehaviour
 
         SaveSystem.SavePlayer(playerData);
     }
+    public void SetCurrentBiome(BiomeManager biome)
+    {
+        PlayerPrefs.SetString("CurrentBiome", biome.name); // sauvegarde le nom du biome
+        PlayerPrefs.Save();
+    }
 }

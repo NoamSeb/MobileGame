@@ -28,6 +28,7 @@ public class PlayerGridMovement : MonoBehaviour
     public static PlayerGridMovement Instance;
     public enum ActionType { Move, TurnRight, TurnLeft, Wait }
 
+    private bool _isRotationLocked;
     void Awake()
     {
         if (Instance == null)
@@ -63,6 +64,7 @@ public class PlayerGridMovement : MonoBehaviour
 
         GridTeleporter.OnTeleport += Teleport;
         GridPusher.OnPush += Push;
+        GridRotationLocker.OnRotate += ForceRotation;
     }
 
     [ExecuteInEditMode]
@@ -155,6 +157,7 @@ public class PlayerGridMovement : MonoBehaviour
 
             // consommer de l'oxyg�ne apr�s le d�placement
             _oxygenManager.LoseOxygen();
+            _isRotationLocked = false;
         }
         else
         {
@@ -171,14 +174,20 @@ public class PlayerGridMovement : MonoBehaviour
 
     void TurnRight()
     {
-        _currentRotation = (_currentRotation + 90) % 360;
-        transform.rotation = Quaternion.Euler(0, 0, -_currentRotation);
+        if (!_isRotationLocked)
+        {
+            _currentRotation = (_currentRotation + 90) % 360;
+            transform.rotation = Quaternion.Euler(0, 0, -_currentRotation);
+        }
     }
 
     void TurnLeft()
     {
-        _currentRotation = (_currentRotation - 90 + 360) % 360; // �viter les valeurs n�gatives
-        transform.rotation = Quaternion.Euler(0, 0, -_currentRotation);
+        if (!_isRotationLocked)
+        {
+            _currentRotation = (_currentRotation - 90 + 360) % 360; // �viter les valeurs n�gatives
+            transform.rotation = Quaternion.Euler(0, 0, -_currentRotation);
+        }
     }
 
     Vector2Int GetDirectionVector()
@@ -282,11 +291,19 @@ public class PlayerGridMovement : MonoBehaviour
             yield return new WaitForSeconds(_moveDuration);
         }
     }
-    
+
+    void ForceRotation(int rotation)
+    {
+        _currentRotation = rotation;
+        transform.rotation = Quaternion.Euler(0, 0, -_currentRotation);
+        _isRotationLocked = true;
+    }
+
     public void StopMovement()
     {
         _isMoving = false;
         _executeAction = false;
+        _actionQueue.Clear();
         Debug.Log("Le joueur ne bouge plus !");
     }
 }

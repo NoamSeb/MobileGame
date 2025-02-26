@@ -10,40 +10,43 @@ public class GridEnemy : GridObject
 
     public enum MovementType
     {
-        None,
         Vertical,
         Horizontal
     }
-    [SerializeField, ValidateInput(nameof(IsMovementNone), "None is invalid")] 
-    private MovementType _movementType;
+    [SerializeField] private MovementType _movementType;
     bool IsVertical() { return _movementType == MovementType.Vertical; }
     bool IsHorizontal() { return _movementType == MovementType.Horizontal; }
-    bool IsMovementNone() { return _movementType != MovementType.None; }
 
     public enum VerticalInitialDir
     {
-        None,
         Up,
         Down
     }
-    [SerializeField, ShowIf(nameof(IsVertical)), ValidateInput(nameof(IsVerticalNone), "None is invalid")] 
-    private VerticalInitialDir _verticalInitialDirection;
-    bool IsVerticalNone() { return _verticalInitialDirection != VerticalInitialDir.None; }
+    [SerializeField, ShowIf(nameof(IsVertical))] private VerticalInitialDir _verticalInitialDirection;
 
     public enum HorizontalInitialDir
     {
-        None,
         Right,
         Left
     }
-    [SerializeField, ShowIf(nameof(IsHorizontal)), ValidateInput(nameof(IsHorizontalNone), "None is invalid")] 
-    private HorizontalInitialDir _horizontalInitialDirection;
-    bool IsHorizontalNone() { return _horizontalInitialDirection != HorizontalInitialDir.None; }
+    [SerializeField, ShowIf(nameof(IsHorizontal))] private HorizontalInitialDir _horizontalInitialDirection;
+
+    public void TransferMovementParams(MovementType movement, VerticalInitialDir dir)
+    {
+        _movementType = movement;
+        _verticalInitialDirection = dir;
+    }
+
+    public void TransferMovementParams(MovementType movement, HorizontalInitialDir dir)
+    {
+        _movementType = movement;
+        _horizontalInitialDirection = dir;
+    }
 
     protected override void Setup()
     {
         base.Setup();
-        _moveDuration = GameManager.Instance.PlayerScript.MoveDuration/2f;
+        _moveDuration = GameManager.Instance.PlayerScript.MoveDuration / 2f;
         PlayerGridMovement.OnActionExecuted += StartMovement;
         SetupRotation();
     }
@@ -128,7 +131,7 @@ public class GridEnemy : GridObject
     bool IsNextGridCaseAValidDestination(Vector3 pos)
     {
         RaycastHit2D hit = Physics2D.Raycast(pos, pos, Mathf.Infinity);
-        if (hit.collider != null) 
+        if (hit.collider != null)
         {
             if (hit.collider.gameObject.TryGetComponent(out GridObject obj))
             {
@@ -164,17 +167,6 @@ public class GridEnemy : GridObject
             {
                 playerOxygenScript.SetOxygenToZero();
             }
-        }
-    }
-
-    [ExecuteInEditMode]
-    protected override void BugFix()
-    {
-        if (_movementType == MovementType.None) { throw new ArgumentException("Movement type shouldn't be None"); }
-        if ((IsVertical() && _verticalInitialDirection == VerticalInitialDir.None)
-            || (IsHorizontal() && _horizontalInitialDirection == HorizontalInitialDir.None))
-        {
-            throw new ArgumentException("Direction shouldn't be None");
         }
     }
 }

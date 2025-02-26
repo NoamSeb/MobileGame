@@ -1,4 +1,4 @@
-using NaughtyAttributes;
+    using NaughtyAttributes;
 using System;
 using UnityEngine;
 
@@ -31,5 +31,11 @@ public class GridTeleporter : GridObject
     protected override void Effect()
     {
         OnTeleport?.Invoke(_otherTeleporter.GridPosition);
+    }
+
+    public static event Action<Vector3Int> OnTeleportMirror;
+    protected override void MirrorEffect()
+    {
+        OnTeleportMirror?.Invoke(_otherTeleporter.GridPosition);
     }
 }

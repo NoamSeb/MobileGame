@@ -1,0 +1,29 @@
+using NaughtyAttributes;
+using UnityEngine;
+using static GridEnemy;
+
+public class GridSleepingEnemy : GridObject
+{
+    GameObject _enemy;
+    [SerializeField] private MovementType _robotMovementType;
+    bool IsVertical() { return _robotMovementType == MovementType.Vertical; }
+    [SerializeField, ShowIf(nameof(IsVertical))] private VerticalInitialDir _verticalInitialDirection;
+    [SerializeField, ShowIf("!" + nameof(IsVertical))] private HorizontalInitialDir _horizontalInitialDirection;
+
+    protected override void Setup()
+    {
+        base.Setup();
+        SetImpassable();
+        _enemy = Resources.Load<GameObject>("GDTools Prefabs/Grid Objects/Enemy");
+        Oxygen.OnOxygenThresholdCrossed += WakeYoAssUp;
+    }
+
+    void WakeYoAssUp()
+    {
+        GridEnemy temp = Instantiate(_enemy, transform.position, Quaternion.identity).GetComponent<GridEnemy>();
+        if (IsVertical()) { temp.TransferMovementParams(_robotMovementType, _verticalInitialDirection); }
+        else { temp.TransferMovementParams(_robotMovementType, _horizontalInitialDirection); }
+        Oxygen.OnOxygenThresholdCrossed -= WakeYoAssUp;
+        Destroy(gameObject);
+    }
+}

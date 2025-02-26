@@ -1,9 +1,6 @@
-using Codice.Client.Commands.Merge;
-using Codice.CM.Client.Differences.Merge;
+#if UNITY_EDITOR
 using UnityEditor;
-using UnityEditor.Search;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using System.Collections.Generic;
 
 public class GDTools : EditorWindow
@@ -96,3 +93,4 @@ public class GDTools : EditorWindow
         }
     }
 }
+#endif

@@ -256,10 +256,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CodeblockMovement, GameAssembly
-        m_MethodName: Action
-        m_Mode: 5
+      - m_Target: {fileID: 4564511097835768470}
+        m_TargetAssemblyTypeName: ActionQueue, GameAssembly
+        m_MethodName: AddTurnRight
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -464,10 +464,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CodeblockMovement, GameAssembly
-        m_MethodName: Action
-        m_Mode: 5
+      - m_Target: {fileID: 4564511097835768470}
+        m_TargetAssemblyTypeName: ActionQueue, GameAssembly
+        m_MethodName: AddWait
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -854,10 +854,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CodeblockMovement, GameAssembly
-        m_MethodName: Action
-        m_Mode: 5
+      - m_Target: {fileID: 4564511097835768470}
+        m_TargetAssemblyTypeName: ActionQueue, GameAssembly
+        m_MethodName: AddMove
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1021,10 +1021,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CodeblockMovement, GameAssembly
-        m_MethodName: Action
-        m_Mode: 5
+      - m_Target: {fileID: 4564511097835768470}
+        m_TargetAssemblyTypeName: ActionQueue, GameAssembly
+        m_MethodName: AddTurnLeft
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

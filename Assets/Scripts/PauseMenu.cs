@@ -1,0 +1,121 @@
+using System;
+using System.Collections;
+using UnityEngine;
+using NaughtyAttributes;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
+
+public class PauseMenu : MonoBehaviour
+{
+    private bool IsPaused = false;
+    
+    [Header("Load screen information")] [SerializeField]
+    private GameObject _loadScreen;
+    
+    [SerializeField] private TextMeshProUGUI _progressValue;
+    
+    [Header("Menu elements")]
+    [SerializeField] private GameObject _pauseMenuUI;
+    [SerializeField] private GameObject _pauseButton;
+    
+    [Header("Level Manager")] [SerializeField]
+    private LevelManager _levelManager;
+    
+    [Foldout("Events")]
+    [SerializeField] UnityEvent OpenSettingsMenu;
+    [Foldout("Events")]
+    [SerializeField] UnityEvent CloseSettingsMenu;
+    
+    [Foldout("Audio")]
+    [SerializeField] private AudioClip _launchSFX;
+    [Foldout("Audio")]
+    [SerializeField] private AudioSource _audioSource;
+    
+    [Foldout("Settings")]
+    [SerializeField] Slider _volume;
+    [Foldout("Settings")]
+    [SerializeField] Toggle _isHapticEnable;
+
+    private void Start()
+    {
+        _audioSource.volume = PlayerPrefs.GetFloat("volume");
+    }
+
+    public void Pause()
+    {
+        _pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        IsPaused = true;
+    }
+    
+    public void Resume()
+    {
+        _pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        IsPaused = false;
+    }
+    
+    #region Settings
+
+    public void OpenSettings()
+    {
+        GetSettingsValue();
+        OpenSettingsMenu.Invoke();
+    }
+
+    private void GetSettingsValue()
+    {
+        _volume.value = PlayerPrefs.GetFloat("Volume");
+        _isHapticEnable.isOn = PlayerPrefs.GetInt("IsHapticEnabled") == 1 ? true : false;
+    }
+    public void CloseSettings()
+    {
+        CloseSettingsMenu.Invoke();
+    }
+
+    public void SaveSettings()
+    {
+        PlayerPrefs.SetFloat("Volume", _volume.value);
+        PlayerPrefs.SetString("IsHapticEnable", _isHapticEnable.isOn ? "true" : "false");
+        PlayerPrefs.Save();
+
+        _audioSource.volume = _volume.value;
+    }
+
+    #endregion
+    public void LoadMenu()
+    {
+        StartCoroutine(PlayLaunchSFXAndLoadMenuScene());
+    }
+    
+    // ReSharper disable Unity.PerformanceAnalysis
+    private IEnumerator PlayLaunchSFXAndLoadMenuScene()
+    {
+        if (_launchSFX)
+        {
+            _audioSource.PlayOneShot(_launchSFX);
+            _levelManager.ChangeLevel("MainMenu");
+            _loadScreen.SetActive(true);
+            yield return new WaitForSecondsRealtime(_launchSFX.length);
+            StartCoroutine(LoadNextLevelAsync());
+        }
+        else
+        {
+            Debug.LogWarning("Launch SFX is not assigned.");
+        }
+        SceneManager.LoadSceneAsync("MainMenu");
+    }
+    
+    private IEnumerator LoadNextLevelAsync()
+    {
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync("MainMenu");
+
+        while (!loadOperation.isDone)
+        {
+            _progressValue.text = (int)loadOperation.progress + "%";
+            yield return null;
+        }
+    }
+}

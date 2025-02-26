@@ -1,7 +1,11 @@
+using System;
 using UnityEngine;
 using GooglePlayGames;
+using GooglePlayGames.BasicApi;
+
 public class GooglePlayManager : MonoBehaviour
 {
+    [SerializeField] private GameObject _failToConnectScreen;
     public static GooglePlayManager Instance { get; private set; }
 
     void Awake()
@@ -18,21 +22,50 @@ public class GooglePlayManager : MonoBehaviour
     }
     void Start()
     {
-        PlayGamesPlatform.Activate(); // Activate Google Play Games
-        SignIn();
+        PlayGamesPlatform.Activate();
+        PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
     }
 
-    void SignIn()
-    {
-        Social.localUser.Authenticate(success =>
-        {
-            if (success)
-                Debug.Log("Signed into Google Play Games");
-            else
-                Debug.LogError("Failed to sign in");
-        });
+    internal void ProcessAuthentication(SignInStatus status) {
+        if (status == SignInStatus.Success) {
+            
+            _failToConnectScreen?.SetActive(false);
+            
+            PlayGamesPlatform.Instance.LoadAchievements(achievements =>
+            {
+                if (achievements.Length > 0)
+                {
+                    Debug.Log($"Loaded {achievements.Length} achievements");
+                }
+                else
+                {
+                    Debug.Log("No achievements found");
+                }
+            });
+        } else {
+            Debug.LogWarning($"Google Play Games Authentication Failed: {status}");
+            
+            _failToConnectScreen?.SetActive(true);
+        }
     }
-    
+
+    public void ManualConnect()
+    {
+        PlayGamesPlatform.Instance.ManuallyAuthenticate(success =>
+        {
+
+            if (success == SignInStatus.Success)
+            {
+                _failToConnectScreen?.SetActive(false);
+            }
+            else
+            {
+                _failToConnectScreen?.SetActive(true);
+            }
+        });
+        _failToConnectScreen?.SetActive(false);
+    }
+
     /// <summary>
     /// Use the Google Play Games user to claim the achievement thanks to ID
     /// 
@@ -41,12 +74,9 @@ public class GooglePlayManager : MonoBehaviour
     /// <param name="achievementID"></param>
     public void UnlockAchievement(string achievementID)
     {
-        Social.ReportProgress(achievementID, 100.0f, success =>
+        PlayGamesPlatform.Instance.ReportProgress(achievementID, 100.0f, success =>
         {
-            if (success)
-                Debug.Log("Achievement unlocked!");
-            else
-                Debug.LogError("Failed to unlock achievement");
+            Social.ShowAchievementsUI();
         });
     }
 }

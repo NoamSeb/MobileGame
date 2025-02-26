@@ -7,8 +7,9 @@ public class GridSleepingEnemy : GridObject
     GameObject _enemy;
     [SerializeField] private MovementType _robotMovementType;
     bool IsVertical() { return _robotMovementType == MovementType.Vertical; }
+    bool IsHorizontal() { return _robotMovementType == MovementType.Horizontal; }
     [SerializeField, ShowIf(nameof(IsVertical))] private VerticalInitialDir _verticalInitialDirection;
-    [SerializeField, ShowIf("!" + nameof(IsVertical))] private HorizontalInitialDir _horizontalInitialDirection;
+    [SerializeField, ShowIf(nameof(IsHorizontal))] private HorizontalInitialDir _horizontalInitialDirection;
 
     protected override void Setup()
     {

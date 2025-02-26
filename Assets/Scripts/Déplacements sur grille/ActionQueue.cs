@@ -62,6 +62,14 @@ public class ActionQueue : MonoBehaviour
         UpdateUI();
     }
 
+    public void EraseLastAction()
+    {
+        if (actions.Count > 0) 
+        { 
+            actions.RemoveAt(actions.Count - 1); 
+        }
+    }
+
     public void ClearActions()
     {
         actions.Clear();
@@ -104,7 +112,7 @@ public class ActionQueue : MonoBehaviour
                     break;
             }
 
-            actionListText.text += $"{actionName} x{actionEntry.count}\n";
+            actionListText.text += $">>> {actionName} x{actionEntry.count}\n";
         }
     }
 }

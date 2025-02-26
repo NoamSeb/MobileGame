@@ -7,15 +7,28 @@ public class GridSleepingEnemy : GridObject
     GameObject _enemy;
     [SerializeField] private MovementType _robotMovementType;
     bool IsVertical() { return _robotMovementType == MovementType.Vertical; }
+    bool IsHorizontal() { return _robotMovementType == MovementType.Horizontal; }
     [SerializeField, ShowIf(nameof(IsVertical))] private VerticalInitialDir _verticalInitialDirection;
-    [SerializeField, ShowIf("!" + nameof(IsVertical))] private HorizontalInitialDir _horizontalInitialDirection;
+    [SerializeField, ShowIf(nameof(IsHorizontal))] private HorizontalInitialDir _horizontalInitialDirection;
 
     protected override void Setup()
     {
         base.Setup();
         SetImpassable();
         _enemy = Resources.Load<GameObject>("GDTools Prefabs/Grid Objects/Enemy");
-        Oxygen.OnOxygenThresholdCrossed += WakeYoAssUp;
+        Oxygen.OnUnderOxygenThreshold += WakeYoAssUp;
+    }
+
+    public void TransferMovementParams(MovementType movement, VerticalInitialDir dir)
+    {
+        _robotMovementType = movement;
+        _verticalInitialDirection = dir;
+    }
+
+    public void TransferMovementParams(MovementType movement, HorizontalInitialDir dir)
+    {
+        _robotMovementType = movement;
+        _horizontalInitialDirection = dir;
     }
 
     void WakeYoAssUp()
@@ -23,7 +36,7 @@ public class GridSleepingEnemy : GridObject
         GridEnemy temp = Instantiate(_enemy, transform.position, Quaternion.identity).GetComponent<GridEnemy>();
         if (IsVertical()) { temp.TransferMovementParams(_robotMovementType, _verticalInitialDirection); }
         else { temp.TransferMovementParams(_robotMovementType, _horizontalInitialDirection); }
-        Oxygen.OnOxygenThresholdCrossed -= WakeYoAssUp;
+        Oxygen.OnUnderOxygenThreshold -= WakeYoAssUp;
         Destroy(gameObject);
     }
 }

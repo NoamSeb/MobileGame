@@ -7,6 +7,10 @@ public class GridEnemy : GridObject
 {
     [ShowNonSerializedField] private float _moveDuration;
     [ShowNonSerializedField] private int _currentRotation = 0;
+    private GameObject _sleepingEnemy;
+
+    [SerializeField] private Sprite _verticalSprite, _horizontalSprite;
+    private SpriteRenderer _skin;
 
     public enum MovementType
     {
@@ -46,9 +50,13 @@ public class GridEnemy : GridObject
     protected override void Setup()
     {
         base.Setup();
+        _skin = GetComponent<SpriteRenderer>();
         _moveDuration = GameManager.Instance.PlayerScript.MoveDuration / 2f;
+        _sleepingEnemy = Resources.Load<GameObject>("GDTools Prefabs/Grid Objects/SleepingEnemy");
         PlayerGridMovement.OnActionExecuted += StartMovement;
+        Oxygen.OnOverOxygenThreshold += ReturnToMimir;
         SetupRotation();
+        InvertRotation();
     }
 
     void SetupRotation()
@@ -56,6 +64,7 @@ public class GridEnemy : GridObject
         switch (_movementType)
         {
             case MovementType.Vertical:
+                _skin.sprite = _verticalSprite;
                 switch (_verticalInitialDirection)
                 {
                     case VerticalInitialDir.Up:
@@ -65,6 +74,7 @@ public class GridEnemy : GridObject
                 }
                 break;
             case MovementType.Horizontal:
+                _skin.sprite = _horizontalSprite;
                 switch (_horizontalInitialDirection)
                 {
                     case HorizontalInitialDir.Right:
@@ -84,19 +94,12 @@ public class GridEnemy : GridObject
 
     IEnumerator MoveCoroutine()
     {
+        InvertRotation();
         Vector2Int direction = GetDirectionVector();
         Vector2Int targetPosition = (Vector2Int)_gridPosition + direction;
 
         Vector3 startPosition = transform.position;
         Vector3 targetPositionWorld = _grid.GetCellCenterWorld(new Vector3Int(targetPosition.x, targetPosition.y, 0));
-
-        if (!IsNextGridCaseAValidDestination(targetPositionWorld))
-        {
-            InvertRotation();
-            direction = GetDirectionVector();
-            targetPosition = (Vector2Int)_gridPosition + direction;
-            targetPositionWorld = _grid.GetCellCenterWorld(new Vector3Int(targetPosition.x, targetPosition.y, 0));
-        }
 
         float elapsedTime = 0f;
 
@@ -109,8 +112,6 @@ public class GridEnemy : GridObject
 
         transform.position = targetPositionWorld;
         _gridPosition = (Vector3Int)targetPosition;
-
-
     }
 
     void InvertRotation()
@@ -168,5 +169,14 @@ public class GridEnemy : GridObject
                 playerOxygenScript.SetOxygenToZero();
             }
         }
+    }
+
+    void ReturnToMimir()
+    {
+        GridSleepingEnemy temp = Instantiate(_sleepingEnemy, transform.position, Quaternion.identity).GetComponent<GridSleepingEnemy>();
+        if (IsVertical()) { temp.TransferMovementParams(_movementType, _verticalInitialDirection); }
+        else { temp.TransferMovementParams(_movementType, _horizontalInitialDirection); }
+        Oxygen.OnOverOxygenThreshold -= ReturnToMimir;
+        Destroy(gameObject);
     }
 }

@@ -23,6 +23,7 @@ public class GridObject : MonoBehaviour
         PlaceItemInGrid();
 
         PlayerGridMovement.OnInteraction += Interaction;
+        PlayerMirrorMovement.OnInteraction += MirrorInteraction;
     }
 
     [ExecuteInEditMode]
@@ -45,10 +46,18 @@ public class GridObject : MonoBehaviour
     {
         if (obj == this) { Effect(); }
     }
+    protected void MirrorInteraction(GridObject obj)
+    {
+        if (obj == this) { MirrorEffect(); }
+    }
     protected virtual void Effect() { throw new NotImplementedException(); }
+    protected virtual void MirrorEffect() { Effect(); }
 
     protected void SetImpassable()
     {
         IsImpassable = true;
     }
+
+    [ExecuteInEditMode]
+    protected virtual void BugFix() { }
 }

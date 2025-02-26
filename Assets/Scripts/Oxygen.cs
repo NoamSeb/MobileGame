@@ -81,9 +81,15 @@ public class Oxygen : MonoBehaviour
         return _currentOxygen <= 0;
     }
 
+    public static event Action OnOxygenThresholdCrossed;
     public void LoseOxygen()
     {
         _currentOxygen -= _lossOxygen;
+
+        if (_currentOxygen == 4)
+        {
+            OnOxygenThresholdCrossed?.Invoke();
+        }
 
         if (_currentOxygen <= 0)
         {

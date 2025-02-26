@@ -6,7 +6,6 @@ using NaughtyAttributes;
 using Codice.CM.Client.Differences;
 using UnityEngine.Tilemaps;
 using TMPro;
-using static GridRotationLocker;
 
 public class PlayerGridMovement : MonoBehaviour
 {

@@ -7,45 +7,56 @@ public class GridEnemy : GridObject
 {
     [ShowNonSerializedField] private float _moveDuration;
     [ShowNonSerializedField] private int _currentRotation = 0;
+    private GameObject _sleepingEnemy;
+
+    [SerializeField] private Sprite _verticalSprite, _horizontalSprite;
+    private SpriteRenderer _skin;
 
     public enum MovementType
     {
-        None,
         Vertical,
         Horizontal
     }
-    [SerializeField, ValidateInput(nameof(IsMovementNone), "None is invalid")] 
-    private MovementType _movementType;
+    [SerializeField] private MovementType _movementType;
     bool IsVertical() { return _movementType == MovementType.Vertical; }
     bool IsHorizontal() { return _movementType == MovementType.Horizontal; }
-    bool IsMovementNone() { return _movementType != MovementType.None; }
 
     public enum VerticalInitialDir
     {
-        None,
         Up,
         Down
     }
-    [SerializeField, ShowIf(nameof(IsVertical)), ValidateInput(nameof(IsVerticalNone), "None is invalid")] 
-    private VerticalInitialDir _verticalInitialDirection;
-    bool IsVerticalNone() { return _verticalInitialDirection != VerticalInitialDir.None; }
+    [SerializeField, ShowIf(nameof(IsVertical))] private VerticalInitialDir _verticalInitialDirection;
 
     public enum HorizontalInitialDir
     {
-        None,
         Right,
         Left
     }
-    [SerializeField, ShowIf(nameof(IsHorizontal)), ValidateInput(nameof(IsHorizontalNone), "None is invalid")] 
-    private HorizontalInitialDir _horizontalInitialDirection;
-    bool IsHorizontalNone() { return _horizontalInitialDirection != HorizontalInitialDir.None; }
+    [SerializeField, ShowIf(nameof(IsHorizontal))] private HorizontalInitialDir _horizontalInitialDirection;
+
+    public void TransferMovementParams(MovementType movement, VerticalInitialDir dir)
+    {
+        _movementType = movement;
+        _verticalInitialDirection = dir;
+    }
+
+    public void TransferMovementParams(MovementType movement, HorizontalInitialDir dir)
+    {
+        _movementType = movement;
+        _horizontalInitialDirection = dir;
+    }
 
     protected override void Setup()
     {
         base.Setup();
-        _moveDuration = GameManager.Instance.PlayerScript.MoveDuration/2f;
+        _skin = GetComponent<SpriteRenderer>();
+        _moveDuration = GameManager.Instance.PlayerScript.MoveDuration / 2f;
+        _sleepingEnemy = Resources.Load<GameObject>("GDTools Prefabs/Grid Objects/SleepingEnemy");
         PlayerGridMovement.OnActionExecuted += StartMovement;
+        Oxygen.OnOverOxygenThreshold += ReturnToMimir;
         SetupRotation();
+        InvertRotation();
     }
 
     void SetupRotation()
@@ -53,6 +64,7 @@ public class GridEnemy : GridObject
         switch (_movementType)
         {
             case MovementType.Vertical:
+                _skin.sprite = _verticalSprite;
                 switch (_verticalInitialDirection)
                 {
                     case VerticalInitialDir.Up:
@@ -62,6 +74,7 @@ public class GridEnemy : GridObject
                 }
                 break;
             case MovementType.Horizontal:
+                _skin.sprite = _horizontalSprite;
                 switch (_horizontalInitialDirection)
                 {
                     case HorizontalInitialDir.Right:
@@ -81,19 +94,12 @@ public class GridEnemy : GridObject
 
     IEnumerator MoveCoroutine()
     {
+        InvertRotation();
         Vector2Int direction = GetDirectionVector();
         Vector2Int targetPosition = (Vector2Int)_gridPosition + direction;
 
         Vector3 startPosition = transform.position;
         Vector3 targetPositionWorld = _grid.GetCellCenterWorld(new Vector3Int(targetPosition.x, targetPosition.y, 0));
-
-        if (!IsNextGridCaseAValidDestination(targetPositionWorld))
-        {
-            InvertRotation();
-            direction = GetDirectionVector();
-            targetPosition = (Vector2Int)_gridPosition + direction;
-            targetPositionWorld = _grid.GetCellCenterWorld(new Vector3Int(targetPosition.x, targetPosition.y, 0));
-        }
 
         float elapsedTime = 0f;
 
@@ -106,8 +112,6 @@ public class GridEnemy : GridObject
 
         transform.position = targetPositionWorld;
         _gridPosition = (Vector3Int)targetPosition;
-
-
     }
 
     void InvertRotation()
@@ -128,7 +132,7 @@ public class GridEnemy : GridObject
     bool IsNextGridCaseAValidDestination(Vector3 pos)
     {
         RaycastHit2D hit = Physics2D.Raycast(pos, pos, Mathf.Infinity);
-        if (hit.collider != null) 
+        if (hit.collider != null)
         {
             if (hit.collider.gameObject.TryGetComponent(out GridObject obj))
             {
@@ -167,14 +171,12 @@ public class GridEnemy : GridObject
         }
     }
 
-    [ExecuteInEditMode]
-    protected override void BugFix()
+    void ReturnToMimir()
     {
-        if (_movementType == MovementType.None) { throw new ArgumentException("Movement type shouldn't be None"); }
-        if ((IsVertical() && _verticalInitialDirection == VerticalInitialDir.None)
-            || (IsHorizontal() && _horizontalInitialDirection == HorizontalInitialDir.None))
-        {
-            throw new ArgumentException("Direction shouldn't be None");
-        }
+        GridSleepingEnemy temp = Instantiate(_sleepingEnemy, transform.position, Quaternion.identity).GetComponent<GridSleepingEnemy>();
+        if (IsVertical()) { temp.TransferMovementParams(_movementType, _verticalInitialDirection); }
+        else { temp.TransferMovementParams(_movementType, _horizontalInitialDirection); }
+        Oxygen.OnOverOxygenThreshold -= ReturnToMimir;
+        Destroy(gameObject);
     }
 }

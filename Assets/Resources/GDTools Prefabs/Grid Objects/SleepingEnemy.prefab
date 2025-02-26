@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1594247958636510859}
   - component: {fileID: 2701975544124028324}
   m_Layer: 7
-  m_Name: Barrier
+  m_Name: SleepingEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -101,6 +101,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f95df972435e7f74b87dc15fa0a79c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _robotMovementType: 0
+  _verticalInitialDirection: 0
+  _horizontalInitialDirection: 0
 --- !u!61 &2701975544124028324
 BoxCollider2D:
   m_ObjectHideFlags: 0

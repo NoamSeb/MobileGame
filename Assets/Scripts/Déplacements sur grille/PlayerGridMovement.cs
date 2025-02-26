@@ -128,13 +128,13 @@ public class PlayerGridMovement : MonoBehaviour
     public void AddAction(ActionType action)
     {
         _actionQueue.Enqueue(action);
-        _playerMirror.AddAction(action);
+        if (_playerMirror != null) { _playerMirror.AddAction(action); }
     }
 
     public void ExecuteActions()
     {
         _executeAction = true;
-        _playerMirror.ExecuteActions();
+        if (_playerMirror != null) { _playerMirror.ExecuteActions(); }
     }
 
     private void Update()

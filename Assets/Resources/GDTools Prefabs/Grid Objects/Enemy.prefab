@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _verticalSprite: {fileID: 21300000, guid: e4513e7ebb374be4393fb16c91394c4b, type: 3}
-  _horizontalSprite: {fileID: 0}
+  _horizontalSprite: {fileID: 21300000, guid: 4fb855338ea483d4aaa10c406acae978, type: 3}
   _movementType: 2
   _verticalInitialDirection: 1
   _horizontalInitialDirection: 2

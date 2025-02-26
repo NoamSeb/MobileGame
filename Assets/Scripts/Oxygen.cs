@@ -44,7 +44,7 @@ public class Oxygen : MonoBehaviour
             _oxygenSlider.value = _currentOxygen;
         }
 
-        GridOxygenBottle.OnOxygenBottleRefill += GainOxygen;
+        GridBatteryModifier.OnBatteryModification += GainOxygen;
     }
 
     void FixedUpdate()
@@ -81,9 +81,15 @@ public class Oxygen : MonoBehaviour
         return _currentOxygen <= 0;
     }
 
+    public static event Action OnOxygenThresholdCrossed;
     public void LoseOxygen()
     {
         _currentOxygen -= _lossOxygen;
+
+        if (_currentOxygen == 4)
+        {
+            OnOxygenThresholdCrossed?.Invoke();
+        }
 
         if (_currentOxygen <= 0)
         {
@@ -99,9 +105,7 @@ public class Oxygen : MonoBehaviour
 
     public void GainOxygen(int amount)
     {
-        if (amount <= 0) { throw new ArgumentException("The value should be a strict positive"); }
-        _currentOxygen = Mathf.Clamp(_currentOxygen + amount, 0, _maxOxygen);
-        Debug.Log($"Oxygène augmenté de {amount} Nouveau total : {_currentOxygen}");
+        _currentOxygen += amount;
     }
 
     private void Die()

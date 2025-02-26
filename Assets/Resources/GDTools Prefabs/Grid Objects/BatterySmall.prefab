@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2485536994506532453}
   - component: {fileID: 2533632918739931300}
   - component: {fileID: 1234027804124704176}
-  - component: {fileID: 153977272998217363}
+  - component: {fileID: 4945531657636740202}
   m_Layer: 7
-  m_Name: Bottle
+  m_Name: BatterySmall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -135,7 +135,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &153977272998217363
+--- !u!114 &4945531657636740202
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7498862407544785287}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 466744ee0f1b8a24282abb7a80b356c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e5fd1a997c98f64799e3778a0ec7b76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _oxygenRefillAmount: 10
+  _batteryModifyAmount: 0

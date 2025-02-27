@@ -9,9 +9,7 @@ public class GameManager : MonoBehaviour
 {
     //L'objet GameManager est un singleton pr�sent dans chaque sc�ne
     public static GameManager Instance;
-    public static int CurrentLevelID { private get; set; }
-
-    private Level[] _levels = { };
+    public static int CurrentLevelID { get; set; }
 
     public Grid PlayGrid { get; private set; }
     public Slider OxygenSlider { get; private set; }
@@ -25,7 +23,6 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
-        _levels = FindObjectsByType<Level>(FindObjectsSortMode.None);
         Level.OnLevelLoad += FindNeededObjects;
     }
 

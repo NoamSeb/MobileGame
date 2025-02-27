@@ -13,6 +13,14 @@ public class LevelController : MonoBehaviour
         public GameObject level;
     }
 
+    private void Awake()
+    {
+        foreach (LevelStructure level in Levels)
+        {
+            level.level.SetActive(false);
+        }
+    }
+
     public void GetActiveLevel()
     {
         foreach (LevelStructure level in Levels)

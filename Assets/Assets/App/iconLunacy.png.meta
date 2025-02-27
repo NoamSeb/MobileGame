@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      iconLunacy_0: 1328195943716363055
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

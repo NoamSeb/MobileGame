@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
 using UnityEngine;
@@ -8,7 +9,9 @@ public class GameManager : MonoBehaviour
 {
     //L'objet GameManager est un singleton pr�sent dans chaque sc�ne
     public static GameManager Instance;
-    public static int CurrentLevelID { get; set; }
+    public static int CurrentLevelID { private get; set; }
+
+    private Level[] _levels = { };
 
     public Grid PlayGrid { get; private set; }
     public Slider OxygenSlider { get; private set; }
@@ -22,30 +25,16 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
-        CheckForCorrectSceneSetup();
-
-        PlayGrid = GameObject.FindGameObjectWithTag("Playzone").GetComponent<Grid>();
-        OxygenSlider = GameObject.FindGameObjectWithTag("Oxygen").GetComponent<Slider>();
-        PlayerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerGridMovement>();
-        MirrorScript = FindFirstObjectByType<PlayerMirrorMovement>();
+        _levels = FindObjectsByType<Level>(FindObjectsSortMode.None);
+        Level.OnLevelLoad += FindNeededObjects;
     }
 
-    void CheckForCorrectSceneSetup()
+    void FindNeededObjects(Level level)
     {
-        if (!GameObject.FindGameObjectWithTag("Playzone"))
-        {
-            throw new MissingComponentException("Missing Grid in scene");
-        }
-
-        if (!GameObject.FindGameObjectWithTag("Oxygen"))
-        {
-            throw new MissingComponentException("Missing Oxygen bar in scene");
-        }
-
-        if (!GameObject.FindGameObjectWithTag("Player"))
-        {
-            throw new MissingComponentException("Missing Player in scene");
-        }
+        PlayGrid = level.PlayGrid;
+        OxygenSlider = level.Slider;
+        PlayerScript = level.Movement;
+        MirrorScript = level.MirrorMovement;
     }
 
     public static void OnSave(int currentScore)
@@ -75,9 +64,5 @@ public class GameManager : MonoBehaviour
 
         SaveSystem.SavePlayer(playerData);
     }
-    public void SetCurrentBiome(BiomeManager biome)
-    {
-        PlayerPrefs.SetString("CurrentBiome", biome.name); // sauvegarde le nom du biome
-        PlayerPrefs.Save();
-    }
+    
 }

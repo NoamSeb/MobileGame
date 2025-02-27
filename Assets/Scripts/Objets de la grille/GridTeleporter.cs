@@ -1,5 +1,6 @@
-    using NaughtyAttributes;
+using NaughtyAttributes;
 using System;
+using UnityEditor;
 using UnityEngine;
 
 public class GridTeleporter : GridObject
@@ -11,7 +12,9 @@ public class GridTeleporter : GridObject
     public void CreateSecondTeleporter()
     {
         PlaceItemInGrid();
-        GridTeleporter temp = Instantiate(this.gameObject).GetComponent<GridTeleporter>();
+        GameObject obj = Resources.Load<GameObject>("GDTools Prefabs/Grid Objects/Teleporter");
+        GameObject objInstantiated = (GameObject)PrefabUtility.InstantiatePrefab(obj);
+        GridTeleporter temp = objInstantiated.GetComponent<GridTeleporter>();
         temp.PlaceItemInGrid();
 
         SetOtherTeleporter(temp);

@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     //L'objet GameManager est un singleton pr�sent dans chaque sc�ne
     public static GameManager Instance;
-    public static int CurrentLevelID { private get; set; }
+    public static int CurrentLevelID { get; set; }
 
     public Grid PlayGrid { get; private set; }
     public Slider OxygenSlider { get; private set; }
@@ -75,5 +75,9 @@ public class GameManager : MonoBehaviour
 
         SaveSystem.SavePlayer(playerData);
     }
-    
+    public void SetCurrentBiome(BiomeManager biome)
+    {
+        PlayerPrefs.SetString("CurrentBiome", biome.name); // sauvegarde le nom du biome
+        PlayerPrefs.Save();
+    }
 }

@@ -26,6 +26,7 @@ public class GridLaserEmittor : GridObject
 
     [SerializeField] Direction _direction;
     private Vector3Int _setupDirection;
+    private int _rotation;
 
     private void OnValidate()
     {
@@ -33,18 +34,22 @@ public class GridLaserEmittor : GridObject
         {
             case Direction.Left:
                 transform.rotation = Quaternion.Euler(0, 0, 90);
+                _rotation = 90;
                 _setupDirection = Vector3Int.left;
                 break;
             case Direction.Down:
                 transform.rotation = Quaternion.Euler(0, 0, 180);
+                _rotation = 180;
                 _setupDirection = Vector3Int.down;
                 break;
             case Direction.Right:
                 transform.rotation = Quaternion.Euler(0, 0, -90);
+                _rotation = -90;
                 _setupDirection = Vector3Int.right;
                 break;
             case Direction.Up:
                 transform.rotation = Quaternion.identity;
+                _rotation = 0;
                 _setupDirection = Vector3Int.up;
                 break;
         }
@@ -61,7 +66,7 @@ public class GridLaserEmittor : GridObject
         for (int i = 1; i < _laserLength; i++)
         {
             GameObject tempBlock = Instantiate(laserBlock, _grid.GetCellCenterWorld(tempGridPos), Quaternion.identity);
-            tempBlock.GetComponent<GridLaserBlock>().SecondSetup(_playerPos, _killDistance);
+            tempBlock.GetComponent<GridLaserBlock>().SecondSetup(_playerPos, _killDistance, _rotation);
             tempGridPos += _setupDirection;
         }
     }

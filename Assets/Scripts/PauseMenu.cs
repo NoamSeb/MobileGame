@@ -40,6 +40,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
+        _audioSource = Camera.main.GetComponent<AudioSource>();
         _audioSource.volume = PlayerPrefs.GetFloat("volume");
     }
 

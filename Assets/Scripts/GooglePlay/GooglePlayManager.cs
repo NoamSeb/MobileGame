@@ -74,7 +74,7 @@ public class GooglePlayManager : MonoBehaviour
     /// <param name="achievementID"></param>
     public void UnlockAchievement(string achievementID)
     {
-        PlayGamesPlatform.Instance.ReportProgress(achievementID, 100.0f, success =>
+        Social.ReportProgress(achievementID, 100.0f, success =>
         {
             Social.ShowAchievementsUI();
         });

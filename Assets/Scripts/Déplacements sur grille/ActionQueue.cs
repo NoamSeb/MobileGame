@@ -62,14 +62,6 @@ public class ActionQueue : MonoBehaviour
         UpdateUI();
     }
 
-    public void EraseLastAction()
-    {
-        if (actions.Count > 0) 
-        { 
-            actions.RemoveAt(actions.Count - 1); 
-        }
-    }
-
     public void ClearActions()
     {
         actions.Clear();

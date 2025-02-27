@@ -1,82 +1,79 @@
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BiomeManager : MonoBehaviour
 {
-    [SerializeField]
-    private List<BiomeStructure> Levels = new List<BiomeStructure>();
-
     [Serializable]
     public struct BiomeStructure
     {
-        public int idBiome; 
-        public GameObject biome; 
-        public List<GameObject> levelPrefab;
+        public int idBiome;
+        public GameObject biome;
     }
 
-    private int currentBiomeIndex = 0; 
-    private GameObject activeLevelPrefab = null; 
+    public List<BiomeStructure> Biomes; 
+    private int _currentBiomeIndex = 0; 
 
     void Start()
     {
-        currentBiomeIndex = PlayerPrefs.GetInt("CurrentBiomeIndex", 0);
-        ActivateBiome(currentBiomeIndex);
+        LoadSavedBiome();
     }
 
-    private void ActivateBiome(int biomeIndex)
+    void LoadSavedBiome()
     {
-        for (int i = 0; i < Levels.Count; i++)
+        if (PlayerPrefs.HasKey("CurrentBiome"))
         {
-            if (Levels[i].biome != null)
+            string savedBiome = PlayerPrefs.GetString("CurrentBiome");
+            for (int i = 0; i < Biomes.Count; i++)
             {
-                Levels[i].biome.SetActive(i == biomeIndex);
+                if (Biomes[i].biome.name == savedBiome)
+                {
+                    _currentBiomeIndex = i;
+                    break;
+                }
             }
         }
+        UpdateBiomeVisibility();
+    }
 
-        PlayerPrefs.SetInt("CurrentBiomeIndex", biomeIndex);
+    void UpdateBiomeVisibility()
+    {
+        for (int i = 0; i < Biomes.Count; i++)
+        {
+            Biomes[i].biome.SetActive(i == _currentBiomeIndex); // active uniquement le biome actuel
+        }
+
+        // associe le LevelController du biome actif
+        LevelController activeLevelController = Biomes[_currentBiomeIndex].biome.GetComponent<LevelController>();
+        if (activeLevelController != null)
+        {
+            activeLevelController.GetActiveLevel();
+        }
+
+        // sauvegarde du biome actuel
+        PlayerPrefs.SetString("CurrentBiome", Biomes[_currentBiomeIndex].biome.name);
         PlayerPrefs.Save();
     }
 
-    public void OpenLevel(int levelIndex)
-    {
-        if (activeLevelPrefab != null) return; // empêche d'ouvrir plusieurs niveaux en même temps
-
-        if (levelIndex >= 0 && levelIndex < Levels[currentBiomeIndex].levelPrefab.Count)
-        {
-            activeLevelPrefab = Levels[currentBiomeIndex].levelPrefab[levelIndex];
-            activeLevelPrefab.SetActive(true);
-        }
-    }
-
-    // ferme le niveau et revient au biome
-    public void CloseLevel()
-    {
-        if (activeLevelPrefab != null)
-        {
-            activeLevelPrefab.SetActive(false);
-            activeLevelPrefab = null;
-        }
-    }
-
-    // passe au biome suivant (si possible)
     public void NextBiome()
     {
-        if (currentBiomeIndex < Levels.Count - 1)
+        if (_currentBiomeIndex < Biomes.Count - 1)
         {
-            currentBiomeIndex++;
-            ActivateBiome(currentBiomeIndex);
+            _currentBiomeIndex++;
+            UpdateBiomeVisibility();
         }
     }
 
-    // revient au biome précédent (si possible)
     public void PreviousBiome()
     {
-        if (currentBiomeIndex > 0)
+        if (_currentBiomeIndex > 0)
         {
-            currentBiomeIndex--;
-            ActivateBiome(currentBiomeIndex);
+            _currentBiomeIndex--;
+            UpdateBiomeVisibility();
         }
     }
 }
+
+
+
 

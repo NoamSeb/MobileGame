@@ -1320,7 +1320,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5d7662abd6e0a249b6663241f58d58e, type: 3}
---- !u!1001 &1132270231
+--- !u!1001 &1378610420
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1364,14 +1364,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1926608080}
-    - target: {fileID: 1006371549331961985, guid: 5b3d8c5b859ff794488390697e943727, type: 3}
-      propertyPath: m_PlaneDistance
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2978821573464728959, guid: 5b3d8c5b859ff794488390697e943727, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3008616954300264882, guid: 5b3d8c5b859ff794488390697e943727, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1404,14 +1396,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3586551125916601485, guid: 5b3d8c5b859ff794488390697e943727, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 134
-      objectReference: {fileID: 0}
-    - target: {fileID: 3586551125916601485, guid: 5b3d8c5b859ff794488390697e943727, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 207
-      objectReference: {fileID: 0}
     - target: {fileID: 5197939809263187659, guid: 5b3d8c5b859ff794488390697e943727, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1438,6 +1422,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5197939809263187659, guid: 5b3d8c5b859ff794488390697e943727, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6253594422704516645, guid: 5b3d8c5b859ff794488390697e943727, type: 3}
+      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6253594422704516645, guid: 5b3d8c5b859ff794488390697e943727, type: 3}
@@ -2375,7 +2363,7 @@ SceneRoots:
   - {fileID: 736107068}
   - {fileID: 2102435506}
   - {fileID: 2041975204}
-  - {fileID: 1132270231}
   - {fileID: 593106043}
   - {fileID: 236035656}
   - {fileID: 320864220}
+  - {fileID: 1378610420}

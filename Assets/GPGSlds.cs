@@ -24,6 +24,7 @@
 
 public static class GPGSlds
 {
+        public const string achievement_become_a_space_pirate_like_captain_harlock = "CgkIuv6JzuIEEAIQDQ"; // <GPGSID>
         public const string achievement_mirror_my_beautiful_mirror = "CgkIuv6JzuIEEAIQBQ"; // <GPGSID>
         public const string achievement_unblocked_track = "CgkIuv6JzuIEEAIQBw"; // <GPGSID>
         public const string achievement_care_under_surveillance = "CgkIuv6JzuIEEAIQCA"; // <GPGSID>
@@ -32,6 +33,7 @@ public static class GPGSlds
         public const string achievement_see_double = "CgkIuv6JzuIEEAIQAw"; // <GPGSID>
         public const string achievement_ghost_are_you_there = "CgkIuv6JzuIEEAIQBA"; // <GPGSID>
         public const string achievement_fatal_burn = "CgkIuv6JzuIEEAIQCg"; // <GPGSID>
+        public const string achievement_congested_track = "CgkIuv6JzuIEEAIQDA"; // <GPGSID>
         public const string achievement_eternal_rest = "CgkIuv6JzuIEEAIQBg"; // <GPGSID>
         public const string achievement_whos_the_craziest = "CgkIuv6JzuIEEAIQCw"; // <GPGSID>
 

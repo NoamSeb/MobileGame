@@ -9,30 +9,32 @@ using TMPro;
 
 public class PauseMenu : MonoBehaviour
 {
-    private bool IsPaused = false;
-    
-    [Header("Load screen information")] [SerializeField]
+    //private bool IsPaused = false;
+
+    [Header("Load screen information")]
+    [SerializeField]
     private GameObject _loadScreen;
-    
+
     [SerializeField] private TextMeshProUGUI _progressValue;
-    
+
     [Header("Menu elements")]
     [SerializeField] private GameObject _pauseMenuUI;
     [SerializeField] private GameObject _pauseButton;
-    
-    [Header("Level Manager")] [SerializeField]
+
+    [Header("Level Manager")]
+    [SerializeField]
     private LevelManager _levelManager;
-    
+
     [Foldout("Events")]
     [SerializeField] UnityEvent OpenSettingsMenu;
     [Foldout("Events")]
     [SerializeField] UnityEvent CloseSettingsMenu;
-    
+
     [Foldout("Audio")]
     [SerializeField] private AudioClip _launchSFX;
     [Foldout("Audio")]
-    [SerializeField] private AudioSource _audioSource;
-    
+    private AudioSource _audioSource;
+
     [Foldout("Settings")]
     [SerializeField] Slider _volume;
     [Foldout("Settings")]
@@ -40,6 +42,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
+        _audioSource = Camera.main.GetComponent<AudioSource>();
         _audioSource.volume = PlayerPrefs.GetFloat("volume");
     }
 
@@ -47,16 +50,16 @@ public class PauseMenu : MonoBehaviour
     {
         _pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
-        IsPaused = true;
+        //IsPaused = true;
     }
-    
+
     public void Resume()
     {
         _pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
-        IsPaused = false;
+        //IsPaused = false;
     }
-    
+
     #region Settings
 
     public void OpenSettings()
@@ -68,7 +71,7 @@ public class PauseMenu : MonoBehaviour
     private void GetSettingsValue()
     {
         _volume.value = PlayerPrefs.GetFloat("Volume");
-        _isHapticEnable.isOn = PlayerPrefs.GetInt("IsHapticEnabled") == 1 ? true : false;
+        _isHapticEnable.isOn = PlayerPrefs.GetInt("IsHapticEnabled") == 1;
     }
     public void CloseSettings()
     {
@@ -78,7 +81,7 @@ public class PauseMenu : MonoBehaviour
     public void SaveSettings()
     {
         PlayerPrefs.SetFloat("Volume", _volume.value);
-        PlayerPrefs.SetString("IsHapticEnable", _isHapticEnable.isOn ? "true" : "false");
+        PlayerPrefs.SetInt("IsHapticEnabled", _isHapticEnable.isOn ? 1 : 0);
         PlayerPrefs.Save();
 
         _audioSource.volume = _volume.value;
@@ -89,7 +92,7 @@ public class PauseMenu : MonoBehaviour
     {
         StartCoroutine(PlayLaunchSFXAndLoadMenuScene());
     }
-    
+
     // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator PlayLaunchSFXAndLoadMenuScene()
     {
@@ -107,7 +110,7 @@ public class PauseMenu : MonoBehaviour
         }
         SceneManager.LoadSceneAsync("MainMenu");
     }
-    
+
     private IEnumerator LoadNextLevelAsync()
     {
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync("MainMenu");

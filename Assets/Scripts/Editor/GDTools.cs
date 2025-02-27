@@ -21,7 +21,7 @@ public class GDTools : EditorWindow
         if (player != null) { player.SetPositionInGrid(); }
 
         PlayerMirrorMovement mirror = FindFirstObjectByType<PlayerMirrorMovement>();
-        if (player != null) {  mirror.SetPositionInGrid(); }
+        if (mirror != null) {  mirror.SetPositionInGrid(); }
     }
 
     bool _isInitialize;
@@ -35,7 +35,7 @@ public class GDTools : EditorWindow
 
         GameObject obj = (GameObject)Resources.Load("GDTools Prefabs/Grid Objects/" +  objName);
 
-        Instantiate(obj, Vector3.zero, Quaternion.identity);
+        PrefabUtility.InstantiatePrefab(obj);
     }
 
     private void OnGUI()
@@ -69,12 +69,21 @@ public class GDTools : EditorWindow
 
                 foreach (GameObject obj in objects)
                 {
-                    Instantiate(obj, Vector3.zero, Quaternion.identity);
+                    PrefabUtility.InstantiatePrefab(obj);
                 }
 
                 SnapAllObjects();
 
                 _isInitialize = false;
+            }
+
+            if (GUILayout.Button("Reset UI Tab"))
+            {
+                Canvas temp = Resources.Load<Canvas>("GDTools Prefabs/Initialisation/UI");
+                GameObject toDestroy = GameObject.Find("UI");
+                if (toDestroy != null) DestroyImmediate(toDestroy);
+                temp = (Canvas)PrefabUtility.InstantiatePrefab(temp);
+                temp.worldCamera = Camera.main;
             }
         }
 

@@ -7,7 +7,7 @@ public static class SaveSystem
     public static void SavePlayer(PlayerData data)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/PlayerInfo.dat";
+        string path = Application.persistentDataPath + "/PlayerInfo.lun";
         FileStream stream = new FileStream(path, FileMode.Create);
         
         formatter.Serialize(stream, data);
@@ -16,21 +16,23 @@ public static class SaveSystem
 
     public static PlayerData LoadPlayer()
     {
-        string path = Application.persistentDataPath + "/PlayerInfo.dat";
+        PlayerData data;
+        string path = Application.persistentDataPath + "/PlayerInfo.lun";
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
             
-            PlayerData data = formatter.Deserialize(stream) as PlayerData;
+            data = formatter.Deserialize(stream) as PlayerData;
             stream.Close();
             
-            return data;
         }
         else
         {
-            Debug.Log("No save file found");
-            return null;
+            data = new PlayerData();
+            SavePlayer(data);
+            
         }
+        return data;
     }
 }

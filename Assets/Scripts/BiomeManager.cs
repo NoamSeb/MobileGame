@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BiomeManager : MonoBehaviour
@@ -11,8 +12,11 @@ public class BiomeManager : MonoBehaviour
         public GameObject biome;
     }
 
-    public List<BiomeStructure> Biomes; 
-    private int _currentBiomeIndex = 0; 
+    public List<BiomeStructure> Biomes;
+    private int _currentBiomeID = 1;
+    
+    [Header("Glitch Filter")]
+    [SerializeField] SwitchScreen _glitchFilter;
 
     void Start()
     {
@@ -21,59 +25,64 @@ public class BiomeManager : MonoBehaviour
 
     void LoadSavedBiome()
     {
-        if (PlayerPrefs.HasKey("CurrentBiome"))
+        PlayerData.DataElement LastLevel;
+        PlayerData data = SaveSystem.LoadPlayer();
+        if (data != null)
         {
-            string savedBiome = PlayerPrefs.GetString("CurrentBiome");
-            for (int i = 0; i < Biomes.Count; i++)
+            LastLevel = data.data.LastOrDefault();
+            if (LastLevel.idLevel != null)
             {
-                if (Biomes[i].biome.name == savedBiome)
-                {
-                    _currentBiomeIndex = i;
-                    break;
-                }
+                _currentBiomeID = LastLevel.biome.idBiome;
             }
+        }
+        else
+        {
+            _currentBiomeID = 1;
         }
         UpdateBiomeVisibility();
     }
 
     void UpdateBiomeVisibility()
     {
-        for (int i = 0; i < Biomes.Count; i++)
-        {
-            Biomes[i].biome.SetActive(i == _currentBiomeIndex); // active uniquement le biome actuel
-        }
+        Biomes.Find(b => b.idBiome == _currentBiomeID).biome.SetActive(true);
+        // for (int i = 0; i < Biomes.Count; i++)
+        // {
+        //     Biomes[i].biome.SetActive(i == _currentBiomeID); // active uniquement le biome actuel
+        // }
 
         // associe le LevelController du biome actif
-        LevelController activeLevelController = Biomes[_currentBiomeIndex].biome.GetComponent<LevelController>();
+        LevelController activeLevelController = Biomes[_currentBiomeID].biome.GetComponent<LevelController>();
         if (activeLevelController != null)
         {
             activeLevelController.GetActiveLevel();
         }
 
         // sauvegarde du biome actuel
-        PlayerPrefs.SetString("CurrentBiome", Biomes[_currentBiomeIndex].biome.name);
-        PlayerPrefs.Save();
+        // PlayerPrefs.SetString("CurrentBiome", Biomes[_currentBiomeIndex].biome.name);
+        // PlayerPrefs.Save();
     }
 
     public void NextBiome()
     {
-        if (_currentBiomeIndex < Biomes.Count - 1)
+        if (_currentBiomeID >= 1)
         {
-            _currentBiomeIndex++;
+            _currentBiomeID++;
+            _glitchFilter._prevScreen = Biomes.Find(b => b.idBiome == _currentBiomeID).biome;
+            _glitchFilter._nextScreen = Biomes.Find(b => b.idBiome == _currentBiomeID+1).biome;
+            _glitchFilter.OnChangedScreen();
             UpdateBiomeVisibility();
         }
     }
 
     public void PreviousBiome()
     {
-        if (_currentBiomeIndex > 0)
+        if (_currentBiomeID > 1)
         {
-            _currentBiomeIndex--;
+            _currentBiomeID--;
+            _glitchFilter._prevScreen = Biomes.Find(b => b.idBiome == _currentBiomeID).biome;
+            _glitchFilter._nextScreen = Biomes.Find(b => b.idBiome == _currentBiomeID-1).biome;
+            _glitchFilter.OnChangedScreen();
             UpdateBiomeVisibility();
         }
     }
 }
-
-
-
-

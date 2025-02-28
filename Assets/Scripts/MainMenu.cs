@@ -53,7 +53,7 @@ public class MainMenu : MonoBehaviour
         if (_launchSFX != null)
         {
             _audioSource.PlayOneShot(_launchSFX);
-            _levelManager.ChangeLevel("DevNoam");
+            _levelManager.ChangeLevel("DevArthurLevelSelector");
             _loadScreen.SetActive(true);
             yield return new WaitForSeconds(_launchSFX.length);
             StartCoroutine(LoadNextLevelAsync());

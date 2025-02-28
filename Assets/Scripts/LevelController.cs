@@ -13,23 +13,58 @@ public class LevelController : MonoBehaviour
         public GameObject level;
     }
 
-   /// <summary>
-   /// The idea here is to get the CurrentLevelID from the Game Manager
-   /// and set this variable with the idLevel to improve the save system
-   /// </summary>
-    private void GetActiveLevel()
+    [SerializeField] GameObject TEMPDONTKEEP;
+
+    private void Awake()
     {
         foreach (LevelStructure level in Levels)
         {
-            GameObject levelObject = GameObject.Find($"Level_{level.idLevel}");
-        
-            if (levelObject != null && levelObject.activeInHierarchy)
-            {
-                Debug.Log($"Active level found: ID {level.idLevel}");
-                GameManager.CurrentLevelID = level.idLevel;
-            }
+            if (level.idLevel == 0) { throw new ArgumentNullException($"{level.level.name} has an ID of 0"); }
+            level.level.SetActive(false);
+        }
+
+        GridExit.OnLevelEnd += UnloadCurrentLevel;
+    }
+
+    public void GetActiveLevel()
+    {
+        foreach (LevelStructure level in Levels)
+        {
+            level.level.SetActive(false);
+        }
+
+        // vérifie si un niveau a déjà été sauvegardé et l'active
+        LevelStructure? activeLevel = Levels.Find(l => l.idLevel == GameManager.CurrentLevelID);
+
+        if (activeLevel.HasValue)
+        {
+            activeLevel.Value.level.SetActive(true);
+            Debug.Log($"Niveau actif : {activeLevel.Value.idLevel}");
+        }
+        else if (Levels.Count > 0)
+        {
+            Levels[0].level.SetActive(true); 
+            GameManager.CurrentLevelID = Levels[0].idLevel;
         }
     }
-   
-   
+
+    public void LoadLevel(int levelID)
+    {
+        foreach (LevelStructure level in Levels)
+        {
+            level.level.SetActive(level.idLevel == levelID);
+        }
+        GameManager.CurrentLevelID = levelID;
+        TEMPDONTKEEP.SetActive(false);
+    }
+
+    public void UnloadCurrentLevel()
+    {
+        int tempID = GameManager.CurrentLevelID;
+        LevelStructure tempLevel = Levels.Find(x => x.idLevel == tempID);
+        tempLevel.level.SetActive(false);
+        GameManager.CurrentLevelID = 0;
+        TEMPDONTKEEP.SetActive(true);
+    }
 }
+

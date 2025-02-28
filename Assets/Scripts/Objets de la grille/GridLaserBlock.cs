@@ -6,10 +6,11 @@ public class GridLaserBlock : GridObject
     private float _killDistance;
     bool _isActive;
 
-    public void SecondSetup(Transform pos, float _distance)
+    public void SecondSetup(Transform pos, float _distance, int angle)
     {
         _playerPos = pos;
         _killDistance = _distance;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
 
         GridLaserEmittor.OnActivate += Activate;
     }
@@ -24,7 +25,7 @@ public class GridLaserBlock : GridObject
     {
         if (Vector3.Distance(_playerPos.position, transform.position) < _killDistance && _isActive)
         {
-            Oxygen.Instance.StopPlayer();
+            GameManager.Instance.PlayerOxygen.StopPlayer();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
 using UnityEngine;
@@ -8,11 +9,12 @@ public class GameManager : MonoBehaviour
 {
     //L'objet GameManager est un singleton pr�sent dans chaque sc�ne
     public static GameManager Instance;
-    public static int CurrentLevelID { private get; set; }
+    public static int CurrentLevelID { get; set; }
 
     public Grid PlayGrid { get; private set; }
     public Slider OxygenSlider { get; private set; }
     public PlayerGridMovement PlayerScript { get; private set; }
+    public Oxygen PlayerOxygen { get; private set; }
     public PlayerMirrorMovement MirrorScript { get; private set; }
 
     private void Awake()
@@ -22,30 +24,18 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
-        CheckForCorrectSceneSetup();
-
-        PlayGrid = GameObject.FindGameObjectWithTag("Playzone").GetComponent<Grid>();
-        OxygenSlider = GameObject.FindGameObjectWithTag("Oxygen").GetComponent<Slider>();
-        PlayerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerGridMovement>();
-        MirrorScript = FindFirstObjectByType<PlayerMirrorMovement>();
+        Level.OnLevelLoad += SetUp;
     }
 
-    void CheckForCorrectSceneSetup()
+    void SetUp(Level level)
     {
-        if (!GameObject.FindGameObjectWithTag("Playzone"))
-        {
-            throw new MissingComponentException("Missing Grid in scene");
-        }
+        PlayGrid = level.PlayGrid;
+        OxygenSlider = level.Slider;
+        PlayerScript = level.Movement;
+        PlayerOxygen = level.Oxygen;
+        MirrorScript = level.MirrorMovement;
 
-        if (!GameObject.FindGameObjectWithTag("Oxygen"))
-        {
-            throw new MissingComponentException("Missing Oxygen bar in scene");
-        }
-
-        if (!GameObject.FindGameObjectWithTag("Player"))
-        {
-            throw new MissingComponentException("Missing Player in scene");
-        }
+        Camera.main.orthographicSize = level.CameraSize;
     }
 
     public static void OnSave(int currentScore)
@@ -69,7 +59,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                playerData.data.Add(new PlayerData.DataElement(CurrentLevelID, currentScore));
+                playerData.data.Add(new PlayerData.DataElement(CurrentLevelID, currentScore, dataElement.biome));
             }
         }
 

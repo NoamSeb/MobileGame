@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class LevelController : MonoBehaviour
 {
@@ -43,13 +44,13 @@ public class LevelController : MonoBehaviour
         }
         else if (Levels.Count > 0)
         {
-            Levels[0].level.SetActive(true); 
+            Levels[0].level.SetActive(true);
             GameManager.CurrentLevelID = Levels[0].idLevel;
         }
     }
 
     public void LoadLevel(int levelID)
-    {
+    {   
         foreach (LevelStructure level in Levels)
         {
             level.level.SetActive(level.idLevel == levelID);
@@ -67,4 +68,3 @@ public class LevelController : MonoBehaviour
         TEMPDONTKEEP.SetActive(true);
     }
 }
-

@@ -30,8 +30,9 @@ public class BiomeManager : MonoBehaviour
         if (data != null)
         {
             LastLevel = data.data.LastOrDefault();
-            if (LastLevel.idLevel != null)
+            if (LastLevel.idLevel != 0)
             {
+                print("GET BIOME LAST LEVEL");
                 _currentBiomeID = LastLevel.biome.idBiome;
             }
         }
@@ -39,19 +40,27 @@ public class BiomeManager : MonoBehaviour
         {
             _currentBiomeID = 1;
         }
+        
         UpdateBiomeVisibility();
     }
 
     void UpdateBiomeVisibility()
     {
-        Biomes.Find(b => b.idBiome == _currentBiomeID).biome.SetActive(true);
-        // for (int i = 0; i < Biomes.Count; i++)
-        // {
-        //     Biomes[i].biome.SetActive(i == _currentBiomeID); // active uniquement le biome actuel
-        // }
+        BiomeStructure currentBiome = Biomes.Find(b => b.idBiome == _currentBiomeID);
+
+        print( "_currentBiomeID =" + _currentBiomeID);
+        if (currentBiome.biome != null)
+        {
+            currentBiome.biome.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError($"Aucun biome trouvé avec l'ID {_currentBiomeID} ou le champ 'biome' est null !");
+        }
 
         // associe le LevelController du biome actif
-        LevelController activeLevelController = Biomes[_currentBiomeID].biome.GetComponent<LevelController>();
+        Debug.Log(_currentBiomeID);
+        LevelController activeLevelController = Biomes.Find(x => x.idBiome == _currentBiomeID).biome.GetComponent<LevelController>();
         if (activeLevelController != null)
         {
             activeLevelController.GetActiveLevel();
@@ -64,12 +73,14 @@ public class BiomeManager : MonoBehaviour
 
     public void NextBiome()
     {
-        if (_currentBiomeID >= 1)
+        if (1 <= _currentBiomeID  && _currentBiomeID < 5)
         {
-            _currentBiomeID++;
+            int nextBiomeID = _currentBiomeID + 1;
             _glitchFilter._prevScreen = Biomes.Find(b => b.idBiome == _currentBiomeID).biome;
-            _glitchFilter._nextScreen = Biomes.Find(b => b.idBiome == _currentBiomeID+1).biome;
+            _glitchFilter._nextScreen = Biomes.Find(b => b.idBiome == nextBiomeID).biome;
             _glitchFilter.OnChangedScreen();
+            
+            _currentBiomeID++;
             UpdateBiomeVisibility();
         }
     }
@@ -78,10 +89,11 @@ public class BiomeManager : MonoBehaviour
     {
         if (_currentBiomeID > 1)
         {
-            _currentBiomeID--;
+            int previousBiomeID = _currentBiomeID - 1;
             _glitchFilter._prevScreen = Biomes.Find(b => b.idBiome == _currentBiomeID).biome;
-            _glitchFilter._nextScreen = Biomes.Find(b => b.idBiome == _currentBiomeID-1).biome;
+            _glitchFilter._nextScreen = Biomes.Find(b => b.idBiome == previousBiomeID).biome;
             _glitchFilter.OnChangedScreen();
+            _currentBiomeID--;
             UpdateBiomeVisibility();
         }
     }

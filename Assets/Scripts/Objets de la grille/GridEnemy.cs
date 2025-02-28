@@ -9,6 +9,9 @@ public class GridEnemy : GridObject
     [ShowNonSerializedField] private int _currentRotation = 0;
     private GameObject _sleepingEnemy;
 
+    [SerializeField] private Sprite _verticalSprite, _horizontalSprite;
+    private SpriteRenderer _skin;
+
     public enum MovementType
     {
         Vertical,
@@ -47,6 +50,7 @@ public class GridEnemy : GridObject
     protected override void Setup()
     {
         base.Setup();
+        _skin = GetComponent<SpriteRenderer>();
         _moveDuration = GameManager.Instance.PlayerScript.MoveDuration / 2f;
         _sleepingEnemy = Resources.Load<GameObject>("GDTools Prefabs/Grid Objects/SleepingEnemy");
         PlayerGridMovement.OnActionExecuted += StartMovement;
@@ -60,6 +64,7 @@ public class GridEnemy : GridObject
         switch (_movementType)
         {
             case MovementType.Vertical:
+                _skin.sprite = _verticalSprite;
                 switch (_verticalInitialDirection)
                 {
                     case VerticalInitialDir.Up:
@@ -69,6 +74,7 @@ public class GridEnemy : GridObject
                 }
                 break;
             case MovementType.Horizontal:
+                _skin.sprite = _horizontalSprite;
                 switch (_horizontalInitialDirection)
                 {
                     case HorizontalInitialDir.Right:

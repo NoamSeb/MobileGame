@@ -1,9 +1,6 @@
-using Codice.Client.Commands.Merge;
-using Codice.CM.Client.Differences.Merge;
+#if UNITY_EDITOR
 using UnityEditor;
-using UnityEditor.Search;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using System.Collections.Generic;
 
 public class GDTools : EditorWindow
@@ -24,10 +21,8 @@ public class GDTools : EditorWindow
         if (player != null) { player.SetPositionInGrid(); }
 
         PlayerMirrorMovement mirror = FindFirstObjectByType<PlayerMirrorMovement>();
-        if (player != null) {  mirror.SetPositionInGrid(); }
+        if (mirror != null) { mirror.SetPositionInGrid(); }
     }
-
-    bool _isInitialize;
 
     string[] _gridItemsNames = { };
     int _index = 0;
@@ -36,9 +31,9 @@ public class GDTools : EditorWindow
     {
         string objName = _gridItemsNames[_index];
 
-        GameObject obj = (GameObject)Resources.Load("GDTools Prefabs/Grid Objects/" +  objName);
+        GameObject obj = (GameObject)Resources.Load("GDTools Prefabs/Grid Objects/" + objName);
 
-        Instantiate(obj, Vector3.zero, Quaternion.identity);
+        PrefabUtility.InstantiatePrefab(obj);
     }
 
     private void OnGUI()
@@ -58,28 +53,16 @@ public class GDTools : EditorWindow
 
         GUILayout.Label("Initialize");
 
-        if (GUILayout.Button("Enable Initialisation (DO NOT CLICK IF SCENE ALREADY SET UP)"))
+        if (GUILayout.Button("Set UI Tabs"))
         {
-            if (_isInitialize) { _isInitialize = false; return; }
-            _isInitialize = true;
-        }
+            Canvas[] canvas = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
 
-        if (_isInitialize)
-        {
-            if (GUILayout.Button("Create base objects for scene levels"))
+            foreach (Canvas temp in canvas)
             {
-                GameObject[] objects = Resources.LoadAll<GameObject>("GDTools Prefabs/Initialisation");
-
-                foreach (GameObject obj in objects)
-                {
-                    Instantiate(obj, Vector3.zero, Quaternion.identity);
-                }
-
-                SnapAllObjects();
-
-                _isInitialize = false;
+                temp.worldCamera = Camera.main;
             }
         }
+
 
         GUILayout.Label("Objects");
 
@@ -96,3 +79,4 @@ public class GDTools : EditorWindow
         }
     }
 }
+#endif

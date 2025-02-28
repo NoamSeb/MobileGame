@@ -1,0 +1,1 @@
+C:\Users\nofla\Documents\IIM\Annee1\MobileGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\Debug\1k3p594n\obj\armeabi-v7a

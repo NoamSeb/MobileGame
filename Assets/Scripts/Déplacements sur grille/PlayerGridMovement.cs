@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using NaughtyAttributes;
-using Codice.CM.Client.Differences;
 using UnityEngine.Tilemaps;
 using TMPro;
 
@@ -62,23 +61,11 @@ public class PlayerGridMovement : MonoBehaviour
     readonly private Queue<ActionType> _actionQueue = new(); // file d'attente des actions
     private Oxygen _oxygenManager; // r�f�rence � l'oxyg�ne
 
-    public static PlayerGridMovement Instance;
     public enum ActionType { Move, TurnRight, TurnLeft, Wait }
 
     private bool _isRotationLocked;
 
     private PlayerMirrorMovement _playerMirror;
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     void Start()
     {

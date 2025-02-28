@@ -49,7 +49,7 @@ public class GridLaser : GridObject
     {
         if (_isActive && other.CompareTag("Player"))
         {
-            Oxygen.Instance.StopPlayer();
+            //Oxygen.Instance.StopPlayer();
         }
     }
 }

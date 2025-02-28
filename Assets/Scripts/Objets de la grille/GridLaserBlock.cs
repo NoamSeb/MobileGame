@@ -25,7 +25,7 @@ public class GridLaserBlock : GridObject
     {
         if (Vector3.Distance(_playerPos.position, transform.position) < _killDistance && _isActive)
         {
-            Oxygen.Instance.StopPlayer();
+            GameManager.Instance.PlayerOxygen.StopPlayer();
         }
     }
 }

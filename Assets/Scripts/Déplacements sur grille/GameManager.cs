@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public Grid PlayGrid { get; private set; }
     public Slider OxygenSlider { get; private set; }
     public PlayerGridMovement PlayerScript { get; private set; }
+    public Oxygen PlayerOxygen { get; private set; }
     public PlayerMirrorMovement MirrorScript { get; private set; }
 
     private void Awake()
@@ -23,15 +24,18 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
-        Level.OnLevelLoad += FindNeededObjects;
+        Level.OnLevelLoad += SetUp;
     }
 
-    void FindNeededObjects(Level level)
+    void SetUp(Level level)
     {
         PlayGrid = level.PlayGrid;
         OxygenSlider = level.Slider;
         PlayerScript = level.Movement;
+        PlayerOxygen = level.Oxygen;
         MirrorScript = level.MirrorMovement;
+
+        Camera.main.orthographicSize = level.CameraSize;
     }
 
     public static void OnSave(int currentScore)

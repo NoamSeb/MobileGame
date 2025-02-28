@@ -1065,6 +1065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ca796b7d321a44982dd7cf19d1163f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 1
   _loadScreen: {fileID: 0}
   _progressValue: {fileID: 0}
   _pauseMenuUI: {fileID: 1134209023546425202}

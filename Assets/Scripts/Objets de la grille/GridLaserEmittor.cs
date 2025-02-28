@@ -102,7 +102,7 @@ public class GridLaserEmittor : GridObject
     {
         if (Vector3.Distance(_playerPos.position, transform.position) < _killDistance && _isActivated)
         {
-            Oxygen.Instance.StopPlayer();
+            GameManager.Instance.PlayerOxygen.StopPlayer();
         }
     }
 }

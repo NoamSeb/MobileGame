@@ -25,19 +25,9 @@ public class Oxygen : MonoBehaviour
 
     public TextMeshProUGUI _oxygenLabel;
 
-    public static Oxygen Instance;
 
     void Start()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
         _oxygenSlider = GameManager.Instance.OxygenSlider;
         _oxygenLabel = _oxygenSlider.GetComponentInChildren<TextMeshProUGUI>();
         _currentOxygen = _maxOxygen;
@@ -129,7 +119,7 @@ public class Oxygen : MonoBehaviour
     {
         SetOxygenToZero();
         IsDead();
-        PlayerGridMovement.Instance.StopMovement();
+        GameManager.Instance.PlayerScript.StopMovement();
         Debug.Log("Le joueur est touché par un laser !");
     }
 }

@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: e22a66765742de54cac006b628fb1fdf
+guid: 57640024f713a34458611e25952d98ea
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1684287797061577369
-    second: MoonFrame4_0
+      213: -5905358785927170718
+    second: clear_0
+  - first:
+      213: -1951696380875582694
+    second: clear_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MoonFrame4_0
+      name: clear_0
       rect:
         serializedVersion: 2
-        x: 88
-        y: 79
-        width: 498
-        height: 498
+        x: 37
+        y: 178
+        width: 182
+        height: 43
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +131,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7659e9c1c2530a8e0800000000000000
-      internalID: -1684287797061577369
+      spriteID: 265349dd873fb0ea0800000000000000
+      internalID: -5905358785927170718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clear_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 35
+        width: 128
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a13de7c6b7e2ae4e0800000000000000
+      internalID: -1951696380875582694
       vertices: []
       indices: 
       edges: []
@@ -147,8 +172,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      MoonFrame4_0: -1684287797061577369
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

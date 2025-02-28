@@ -410,6 +410,8 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
+=======
+>>>>>>> DesignSimon
   - m_Index: 35
     m_Metrics:
       m_Width: 34.28125
@@ -480,6 +482,10 @@ MonoBehaviour:
     m_GlyphRect:
       m_X: 779
       m_Y: 10
+=======
+      m_X: 317
+      m_Y: 72
+>>>>>>> DesignSimon
       m_Width: 44
       m_Height: 43
     m_Scale: 1
@@ -495,6 +501,10 @@ MonoBehaviour:
     m_GlyphRect:
       m_X: 842
       m_Y: 10
+=======
+      m_X: 73
+      m_Y: 168
+>>>>>>> DesignSimon
       m_Width: 36
       m_Height: 43
     m_Scale: 1
@@ -526,6 +536,11 @@ MonoBehaviour:
       m_X: 960
       m_Y: 10
       m_Width: 44
+=======
+      m_X: 380
+      m_Y: 72
+      m_Width: 27
+>>>>>>> DesignSimon
       m_Height: 60
     m_Scale: 1
     m_AtlasIndex: 0
@@ -545,6 +560,54 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
+<<<<<<< HEAD
+=======
+  - m_Index: 54
+    m_Metrics:
+      m_Width: 42.859375
+      m_Height: 60
+      m_HorizontalBearingX: 4.28125
+      m_HorizontalBearingY: 60
+      m_HorizontalAdvance: 51.421875
+    m_GlyphRect:
+      m_X: 191
+      m_Y: 168
+      m_Width: 44
+      m_Height: 60
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+  - m_Index: 82
+    m_Metrics:
+      m_Width: 42.859375
+      m_Height: 60
+      m_HorizontalBearingX: 4.28125
+      m_HorizontalBearingY: 60
+      m_HorizontalAdvance: 51.421875
+    m_GlyphRect:
+      m_X: 128
+      m_Y: 196
+      m_Width: 44
+      m_Height: 60
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+  - m_Index: 26
+    m_Metrics:
+      m_Width: 42.859375
+      m_Height: 60
+      m_HorizontalBearingX: 4.28125
+      m_HorizontalBearingY: 60
+      m_HorizontalAdvance: 51.421875
+    m_GlyphRect:
+      m_X: 254
+      m_Y: 168
+      m_Width: 44
+      m_Height: 60
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+>>>>>>> DesignSimon
   - m_Index: 51
     m_Metrics:
       m_Width: 42.859375
@@ -686,6 +749,8 @@ MonoBehaviour:
     m_GlyphIndex: 25
     m_Scale: 1
   - m_ElementType: 1
+=======
+>>>>>>> DesignSimon
     m_Unicode: 62
     m_GlyphIndex: 35
     m_Scale: 1
@@ -722,6 +787,21 @@ MonoBehaviour:
     m_GlyphIndex: 82
     m_Scale: 1
   - m_ElementType: 1
+<<<<<<< HEAD
+=======
+    m_Unicode: 71
+    m_GlyphIndex: 54
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 104
+    m_GlyphIndex: 82
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 50
+    m_GlyphIndex: 26
+    m_Scale: 1
+  - m_ElementType: 1
+>>>>>>> DesignSimon
     m_Unicode: 68
     m_GlyphIndex: 51
     m_Scale: 1
@@ -729,6 +809,7 @@ MonoBehaviour:
     m_Unicode: 105
     m_GlyphIndex: 83
     m_Scale: 1
+<<<<<<< HEAD
   - m_ElementType: 1
     m_Unicode: 57
     m_GlyphIndex: 33
@@ -803,6 +884,9 @@ MonoBehaviour:
   - m_X: 353
     m_Y: 0
     m_Width: 63
+=======
+    m_Width: 55
+>>>>>>> DesignSimon
     m_Height: 79
   - m_X: 416
     m_Y: 0

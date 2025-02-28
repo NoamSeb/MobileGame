@@ -150,7 +150,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &349691717
+--- !u!1001 &930266414
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -722,6 +722,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5197939809263187659, guid: 5b3d8c5b859ff794488390697e943727, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6253594422704516645, guid: 5b3d8c5b859ff794488390697e943727, type: 3}
+      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6253594422704516645, guid: 5b3d8c5b859ff794488390697e943727, type: 3}
@@ -1410,6 +1414,6 @@ SceneRoots:
   - {fileID: 294709113532238399}
   - {fileID: 7544576579044022565}
   - {fileID: 1190911942}
-  - {fileID: 349691717}
   - {fileID: 1779233800}
+  - {fileID: 930266414}
   - {fileID: 193886067}

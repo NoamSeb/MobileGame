@@ -160,3 +160,4 @@ MonoBehaviour:
   _gainOxygen: 0
   _currentOxygen: 10
   _lerpSpeed: 5
+  _oxygenLabel: {fileID: 0}

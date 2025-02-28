@@ -5,6 +5,7 @@ using NaughtyAttributes;
 using UnityEngine.Serialization;
 using UnityEditor;
 using System;
+using TMPro;
 
 public class Oxygen : MonoBehaviour
 {
@@ -22,20 +23,13 @@ public class Oxygen : MonoBehaviour
     [BoxGroup("Smooth speed")]
     [SerializeField] float _lerpSpeed = 5f;
 
-    public static Oxygen Instance;
+    public TextMeshProUGUI _oxygenLabel;
+
 
     void Start()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
         _oxygenSlider = GameManager.Instance.OxygenSlider;
+        _oxygenLabel = _oxygenSlider.GetComponentInChildren<TextMeshProUGUI>();
         _currentOxygen = _maxOxygen;
 
         if (_oxygenSlider != null)
@@ -49,6 +43,9 @@ public class Oxygen : MonoBehaviour
 
     void FixedUpdate()
     {
+        string text = _currentOxygen == 10 ? _currentOxygen.ToString() : "0" + _currentOxygen.ToString();
+        _oxygenLabel.text = text;
+
         if (_oxygenSlider != null) _oxygenSlider.value = Mathf.Lerp(_oxygenSlider.value, _currentOxygen, Time.fixedDeltaTime * _lerpSpeed);
 
         if (_currentOxygen == 0) Die();
@@ -122,7 +119,7 @@ public class Oxygen : MonoBehaviour
     {
         SetOxygenToZero();
         IsDead();
-        PlayerGridMovement.Instance.StopMovement();
+        GameManager.Instance.PlayerScript.StopMovement();
         Debug.Log("Le joueur est touché par un laser !");
     }
 }

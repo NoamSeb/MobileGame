@@ -10,6 +10,12 @@ using TMPro;
 public class PauseMenu : MonoBehaviour
 {
     //private bool IsPaused = false;
+    enum Type
+    {
+        InGame,
+        InBiome
+    }
+    [SerializeField] Type _type;
 
     [Header("Load screen information")]
     [SerializeField]
@@ -44,6 +50,32 @@ public class PauseMenu : MonoBehaviour
     {
         _audioSource = Camera.main.GetComponent<AudioSource>();
         _audioSource.volume = PlayerPrefs.GetFloat("volume");
+    }
+
+    private void Update()
+    {
+        if (_type == Type.InGame)
+        {
+            if (GameManager.CurrentLevelID == 0)
+            {
+                _pauseButton.SetActive(false);
+            }
+            else
+            {
+                _pauseButton.SetActive(true);
+            }
+        }
+        else
+        {
+            if (GameManager.CurrentLevelID != 0)
+            {
+                _pauseButton.SetActive(false);
+            }
+            else
+            {
+                _pauseButton.SetActive(true);
+            }
+        }
     }
 
     public void Pause()

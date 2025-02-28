@@ -8,6 +8,7 @@ public class GridTeleporter : GridObject
     [SerializeField] private GridTeleporter _otherTeleporter;
     bool IsNoSecondTeleporter => _otherTeleporter == null;
 
+    #if UNITY_EDITOR
     [Button, ShowIf(nameof(IsNoSecondTeleporter)), ExecuteInEditMode]
     public void CreateSecondTeleporter()
     {
@@ -20,6 +21,7 @@ public class GridTeleporter : GridObject
         SetOtherTeleporter(temp);
         temp.SetOtherTeleporter(this);
     }
+    #endif
 
     [ExecuteInEditMode]
     void SetOtherTeleporter(GridTeleporter tp)

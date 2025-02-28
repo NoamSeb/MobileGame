@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                playerData.data.Add(new PlayerData.DataElement(CurrentLevelID, currentScore));
+                playerData.data.Add(new PlayerData.DataElement(CurrentLevelID, currentScore, dataElement.biome));
             }
         }
 

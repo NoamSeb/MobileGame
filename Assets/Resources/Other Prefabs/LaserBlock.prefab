@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2317547028916073166}
   - component: {fileID: 5421779047664387172}
   - component: {fileID: 491422223485446270}
+  - component: {fileID: -579511539777377266}
   m_Layer: 0
   m_Name: LaserBlock
   m_TagString: Untagged
@@ -100,3 +101,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e64f5e8f7ded7e44bdcc43d070e8354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &-579511539777377266
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3715781085377660006}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9d8c7ea8bb9b25a45b197ef9601169de, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

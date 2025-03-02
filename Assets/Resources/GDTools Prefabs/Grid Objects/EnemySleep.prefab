@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3394040875082829332}
   - component: {fileID: 1594247958636510859}
   - component: {fileID: 2701975544124028324}
+  - component: {fileID: -6957359734853029870}
   m_Layer: 7
   m_Name: EnemySleep
   m_TagString: Untagged
@@ -104,6 +105,8 @@ MonoBehaviour:
   _robotMovementType: 0
   _verticalInitialDirection: 0
   _horizontalInitialDirection: 0
+  _spriteVertical: {fileID: 0}
+  _spriteHorizontal: {fileID: 0}
 --- !u!61 &2701975544124028324
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -150,3 +153,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &-6957359734853029870
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4651563589963896665}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9d8c7ea8bb9b25a45b197ef9601169de, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

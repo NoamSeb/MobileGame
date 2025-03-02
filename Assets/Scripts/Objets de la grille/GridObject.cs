@@ -10,6 +10,17 @@ public class GridObject : MonoBehaviour
     public Vector3Int GridPosition { get { return _gridPosition; } }
     public bool IsImpassable { get; private set; }
 
+    protected Level _parentLevel;
+    protected Animator _animator;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+        if (_animator != null) { throw new MissingComponentException("Object is missing an animator"); }
+        _parentLevel = GetComponentInParent<Level>();
+        Level.OnLevelLoad += AnimateOnLevelLoad;
+    }
+
     void Start()
     {
         Setup();
@@ -56,6 +67,14 @@ public class GridObject : MonoBehaviour
     protected void SetImpassable()
     {
         IsImpassable = true;
+    }
+
+    void AnimateOnLevelLoad(Level level)
+    {
+        if (level == _parentLevel)
+        {
+            _animator.SetTrigger("StartLoadingAnimation");
+        }
     }
 
     [ExecuteInEditMode]

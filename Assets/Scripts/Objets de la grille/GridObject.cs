@@ -13,6 +13,11 @@ public class GridObject : MonoBehaviour
 
     [SerializeField] protected MMF_Player _loadingFeedbacks;
 
+    private void Awake()
+    {
+        _loadingFeedbacks.Initialization();
+    }
+
     void Start()
     {
         Setup();

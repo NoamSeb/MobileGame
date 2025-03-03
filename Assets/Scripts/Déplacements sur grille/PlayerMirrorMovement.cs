@@ -48,6 +48,11 @@ public class PlayerMirrorMovement : MonoBehaviour
 
     [SerializeField] private MMF_Player _loadingFeedbacks;
 
+    private void Awake()
+    {
+        _loadingFeedbacks.Initialization();
+    }
+
     void Start()
     {
         _grid = GameManager.Instance.PlayGrid;

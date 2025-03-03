@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public Oxygen PlayerOxygen { get; private set; }
     public PlayerMirrorMovement MirrorScript { get; private set; }
 
+    public bool IsAwake { get; private set; }
+
     private void Awake()
     {
         if (Instance == null || Instance != this)
@@ -24,7 +26,13 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
+        IsAwake = true;
         Level.OnLevelLoad += SetUp;
+    }
+
+    private void Start()
+    {
+        IsAwake = false;
     }
 
     void SetUp(Level level)
@@ -59,7 +67,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                playerData.data.Add(new PlayerData.DataElement(CurrentLevelID, currentScore));
+                playerData.data.Add(new PlayerData.DataElement(CurrentLevelID, currentScore, dataElement.biome));
             }
         }
 

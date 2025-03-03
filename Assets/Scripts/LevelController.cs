@@ -16,7 +16,7 @@ public class LevelController : MonoBehaviour
         public GameObject level;
     }
 
-    [SerializeField] GameObject TEMPDONTKEEP;
+    [SerializeField] GameObject _levelSelector;
 
     private void Awake()
     {
@@ -64,7 +64,7 @@ public class LevelController : MonoBehaviour
         }
 
         GameManager.CurrentLevelID = levelID;
-        TEMPDONTKEEP.SetActive(false);
+        _levelSelector.SetActive(false);
     }
 
     public void UnloadCurrentLevel()
@@ -73,7 +73,7 @@ public class LevelController : MonoBehaviour
         LevelStructure tempLevel = Levels.Find(x => x.idLevel == tempID);
         tempLevel.level.SetActive(false);
         GameManager.CurrentLevelID = 0;
-        TEMPDONTKEEP.SetActive(true);
+        _levelSelector.SetActive(true);
     }
 
     /// <summary>
@@ -84,7 +84,7 @@ public class LevelController : MonoBehaviour
     {
         PlayerData loadedData = SaveSystem.LoadPlayer();
 
-        var levelButtons = TEMPDONTKEEP.GetComponentsInChildren<ButtonColorManager>();
+        var levelButtons = _levelSelector.GetComponentsInChildren<ButtonColorManager>();
 
         for (int i = 0; i < levelButtons.Length; i++)
         {

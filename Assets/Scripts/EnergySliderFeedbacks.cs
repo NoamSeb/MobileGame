@@ -5,6 +5,11 @@ public class EnergySliderFeedbacks : MonoBehaviour
 {
     [SerializeField] private MMF_Player _loadingFeedbacks;
 
+    private void Awake()
+    {
+        _loadingFeedbacks.Initialization();
+    }
+
     private void Start()
     {
         PlayFeedbacks(_loadingFeedbacks);

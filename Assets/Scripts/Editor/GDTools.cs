@@ -57,9 +57,28 @@ public class GDTools : EditorWindow
         {
             Canvas[] canvas = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
 
-            foreach (Canvas temp in canvas)
-            {
-                temp.worldCamera = Camera.main;
+                foreach (GridObject obj in FindObjectsByType<GridObject>(FindObjectsSortMode.None))
+                {
+                    obj.transform.SetParent(newObjects.transform);
+                }
+
+                FindFirstObjectByType<PlayerGridMovement>().transform.SetParent(newObjects.transform);
+                if (FindFirstObjectByType<PlayerMirrorMovement>() != null)
+                {
+                    FindFirstObjectByType<PlayerMirrorMovement>().transform.SetParent(newObjects.transform);
+                }
+
+                FindFirstObjectByType<Grid>().transform.SetParent(newLevel.transform);
+                GameObject.Find("UI").transform.SetParent(newLevel.transform);
+                foreach (var obj in FindObjectsByType<Canvas>(FindObjectsSortMode.None))
+                {
+                    if (obj.name == "Background")
+                    {
+                        obj.transform.SetParent(newLevel.transform);
+                    }
+                }
+                newObjects.transform.SetParent(newLevel.transform);
+                newLevel.AddComponent<Level>();
             }
         }
 

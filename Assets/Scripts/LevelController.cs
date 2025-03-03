@@ -1,6 +1,8 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Mime;
 using UnityEngine.UI;
 
 public class LevelController : MonoBehaviour
@@ -20,10 +22,15 @@ public class LevelController : MonoBehaviour
     {
         foreach (LevelStructure level in Levels)
         {
-            if (level.idLevel == 0) { throw new ArgumentNullException($"{level.level.name} has an ID of 0"); }
+            if (level.idLevel == 0)
+            {
+                throw new ArgumentNullException($"{level.level.name} has an ID of 0");
+            }
+
             level.level.SetActive(false);
         }
 
+        ChangeColorOfFinishLevelInData();
         GridExit.OnLevelEnd += UnloadCurrentLevel;
     }
 
@@ -34,7 +41,7 @@ public class LevelController : MonoBehaviour
             level.level.SetActive(false);
         }
 
-        // vérifie si un niveau a déjà été sauvegardé et l'active
+        // vï¿½rifie si un niveau a dï¿½jï¿½ ï¿½tï¿½ sauvegardï¿½ et l'active
         LevelStructure? activeLevel = Levels.Find(l => l.idLevel == GameManager.CurrentLevelID);
 
         if (activeLevel.HasValue)
@@ -50,11 +57,12 @@ public class LevelController : MonoBehaviour
     }
 
     public void LoadLevel(int levelID)
-    {   
+    {
         foreach (LevelStructure level in Levels)
         {
             level.level.SetActive(level.idLevel == levelID);
         }
+
         GameManager.CurrentLevelID = levelID;
         TEMPDONTKEEP.SetActive(false);
     }
@@ -66,5 +74,38 @@ public class LevelController : MonoBehaviour
         tempLevel.level.SetActive(false);
         GameManager.CurrentLevelID = 0;
         TEMPDONTKEEP.SetActive(true);
+    }
+
+    /// <summary>
+    /// Load the data and check which level are already there to update button color
+    /// of finished levels.
+    /// </summary>
+    private void ChangeColorOfFinishLevelInData()
+    {
+        PlayerData loadedData = SaveSystem.LoadPlayer();
+
+        var levelButtons = TEMPDONTKEEP.GetComponentsInChildren<ButtonColorManager>();
+
+        for (int i = 0; i < levelButtons.Length; i++)
+        {
+            if(levelButtons[i].TryGetComponent(out Image img))
+                img.color = levelButtons[i]._unfinishedColor;
+        }
+        
+        foreach (PlayerData.DataElement levels in loadedData.data)
+        {
+            var selectLevelButton = levelButtons.ToList().Find(x => x.name == $"Lvl{levels.idLevel}");
+
+            if (selectLevelButton != null)
+            {
+                ButtonColorManager colorManager = selectLevelButton.GetComponent<ButtonColorManager>();
+                Image btnImage = selectLevelButton.GetComponent<Image>();
+                if (btnImage != null && colorManager != null)
+                {
+                    btnImage.color = colorManager._finishedColor;
+                    Debug.Log("Color Changed !", btnImage);
+                }
+            }
+        }
     }
 }

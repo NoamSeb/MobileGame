@@ -11,13 +11,14 @@ public class PlayerData
     {
         public int idLevel;
         public int score;
-        public BiomeManager.BiomeStructure biome;
+        
+        public int idBiome;
 
-        public DataElement(int idLevel, int score, BiomeManager.BiomeStructure biome)
+        public DataElement(int idLevel, int score, int idBiome)
         {
             this.idLevel = idLevel;
             this.score = score;
-            this.biome = biome;
+            this.idBiome = idBiome;
         }
     }
     

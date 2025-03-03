@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 02
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 50029b863ddbf26418c1a05b1687c7de, type: 2}
+  m_sharedMaterial: {fileID: -4268001174047566976, guid: 50029b863ddbf26418c1a05b1687c7de, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39
+  m_fontSize: 38.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -146,10 +146,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4875771478814876503}
   - component: {fileID: 6654704297251110155}
-  - component: {fileID: 7221168922832579047}
-  - component: {fileID: 3272379235715016296}
   m_Layer: 5
-  m_Name: Energy Slider
+  m_Name: O2 Slider
   m_TagString: Oxygen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -170,7 +168,6 @@ RectTransform:
   - {fileID: 4382228741878257571}
   - {fileID: 8304385239068429552}
   - {fileID: 9131200571927222263}
-  - {fileID: 8404641234744553944}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -229,41 +226,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7221168922832579047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3814281157813793578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18a30641ecbb420488369ee53fc13d37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _loadingFeedbacks: {fileID: 8952220036065301697}
---- !u!95 &3272379235715016296
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3814281157813793578}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4740029176191463581
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,84 +412,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 1
   m_PixelsPerUnitMultiplier: 1
---- !u!1001 &8507102087098099183
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 4875771478814876503}
-    m_Modifications:
-    - target: {fileID: 192534290578002999, guid: 5b40d524c0f9eed4c9d8aaaa698978f2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -39.250816
-      objectReference: {fileID: 0}
-    - target: {fileID: 192534290578002999, guid: 5b40d524c0f9eed4c9d8aaaa698978f2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -241.85669
-      objectReference: {fileID: 0}
-    - target: {fileID: 192534290578002999, guid: 5b40d524c0f9eed4c9d8aaaa698978f2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 192534290578002999, guid: 5b40d524c0f9eed4c9d8aaaa698978f2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 192534290578002999, guid: 5b40d524c0f9eed4c9d8aaaa698978f2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 192534290578002999, guid: 5b40d524c0f9eed4c9d8aaaa698978f2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 192534290578002999, guid: 5b40d524c0f9eed4c9d8aaaa698978f2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 192534290578002999, guid: 5b40d524c0f9eed4c9d8aaaa698978f2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 192534290578002999, guid: 5b40d524c0f9eed4c9d8aaaa698978f2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 192534290578002999, guid: 5b40d524c0f9eed4c9d8aaaa698978f2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 735178518634819886, guid: 5b40d524c0f9eed4c9d8aaaa698978f2, type: 3}
-      propertyPath: managedReferences[921140131259744257].BoundImage
-      value: 
-      objectReference: {fileID: 5028301939567531779}
-    - target: {fileID: 735178518634819886, guid: 5b40d524c0f9eed4c9d8aaaa698978f2, type: 3}
-      propertyPath: managedReferences[921140136061436000].BoundImage
-      value: 
-      objectReference: {fileID: 5028301939567531779}
-    - target: {fileID: 5812561724535469328, guid: 5b40d524c0f9eed4c9d8aaaa698978f2, type: 3}
-      propertyPath: m_Name
-      value: LoadFeedbacksSlider
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5b40d524c0f9eed4c9d8aaaa698978f2, type: 3}
---- !u!4 &8404641234744553944 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 192534290578002999, guid: 5b40d524c0f9eed4c9d8aaaa698978f2, type: 3}
-  m_PrefabInstance: {fileID: 8507102087098099183}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8952220036065301697 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 735178518634819886, guid: 5b40d524c0f9eed4c9d8aaaa698978f2, type: 3}
-  m_PrefabInstance: {fileID: 8507102087098099183}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

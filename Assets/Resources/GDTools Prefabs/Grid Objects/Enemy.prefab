@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d7e9e6e0e78aef4ab55f00ba13a8a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _loadingFeedbacks: {fileID: 0}
   _verticalSprite: {fileID: 21300000, guid: e4513e7ebb374be4393fb16c91394c4b, type: 3}
   _horizontalSprite: {fileID: 21300000, guid: 4fb855338ea483d4aaa10c406acae978, type: 3}
   _movementType: 2

@@ -13,6 +13,13 @@ public class GridSleepingEnemy : GridObject
     private SpriteRenderer _skin;
     [SerializeField] private Sprite _spriteVertical, _spriteHorizontal;
 
+    [ExecuteInEditMode]
+    private void OnValidate()
+    {
+        if (IsVertical()) { _skin = GetComponent<SpriteRenderer>(); _skin.sprite = _spriteVertical; }
+        else if (IsHorizontal()) { _skin = GetComponent<SpriteRenderer>(); _skin.sprite = _spriteHorizontal; }
+    }
+
     protected override void Setup()
     {
         base.Setup();

@@ -53,7 +53,7 @@ public class MainMenu : MonoBehaviour
         if (_launchSFX != null)
         {
             _audioSource.PlayOneShot(_launchSFX);
-            _levelManager.ChangeLevel("DevArthurLevelSelector");
+            _levelManager.ChangeLevel("GameScene");
             _loadScreen.SetActive(true);
             yield return new WaitForSeconds(_launchSFX.length);
             StartCoroutine(LoadNextLevelAsync());
@@ -62,7 +62,7 @@ public class MainMenu : MonoBehaviour
         {
             Debug.LogWarning("Launch SFX is not assigned.");
         }
-        SceneManager.LoadScene("DevNoam");
+        SceneManager.LoadScene("GameScene");
     }
 
     #region Settings

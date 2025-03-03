@@ -23,6 +23,7 @@ public class GridExit : GridObject
         if (IsExitOpen)
         {
             Debug.Log("ok");
+            GameManager.OnSave(1);
             OnLevelEnd?.Invoke();
         }
     }

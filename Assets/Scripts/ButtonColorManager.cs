@@ -7,7 +7,8 @@ public class ButtonColorManager : MonoBehaviour
     Image _image;
     Button _button;
 
-    [SerializeField] Color _unfinishedColor, _finishedColor;
+    [field : SerializeField] public Color _unfinishedColor { get; private set; }
+    [field : SerializeField] public Color _finishedColor{ get; private set; }
 
     bool _isButtonForCurrentLevel;
 
@@ -21,7 +22,8 @@ public class ButtonColorManager : MonoBehaviour
 
     private void Start()
     {
-        ChangeColorUnfinished();
+        //Debug.LogWarning("ButtonColorManager called");
+        //ChangeColorUnfinished();
         _button.onClick.AddListener(WaitForLevelFinishEvent);
     }
 

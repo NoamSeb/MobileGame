@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine.Tilemaps;
 using TMPro;
+using MoreMountains.Feedbacks;
 
 public class PlayerGridMovement : MonoBehaviour
 {
@@ -24,7 +25,6 @@ public class PlayerGridMovement : MonoBehaviour
     }
 
     [SerializeField] private InitialMoveDirection _initialMoveDirection;
-
     private void OnValidate()
     {
         switch(_initialMoveDirection)
@@ -67,6 +67,8 @@ public class PlayerGridMovement : MonoBehaviour
 
     private PlayerMirrorMovement _playerMirror;
 
+    [SerializeField] private MMF_Player _loadingFeedbacks;
+
     void Start()
     {
         _grid = GameManager.Instance.PlayGrid;
@@ -96,6 +98,8 @@ public class PlayerGridMovement : MonoBehaviour
         {
             _playerMirror = GameManager.Instance.MirrorScript;
         }
+
+        PlayFeedbacks(_loadingFeedbacks);
     }
 
     [ExecuteInEditMode]
@@ -341,5 +345,10 @@ public class PlayerGridMovement : MonoBehaviour
         _executeAction = false;
         _actionQueue.Clear();
         Debug.Log("Le joueur ne bouge plus !");
+    }
+
+    void PlayFeedbacks(MMF_Player player)
+    {
+        player.PlayFeedbacks();
     }
 }

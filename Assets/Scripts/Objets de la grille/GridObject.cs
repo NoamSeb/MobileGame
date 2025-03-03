@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using NaughtyAttributes;
 using System;
 using System.ComponentModel;
@@ -10,16 +11,7 @@ public class GridObject : MonoBehaviour
     public Vector3Int GridPosition { get { return _gridPosition; } }
     public bool IsImpassable { get; private set; }
 
-    protected Level _parentLevel;
-    protected Animator _animator;
-
-    private void Awake()
-    {
-        _animator = GetComponent<Animator>();
-        if (_animator != null) { throw new MissingComponentException("Object is missing an animator"); }
-        _parentLevel = GetComponentInParent<Level>();
-        Level.OnLevelLoad += AnimateOnLevelLoad;
-    }
+    [SerializeField] protected MMF_Player _loadingFeedbacks;
 
     void Start()
     {
@@ -35,6 +27,11 @@ public class GridObject : MonoBehaviour
 
         PlayerGridMovement.OnInteraction += Interaction;
         PlayerMirrorMovement.OnInteraction += MirrorInteraction;
+
+        if (_loadingFeedbacks != null)
+        {
+            PlayFeedbacks(_loadingFeedbacks);
+        }
     }
 
     [ExecuteInEditMode]
@@ -69,14 +66,11 @@ public class GridObject : MonoBehaviour
         IsImpassable = true;
     }
 
-    void AnimateOnLevelLoad(Level level)
-    {
-        if (level == _parentLevel)
-        {
-            _animator.SetTrigger("StartLoadingAnimation");
-        }
-    }
-
     [ExecuteInEditMode]
     protected virtual void BugFix() { }
+
+    protected void PlayFeedbacks(MMF_Player player)
+    {
+        player.PlayFeedbacks();
+    }
 }

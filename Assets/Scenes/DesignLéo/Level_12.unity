@@ -1633,10 +1633,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+<<<<<<< HEAD:Assets/Scenes/DesignLéo/Level13.unity
+=======
     - target: {fileID: 3954959025228754928, guid: 34b7719eec042c54facc879396c93339, type: 3}
       propertyPath: _otherTeleporter
       value: 
       objectReference: {fileID: 947102671}
+>>>>>>> Develop2:Assets/Scenes/DesignLéo/Level_12.unity
     - target: {fileID: 4375760072616044635, guid: 34b7719eec042c54facc879396c93339, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.44
@@ -2238,8 +2241,11 @@ SceneRoots:
   - {fileID: 5506166994836571315}
   - {fileID: 1926608081}
   - {fileID: 1783608714}
+<<<<<<< HEAD:Assets/Scenes/DesignLéo/Level13.unity
+=======
   - {fileID: 6392937}
   - {fileID: 1668837365}
+>>>>>>> Develop2:Assets/Scenes/DesignLéo/Level_12.unity
   - {fileID: 1475059061}
   - {fileID: 1462294281}
   - {fileID: 344005570}
@@ -2253,4 +2259,9 @@ SceneRoots:
   - {fileID: 236035656}
   - {fileID: 320864220}
   - {fileID: 1378610420}
+<<<<<<< HEAD:Assets/Scenes/DesignLéo/Level13.unity
+  - {fileID: 1480890230}
+  - {fileID: 247589818}
+=======
   - {fileID: 947102670}
+>>>>>>> Develop2:Assets/Scenes/DesignLéo/Level_12.unity

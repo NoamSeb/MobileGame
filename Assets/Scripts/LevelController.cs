@@ -57,7 +57,7 @@ public class LevelController : MonoBehaviour
     }
 
     public void LoadLevel(int levelID)
-    {
+    {   
         foreach (LevelStructure level in Levels)
         {
             level.level.SetActive(level.idLevel == levelID);

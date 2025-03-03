@@ -13,7 +13,7 @@ public class BiomeManager : MonoBehaviour
     }
 
     public List<BiomeStructure> Biomes;
-    private int _currentBiomeID = 1;
+    internal int _currentBiomeID = 1;
     
     [Header("Glitch Filter")]
     [SerializeField] SwitchScreen _glitchFilter;
@@ -33,7 +33,7 @@ public class BiomeManager : MonoBehaviour
             if (LastLevel.idLevel != 0)
             {
                 print("GET BIOME LAST LEVEL");
-                _currentBiomeID = LastLevel.biome.idBiome;
+                _currentBiomeID = LastLevel.idBiome;
             }
         }
         else
@@ -65,10 +65,7 @@ public class BiomeManager : MonoBehaviour
         {
             activeLevelController.GetActiveLevel();
         }
-
-        // sauvegarde du biome actuel
-        // PlayerPrefs.SetString("CurrentBiome", Biomes[_currentBiomeIndex].biome.name);
-        // PlayerPrefs.Save();
+        
     }
 
     public void NextBiome()

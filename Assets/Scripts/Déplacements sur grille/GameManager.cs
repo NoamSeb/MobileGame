@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         {
             var dataElement = playerData.data.FirstOrDefault(x => x.idLevel == CurrentLevelID);
 
-            if (!dataElement.Equals(default))
+            if (dataElement.idLevel != 0)
             {
                 if (dataElement.score > currentScore)
                     return;
@@ -67,7 +67,21 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                playerData.data.Add(new PlayerData.DataElement(CurrentLevelID, currentScore, dataElement.biome));
+                BiomeManager bm = GameObject.FindObjectOfType<BiomeManager>();
+
+                if (bm != null) // Ensure bm is found before using it
+                {
+                    BiomeManager.BiomeStructure currentBiome = bm.Biomes.Find(x => x.idBiome == bm._currentBiomeID); // Corrected predicate logic
+
+                    if (currentBiome.biome != null) // Ensure currentBiome is valid
+                    {
+                        playerData.data.Add(new PlayerData.DataElement(CurrentLevelID, currentScore, currentBiome.idBiome)); // Use currentBiome.biome
+                    }
+                }
+                else
+                {
+                    Debug.LogError("BiomeManager not found in the scene!");
+                }
             }
         }
 

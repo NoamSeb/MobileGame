@@ -86,6 +86,7 @@ public class GDTools : EditorWindow
                     }
                 }
                 newObjects.transform.SetParent(newLevel.transform);
+                newLevel.AddComponent<Level>();
             }
         }
 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 80dd8f67a7a5d784788a0a5e02f10f39
+guid: 679b66b5411464f47868dcff262c5697
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8745325889187758881
-    second: attendre_0
+      213: -7512682779860816346
+    second: bouton pause_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,30 +109,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: iOS
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: attendre_0
+      name: bouton pause_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 305
-        height: 360
+        width: 444
+        height: 368
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fdcbfe1407c52a680800000000000000
-      internalID: -8745325889187758881
+      spriteID: 62ea33cc0d69db790800000000000000
+      internalID: -7512682779860816346
       vertices: []
       indices: 
       edges: []
@@ -160,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      attendre_0: -8745325889187758881
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

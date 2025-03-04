@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ba6df2d9a615c7249b6ec2831bbe710a
+guid: a79a4516f8b9a5e4192d6ad5875c3025
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -989611865880238166
-    second: pile1_0
+      213: -2993405804026800781
+    second: bouton Attendre_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 256
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pile1_0
+      name: bouton Attendre_0
       rect:
         serializedVersion: 2
-        x: 71
-        y: 37
-        width: 112
-        height: 183
+        x: 0
+        y: 0
+        width: 305
+        height: 360
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: aa762bc40413442f0800000000000000
-      internalID: -989611865880238166
+      spriteID: 375d36ee7494576d0800000000000000
+      internalID: -2993405804026800781
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      pile1_0: -989611865880238166
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

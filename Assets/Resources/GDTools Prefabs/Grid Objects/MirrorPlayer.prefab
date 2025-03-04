@@ -119,6 +119,30 @@ PrefabInstance:
       propertyPath: managedReferences[921140131259744259].BoundSpriteRenderer
       value: 
       objectReference: {fileID: 6011576374314200576}
+    - target: {fileID: 6094623247314875143, guid: d48c76ccde3d3424b86b0c2d29fd5c71, type: 3}
+      propertyPath: managedReferences[921140131259744259].ColorOverTime.key0.b
+      value: 0.08235294
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094623247314875143, guid: d48c76ccde3d3424b86b0c2d29fd5c71, type: 3}
+      propertyPath: managedReferences[921140131259744259].ColorOverTime.key0.g
+      value: 0.70980394
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094623247314875143, guid: d48c76ccde3d3424b86b0c2d29fd5c71, type: 3}
+      propertyPath: managedReferences[921140131259744259].ColorOverTime.key0.r
+      value: 0.9960785
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094623247314875143, guid: d48c76ccde3d3424b86b0c2d29fd5c71, type: 3}
+      propertyPath: managedReferences[921140131259744259].ColorOverTime.key1.b
+      value: 0.08235294
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094623247314875143, guid: d48c76ccde3d3424b86b0c2d29fd5c71, type: 3}
+      propertyPath: managedReferences[921140131259744259].ColorOverTime.key1.g
+      value: 0.70980394
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094623247314875143, guid: d48c76ccde3d3424b86b0c2d29fd5c71, type: 3}
+      propertyPath: managedReferences[921140131259744259].ColorOverTime.key1.r
+      value: 0.9960785
+      objectReference: {fileID: 0}
     - target: {fileID: 6527525821797413556, guid: d48c76ccde3d3424b86b0c2d29fd5c71, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1

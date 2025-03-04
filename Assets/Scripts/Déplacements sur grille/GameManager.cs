@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     //L'objet GameManager est un singleton pr�sent dans chaque sc�ne
     public static GameManager Instance;
     public static int CurrentLevelID { get; set; }
-
     public Grid PlayGrid { get; private set; }
     public Slider OxygenSlider { get; private set; }
     public PlayerGridMovement PlayerScript { get; private set; }

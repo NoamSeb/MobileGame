@@ -32,6 +32,7 @@ public class LevelController : MonoBehaviour
 
         ChangeColorOfFinishLevelInData();
         GridExit.OnLevelEnd += UnloadCurrentLevel;
+        PauseMenu.OnReturnToMenuInGame += UnloadCurrentLevel;
     }
 
     public void GetActiveLevel()

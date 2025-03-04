@@ -433,7 +433,7 @@ GameObject:
   - component: {fileID: 6131636896411167713}
   - component: {fileID: 8145987869303009455}
   - component: {fileID: 9030012290874683177}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Lvl5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -449,16 +449,15 @@ RectTransform:
   m_GameObject: {fileID: 1753981209150872021}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.91, y: 0.94, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8693384436124410693}
+  m_Children: []
   m_Father: {fileID: 2400245561514591908}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -690, y: 458.05}
-  m_SizeDelta: {x: 44.05, y: 86.11}
+  m_AnchoredPosition: {x: -698.41, y: 449.63}
+  m_SizeDelta: {x: 49.47, y: 92.73}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3764858728270588723
 CanvasRenderer:
@@ -488,7 +487,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4892254414937345101, guid: e8ffb4a06f3b12f4da4e96bd246e435d, type: 3}
+  m_Sprite: {fileID: -1467749383079529111, guid: dbd092183b4e6744e8d4aecd877c2b2c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -549,7 +548,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1137,7 +1136,7 @@ GameObject:
   - component: {fileID: 2173221309739099325}
   - component: {fileID: 979842531051191587}
   - component: {fileID: 3589628939372869021}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Lvl2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1153,16 +1152,15 @@ RectTransform:
   m_GameObject: {fileID: 3028539006987142382}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.91, y: 0.94, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1723838977632511049}
+  m_Children: []
   m_Father: {fileID: 2400245561514591908}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 633.58, y: 135.95}
-  m_SizeDelta: {x: 342.73, y: 863.24}
+  m_AnchoredPosition: {x: 618.65, y: 127.18}
+  m_SizeDelta: {x: 374.72, y: 918.37}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1344541600728905401
 CanvasRenderer:
@@ -1192,7 +1190,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1447205159117119844, guid: 578429b14c3d6f74a91469d35d0bea3e, type: 3}
+  m_Sprite: {fileID: -7090519531134844100, guid: dc95914afe03edf4faf862f639d9523c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1253,7 +1251,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 5
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1417,7 +1415,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2400245561514591908}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: ------ LEVEL SELECTORS ------
   m_TagString: Level
   m_Icon: {fileID: 0}
@@ -1464,7 +1462,7 @@ GameObject:
   - component: {fileID: 9138670757476987532}
   - component: {fileID: 7801972347123890775}
   - component: {fileID: 6876295563152093231}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Lvl1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1480,16 +1478,15 @@ RectTransform:
   m_GameObject: {fileID: 4476228055602325584}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.91, y: 0.94, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5628545065403305284}
+  m_Children: []
   m_Father: {fileID: 2400245561514591908}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -70.43, y: 434.75}
-  m_SizeDelta: {x: 86.29, y: 95.81}
+  m_AnchoredPosition: {x: -81.63, y: 425.83}
+  m_SizeDelta: {x: 95.2, y: 103.63}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4856779862945615193
 CanvasRenderer:
@@ -1519,7 +1516,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2580920007787753978, guid: 5c3547637f5c00646ad003e3a3b39922, type: 3}
+  m_Sprite: {fileID: 5845136548672359059, guid: 92fcc856f3df69e49adeb85e638c4a36, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1580,7 +1577,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1884,7 +1881,7 @@ GameObject:
   - component: {fileID: 4407515615859328353}
   - component: {fileID: 4398797734410771471}
   - component: {fileID: 7177566315045351874}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Lvl4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1900,16 +1897,15 @@ RectTransform:
   m_GameObject: {fileID: 6122466200707258529}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.91, y: 0.94, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4471139358957499228}
+  m_Children: []
   m_Father: {fileID: 2400245561514591908}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -471.83005, y: 325.55994}
-  m_SizeDelta: {x: 191.29, y: 203.47}
+  m_AnchoredPosition: {x: -480.68, y: 317.43}
+  m_SizeDelta: {x: 210.16, y: 216.37}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5221529296201513029
 CanvasRenderer:
@@ -1939,7 +1935,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5059169951295940047, guid: 8ca972855b21c6a4f878261c328f541f, type: 3}
+  m_Sprite: {fileID: -2065699723219678976, guid: 1bc57753d5f4b8349b8c47d9ed90bbc7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2000,7 +1996,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2180,7 +2176,7 @@ GameObject:
   - component: {fileID: 6743218356412548230}
   - component: {fileID: 7248111435682088747}
   - component: {fileID: 1801715100413659192}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Lvl3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2196,16 +2192,15 @@ RectTransform:
   m_GameObject: {fileID: 8345524224760803550}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.91, y: 0.94, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8048132026103690897}
+  m_Children: []
   m_Father: {fileID: 2400245561514591908}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -885.12, y: -301.84}
-  m_SizeDelta: {x: 304.39, y: 403.09}
+  m_AnchoredPosition: {x: -891.98, y: -305.32}
+  m_SizeDelta: {x: 332.7, y: 425.14}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7225755181348014171
 CanvasRenderer:
@@ -2235,7 +2230,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8036899418262713515, guid: eff8f7f6f35153f48bba662212e213ee, type: 3}
+  m_Sprite: {fileID: 5702227262225989187, guid: 1cc40a518c457c44facbaadbb519a6bf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2296,7 +2291,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 4
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

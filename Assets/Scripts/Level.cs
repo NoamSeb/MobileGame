@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System;
 using TMPro;
 using UnityEngine;
@@ -21,6 +22,8 @@ public class Level : MonoBehaviour
         GetNeededComponents();
 
         _initialStateBackup = new("Backup");
+
+        
     }
 
     void GetNeededComponents()

@@ -41,7 +41,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Emission_multiplier: 3.02
+    - _Emission_multiplier: 2
     - _IsEmitting: 1
     m_Colors: []
   m_BuildTextureStacks: []

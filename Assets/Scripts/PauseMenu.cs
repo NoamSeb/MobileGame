@@ -125,7 +125,7 @@ public class PauseMenu : MonoBehaviour
     public void LoadMenu()
     {
         if (_type == Type.InBiome) { StartCoroutine(PlayLaunchSFXAndLoadMenuScene()); }
-        else if (_type == Type.InGame) { OnReturnToMenuInGame?.Invoke(); }
+        else if (_type == Type.InGame) { OnReturnToMenuInGame?.Invoke(); Resume(); }
     }
 
     // ReSharper disable Unity.PerformanceAnalysis

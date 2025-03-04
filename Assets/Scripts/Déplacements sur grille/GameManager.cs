@@ -15,8 +15,9 @@ public class GameManager : MonoBehaviour
     public PlayerGridMovement PlayerScript { get; private set; }
     public Oxygen PlayerOxygen { get; private set; }
     public PlayerMirrorMovement MirrorScript { get; private set; }
-
     public bool IsAwake { get; private set; }
+
+    private float _cameraSize;
 
     private void Awake()
     {
@@ -42,7 +43,13 @@ public class GameManager : MonoBehaviour
         PlayerOxygen = level.Oxygen;
         MirrorScript = level.MirrorMovement;
 
-        Camera.main.orthographicSize = level.CameraSize;
+        _cameraSize = level.CameraSize;
+    }
+
+    private void Update()
+    {
+        if(CurrentLevelID != 0) { Camera.main.orthographicSize = _cameraSize; }
+        else { Camera.main.orthographicSize = 5; }
     }
 
     public static void OnSave(int currentScore)

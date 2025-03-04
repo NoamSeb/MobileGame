@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2533632918739931300}
   - component: {fileID: 1234027804124704176}
   - component: {fileID: 4166121948026772708}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: BatteryMedium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,6 +161,10 @@ PrefabInstance:
     - target: {fileID: 812916810469626848, guid: e1e0e68497dd6fe43ad57ee9f9016a00, type: 3}
       propertyPath: m_Name
       value: LoadFeedbacksLate
+      objectReference: {fileID: 0}
+    - target: {fileID: 812916810469626848, guid: e1e0e68497dd6fe43ad57ee9f9016a00, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3190446309819775385, guid: e1e0e68497dd6fe43ad57ee9f9016a00, type: 3}
       propertyPath: m_LocalPosition.x

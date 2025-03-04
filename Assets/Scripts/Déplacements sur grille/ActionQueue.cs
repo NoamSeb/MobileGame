@@ -7,7 +7,14 @@ public class ActionQueue : MonoBehaviour
 {
     private PlayerGridMovement _player;
     public TMP_Text actionListText; // référence à l'affichage des actions
-    readonly private List<ActionEntry> actions = new(); // liste des actions avec compteurs
+    readonly private List<ActionEntry> _actions = new(); // liste des actions avec compteurs
+
+    bool _active;
+
+    private void Awake()
+    {
+        EnergySliderFeedbacks.OnSliderFeedbackFinished += EnableActionsQueueing;
+    }
 
     private void Start()
     {
@@ -24,6 +31,11 @@ public class ActionQueue : MonoBehaviour
             this.actionType = actionType;
             this.count = 1; // par défaut, une action est ajoutée une fois
         }
+    }
+
+    void EnableActionsQueueing()
+    {
+        _active = true;
     }
 
     public void AddMove()
@@ -47,30 +59,47 @@ public class ActionQueue : MonoBehaviour
         UpdateUI();
     }
 
+    public void DeleteLastAction()
+    {
+        if (_actions.Count > 0 && _actions[^1].count > 1)
+        {
+            _actions[^1].count--;
+            UpdateUI();
+        }
+        else if (_actions.Count > 0)
+        { 
+            _actions.RemoveAt(_actions.Count - 1);
+            UpdateUI();
+        }
+    }
+
     private void AddAction(PlayerGridMovement.ActionType newAction)
     {
-        // si la liste est vide ou si la dernière action est différente, on ajoute une nouvelle entrée
-        if (actions.Count == 0 || actions[^1].actionType != newAction)
+        if (_active)
         {
-            actions.Add(new ActionEntry(newAction));
+            // si la liste est vide ou si la dernière action est différente, on ajoute une nouvelle entrée
+            if (_actions.Count == 0 || _actions[^1].actionType != newAction)
+            {
+                _actions.Add(new ActionEntry(newAction));
+            }
+            else
+            {
+                // sinon, on incrémente le compteur de la dernière action
+                _actions[^1].count++;
+            }
+            UpdateUI();
         }
-        else
-        {
-            // sinon, on incrémente le compteur de la dernière action
-            actions[^1].count++;
-        }
-        UpdateUI();
     }
 
     public void ClearActions()
     {
-        actions.Clear();
+        _actions.Clear();
         UpdateUI();
     }
 
     public void ExecuteActions()
     {
-        foreach (var actionEntry in actions)
+        foreach (var actionEntry in _actions)
         {
             for (int i = 0; i < actionEntry.count; i++)
             {
@@ -84,7 +113,7 @@ public class ActionQueue : MonoBehaviour
     void UpdateUI()
     {
         actionListText.text = "";
-        foreach (var actionEntry in actions)
+        foreach (var actionEntry in _actions)
         {
             string actionName = "";
 

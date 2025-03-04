@@ -2,13 +2,13 @@ using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonColorManager : MonoBehaviour
+public class ScreenShapedButton : MonoBehaviour
 {
     Image _image;
     Button _button;
 
-    [field : SerializeField] public Color _unfinishedColor { get; private set; }
-    [field : SerializeField] public Color _finishedColor{ get; private set; }
+    [field : SerializeField] public Color UnfinishedColor { get; private set; }
+    [field : SerializeField] public Color FinishedColor{ get; private set; }
 
     bool _isButtonForCurrentLevel;
 
@@ -29,12 +29,12 @@ public class ButtonColorManager : MonoBehaviour
 
     void ChangeColorUnfinished()
     {
-        _image.color = _unfinishedColor;
+        _image.color = UnfinishedColor;
     }
 
     public void ChangeColorFinished()
     {
-        if (_isButtonForCurrentLevel) { _image.color = _finishedColor; }
+        if (_isButtonForCurrentLevel) { _image.color = FinishedColor; }
     }
 
     void WaitForLevelFinishEvent()

@@ -85,12 +85,12 @@ public class LevelController : MonoBehaviour
     {
         PlayerData loadedData = SaveSystem.LoadPlayer();
 
-        var levelButtons = _levelSelector.GetComponentsInChildren<ButtonColorManager>();
+        var levelButtons = _levelSelector.GetComponentsInChildren<ScreenShapedButton>();
 
         for (int i = 0; i < levelButtons.Length; i++)
         {
             if(levelButtons[i].TryGetComponent(out Image img))
-                img.color = levelButtons[i]._unfinishedColor;
+                img.color = levelButtons[i].UnfinishedColor;
         }
         
         foreach (PlayerData.DataElement levels in loadedData.data)
@@ -99,11 +99,11 @@ public class LevelController : MonoBehaviour
 
             if (selectLevelButton != null)
             {
-                ButtonColorManager colorManager = selectLevelButton.GetComponent<ButtonColorManager>();
+                ScreenShapedButton colorManager = selectLevelButton.GetComponent<ScreenShapedButton>();
                 Image btnImage = selectLevelButton.GetComponent<Image>();
                 if (btnImage != null && colorManager != null)
                 {
-                    btnImage.color = colorManager._finishedColor;
+                    btnImage.color = colorManager.FinishedColor;
                     Debug.Log("Color Changed !", btnImage);
                 }
             }

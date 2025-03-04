@@ -230,6 +230,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &156053161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156053158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b768ede52124ff42a69297f2de9294e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelManager: {fileID: 918767608}
 --- !u!1 &293774294
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,6 +318,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 293774294}
   m_CullTransparentMesh: 1
+--- !u!114 &918767608 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5117491930239639187, guid: d5b9b0b3515940241ab7b8379df92c66, type: 3}
+  m_PrefabInstance: {fileID: 1794516346}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7042cf86cd02f448978ba2d39fdce66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1107494836
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,7 +704,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8005152876793737232, guid: b03dda61a8ba51341add2c32fb575b02, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1340.19
+      value: -360.16
       objectReference: {fileID: 0}
     - target: {fileID: 8005152876793737232, guid: b03dda61a8ba51341add2c32fb575b02, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -701,6 +725,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3948008921236485780, guid: b03dda61a8ba51341add2c32fb575b02, type: 3}
       insertIndex: -1
       addedObject: {fileID: 156053160}
+    - targetCorrespondingSourceObject: {fileID: 3948008921236485780, guid: b03dda61a8ba51341add2c32fb575b02, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 156053161}
   m_SourcePrefab: {fileID: 100100000, guid: b03dda61a8ba51341add2c32fb575b02, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

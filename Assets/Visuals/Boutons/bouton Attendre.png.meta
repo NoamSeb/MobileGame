@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 80dd8f67a7a5d784788a0a5e02f10f39
+guid: a79a4516f8b9a5e4192d6ad5875c3025
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8745325889187758881
-    second: attendre_0
+      213: -2993405804026800781
+    second: bouton Attendre_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,24 +109,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: iOS
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: attendre_0
+      name: bouton Attendre_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fdcbfe1407c52a680800000000000000
-      internalID: -8745325889187758881
+      spriteID: 375d36ee7494576d0800000000000000
+      internalID: -2993405804026800781
       vertices: []
       indices: 
       edges: []
@@ -161,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      attendre_0: -8745325889187758881
+      bouton Attendre_0: -2993405804026800781
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1005,6 +1005,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionListText: {fileID: 2145878160198375639}
+  _previsDot: {fileID: 6005765783578959954, guid: 22603b80d04c6a54a8b82f1bac6da2cf, type: 3}
+  _playzoneLayer: 6
+  _maxPrevisAmount: 5
 --- !u!1 &7014182310612419501
 GameObject:
   m_ObjectHideFlags: 0

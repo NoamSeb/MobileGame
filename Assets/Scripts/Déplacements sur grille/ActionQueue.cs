@@ -1,7 +1,8 @@
 using UnityEngine;
+using System;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using TMPro;
+using NaughtyAttributes;
 
 public class ActionQueue : MonoBehaviour
 {
@@ -67,7 +68,7 @@ public class ActionQueue : MonoBehaviour
             UpdateUI();
         }
         else if (_actions.Count > 0)
-        { 
+        {
             _actions.RemoveAt(_actions.Count - 1);
             UpdateUI();
         }
@@ -92,6 +93,12 @@ public class ActionQueue : MonoBehaviour
     }
 
     public void ClearActions()
+    {
+        _actions.Clear();
+        UpdateUI();
+    }
+
+    private void OnDestroy()
     {
         _actions.Clear();
         UpdateUI();
@@ -134,6 +141,63 @@ public class ActionQueue : MonoBehaviour
             }
 
             actionListText.text += $">>> {actionName} x{actionEntry.count}\n";
+        }
+        DrawPrevisualisation();
+    }
+
+    readonly private List<GameObject> PrevisItems = new();
+    [SerializeField] private GameObject _previsDot;
+    [SerializeField, Layer] int _playzoneLayer;
+    [SerializeField, Range(1, 10)] int _maxPrevisAmount;
+
+    void DrawPrevisualisation()
+    {
+        PrevisItems.Clear();
+        Vector3 currentPos = GameManager.Instance.PlayerScript.transform.position;
+        int currentRot = GameManager.Instance.PlayerScript.CurrentRotation;
+        int currentPrevisAmount = 0;
+
+        foreach (var action in _actions)
+        {
+            if (action.actionType == PlayerGridMovement.ActionType.Move)
+            {
+                var nextPos = currentRot switch
+                {
+                    0 => Vector3.up,
+                    90 => Vector3.right,
+                    180 => Vector3.down,
+                    270 => Vector3.left,
+                    _ => throw new Exception("The player's rotation isn't correct"),
+                };
+
+                for (int i = 0; i < action.count; i++)
+                {
+                    bool hasHitTilemap = false;
+                    currentPos += nextPos;
+                    Collider2D[] colliders = Physics2D.OverlapPointAll(currentPos);
+                    foreach (var collider in colliders)
+                    {
+                        if (collider.gameObject.layer == _playzoneLayer)
+                        {
+                            hasHitTilemap = true;
+                        }
+                    }
+
+                    if (hasHitTilemap && currentPrevisAmount < _maxPrevisAmount)
+                    {
+                        PrevisItems.Add(Instantiate(_previsDot, currentPos, Quaternion.identity));
+                        currentPrevisAmount++;
+                    }
+                }
+            }
+            if (action.actionType == PlayerGridMovement.ActionType.TurnRight)
+            {
+                currentRot = (currentRot + 90) % 360;
+            }
+            if (action.actionType == PlayerGridMovement.ActionType.TurnLeft)
+            {
+                currentRot = (currentRot - 90 + 360) % 360;
+            }
         }
     }
 }

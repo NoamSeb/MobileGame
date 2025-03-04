@@ -15,6 +15,7 @@ public class Level : MonoBehaviour
     public PlayerMirrorMovement MirrorMovement { get; private set; }
 
     private GameObject _initialStateBackup;
+    private bool _isFirstTimeBackingUp;
 
     private void Awake()
     {

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using MoreMountains.Feedbacks;
 
 public class PlayerMirrorMovement : MonoBehaviour
 {
@@ -46,7 +45,13 @@ public class PlayerMirrorMovement : MonoBehaviour
 
     private bool _isRotationLocked;
 
-    [SerializeField] private MMF_Player _loadingFeedbacks;
+    public static PlayerMirrorMovement Instance;
+
+    private void Awake()
+    {
+        if (Instance == null) { Instance = this; }
+        else { Destroy(gameObject); }
+    }
 
     void Start()
     {
@@ -64,8 +69,6 @@ public class PlayerMirrorMovement : MonoBehaviour
         GridRotationLocker.OnRotateMirror += ForceRotation;
 
         _moveDuration = GameManager.Instance.PlayerScript.MoveDuration;
-
-        PlayFeedbacks(_loadingFeedbacks);
     }
 
     [ExecuteInEditMode]
@@ -303,10 +306,5 @@ public class PlayerMirrorMovement : MonoBehaviour
         _executeAction = false;
         _actionQueue.Clear();
         Debug.Log("Le joueur ne bouge plus !");
-    }
-
-    void PlayFeedbacks(MMF_Player player)
-    {
-        player.PlayFeedbacks();
     }
 }

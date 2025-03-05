@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using UnityEditor.UI;
+using UnityEngine.Tilemaps;
 
 public class GDTools : EditorWindow
 {
@@ -62,7 +63,7 @@ public class GDTools : EditorWindow
         {
             if (Convert.ToInt64(_ID) > 0)
             {
-                GameObject newLevel = new("Level_"+_ID);
+                GameObject newLevel = new("Level_" + _ID);
                 GameObject newObjects = new("-------- OBJECTS --------");
 
                 foreach (GridObject obj in FindObjectsByType<GridObject>(FindObjectsSortMode.None))
@@ -104,6 +105,29 @@ public class GDTools : EditorWindow
         {
             SnapAllObjects();
         }
+
+        /*if (GUILayout.Button("test"))
+        {
+            Tilemap map = FindFirstObjectByType<Tilemap>();
+            map.CompressBounds();
+
+            BoundsInt bounds = map.cellBounds;
+            Vector3Int point = new(
+            Mathf.FloorToInt(bounds.center.x),
+            Mathf.FloorToInt(bounds.center.y),
+            0);
+            Vector3 realpoint = map.CellToWorld(point);
+            Vector3 correctionX = Vector3.zero, correctionY = Vector3.zero;
+            if (bounds.size.x % 2 != 0) { correctionX = Vector3.right / 2; }
+            if (bounds.size.y % 2 != 0) { correctionY = Vector3.up / 2; }
+            Debug.Log(realpoint + correctionX + correctionY);
+            Debug.DrawLine(Vector3.zero, realpoint + correctionX + correctionY, Color.white, 5f);
+
+            Debug.DrawLine(new(bounds.min.x, bounds.min.y), new(bounds.min.x, bounds.max.y), Color.red, 5f);
+            Debug.DrawLine(new(bounds.min.x, bounds.max.y), new(bounds.max.x, bounds.max.y), Color.red, 5f);
+            Debug.DrawLine(new(bounds.max.x, bounds.max.y), new(bounds.max.x, bounds.min.y), Color.red, 5f);
+            Debug.DrawLine(new(bounds.max.x, bounds.min.y), new(bounds.min.x, bounds.min.y), Color.red, 5f);
+        }*/
     }
 }
 #endif

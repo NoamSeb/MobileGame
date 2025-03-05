@@ -1005,7 +1005,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionListText: {fileID: 2145878160198375639}
-  _previsDot: {fileID: 3814281157813793578, guid: 70d286f9a1c32b54098b79c7f1b40c4a, type: 3}
+  _previsDot: {fileID: 6005765783578959954, guid: 22603b80d04c6a54a8b82f1bac6da2cf, type: 3}
   _playzoneLayer: 0
   _maxPrevisAmount: 10
 --- !u!1 &7014182310612419501

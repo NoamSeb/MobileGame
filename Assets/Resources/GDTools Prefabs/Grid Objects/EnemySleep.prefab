@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3394040875082829332}
   - component: {fileID: 1594247958636510859}
   - component: {fileID: 2701975544124028324}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: EnemySleep
   m_TagString: Untagged
   m_Icon: {fileID: 0}

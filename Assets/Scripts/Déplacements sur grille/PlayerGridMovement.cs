@@ -15,6 +15,7 @@ public class PlayerGridMovement : MonoBehaviour
     public float MoveDuration { get { return _moveDuration; } }
     private bool _isMoving = false; // emp�che les d�placements simultan�s
     private int _currentRotation = 0; // rotation actuelle (0 = haut, 90 = droite, etc.)
+    public int CurrentRotation { get { return _currentRotation; } }
 
     public enum InitialMoveDirection
     {

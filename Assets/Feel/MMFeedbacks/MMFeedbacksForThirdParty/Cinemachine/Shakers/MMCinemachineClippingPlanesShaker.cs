@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 #if MM_CINEMACHINE
-using Cinemachine;
+using Unity.Cinemachine;
 #endif
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;

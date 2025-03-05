@@ -1326,19 +1326,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3215971242142612806, guid: ccd295636ef58054cb81a83a04b0cf62, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3215971242142612806, guid: ccd295636ef58054cb81a83a04b0cf62, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3215971242142612806, guid: ccd295636ef58054cb81a83a04b0cf62, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3215971242142612806, guid: ccd295636ef58054cb81a83a04b0cf62, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3215971242142612806, guid: ccd295636ef58054cb81a83a04b0cf62, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1356,6 +1356,10 @@ PrefabInstance:
       propertyPath: _rotateDirection
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4903712307955802026, guid: ccd295636ef58054cb81a83a04b0cf62, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f2b5e6117f886924fa91c6a54b003458, type: 3}
     - target: {fileID: 5752250263959924206, guid: ccd295636ef58054cb81a83a04b0cf62, type: 3}
       propertyPath: m_Name
       value: RotationLocker (1)
@@ -1418,6 +1422,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3924585298776998924, guid: ccd295636ef58054cb81a83a04b0cf62, type: 3}
+      propertyPath: _rotateDirection
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903712307955802026, guid: ccd295636ef58054cb81a83a04b0cf62, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e18bf65d809b8944889fd733076bdf43, type: 3}
     - target: {fileID: 5752250263959924206, guid: ccd295636ef58054cb81a83a04b0cf62, type: 3}
       propertyPath: m_Name
       value: RotationLocker
@@ -2696,6 +2708,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3924585298776998924, guid: ccd295636ef58054cb81a83a04b0cf62, type: 3}
+      propertyPath: _rotateDirection
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903712307955802026, guid: ccd295636ef58054cb81a83a04b0cf62, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e18bf65d809b8944889fd733076bdf43, type: 3}
     - target: {fileID: 5752250263959924206, guid: ccd295636ef58054cb81a83a04b0cf62, type: 3}
       propertyPath: m_Name
       value: RotationLocker (2)

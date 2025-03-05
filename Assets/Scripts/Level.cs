@@ -36,18 +36,25 @@ public class Level : MonoBehaviour
         };
 
         map.CompressBounds();
-
         BoundsInt bounds = map.cellBounds;
-        Vector3Int point = new(
-        Mathf.FloorToInt(bounds.center.x),
-        Mathf.FloorToInt(bounds.center.y),
-        0);
-        Vector3 realpoint = map.CellToWorld(point);
         Vector3 correctionX = Vector3.zero, correctionY = Vector3.zero;
-        if (bounds.size.x % 2 != 0) { correctionX = Vector3.right / 2; }
         if (bounds.size.y % 2 != 0) { correctionY = Vector3.up / 2; }
 
-        LevelCenter = realpoint + correctionX + correctionY;
+        if (PlayGrid.transform.childCount == 1)
+        {
+            Vector3Int point = new(Mathf.FloorToInt(bounds.center.x), Mathf.FloorToInt(bounds.center.y), 0);
+            Vector3 realpoint = map.CellToWorld(point);
+            if (bounds.size.x % 2 != 0) { correctionX = Vector3.right / 2; }
+
+            LevelCenter = realpoint + correctionX + correctionY;
+        }
+        else
+        {
+            Vector3Int point = new(Mathf.FloorToInt(bounds.max.x), Mathf.FloorToInt(bounds.center.y), 0);
+            Vector3 realpoint = map.CellToWorld(point);
+
+            LevelCenter = realpoint + correctionX + correctionY;
+        }
     }
 
     void GetNeededComponents()

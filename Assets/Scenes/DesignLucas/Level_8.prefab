@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 895217e9ed04c4742a5003caaf35c31d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _neededCameraSize: 0
+  _neededCameraSize: 3
 --- !u!1001 &196716018264099166
 PrefabInstance:
   m_ObjectHideFlags: 0

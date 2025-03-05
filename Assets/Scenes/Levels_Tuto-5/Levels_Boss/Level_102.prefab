@@ -2384,6 +2384,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3924585298776998924, guid: ccd295636ef58054cb81a83a04b0cf62, type: 3}
+      propertyPath: _rotateDirection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903712307955802026, guid: ccd295636ef58054cb81a83a04b0cf62, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 78e15b585021ed24bb2a42f95fbb1604, type: 3}
     - target: {fileID: 5752250263959924206, guid: ccd295636ef58054cb81a83a04b0cf62, type: 3}
       propertyPath: m_Name
       value: RotationLocker

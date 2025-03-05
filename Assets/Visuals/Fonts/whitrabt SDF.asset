@@ -717,8 +717,20 @@ MonoBehaviour:
     m_Width: 8
     m_Height: 45
   - m_X: 181
+    m_Y: 124
+    m_Width: 8
+    m_Height: 34
+  - m_X: 118
+    m_Y: 203
+    m_Width: 63
+    m_Height: 820
+  - m_X: 244
+    m_Y: 203
+    m_Width: 779
+    m_Height: 820
+  - m_X: 244
     m_Y: 158
-    m_Width: 842
+    m_Width: 54
     m_Height: 865
   - m_X: 181
     m_Y: 124

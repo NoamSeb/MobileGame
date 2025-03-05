@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6658884049521471832}
   - component: {fileID: 3954959025228754928}
   - component: {fileID: 7160606652192989133}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Teleporter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,7 +31,8 @@ Transform:
   m_LocalPosition: {x: 3.5, y: -2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2376795670581716365}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6658884049521471832
@@ -101,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a9de527c522db46a39eb7686548fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _loadingFeedbacks: {fileID: 8095571157598346120}
   _otherTeleporter: {fileID: 0}
 --- !u!61 &7160606652192989133
 BoxCollider2D:

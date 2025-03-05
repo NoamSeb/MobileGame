@@ -1,5 +1,5 @@
 ﻿#if MM_CINEMACHINE
-using Cinemachine;
+using Unity.Cinemachine;
 #endif
 using UnityEngine;
 

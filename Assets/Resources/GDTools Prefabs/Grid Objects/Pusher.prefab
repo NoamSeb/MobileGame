@@ -31,7 +31,8 @@ Transform:
   m_LocalPosition: {x: -2.5, y: -2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3637419271808717491}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3490927613903351360
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24bb0096a19a51f4090b1828cb922674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _loadingFeedbacks: {fileID: 7124581965409823926}
   _pushDirection: 0
 --- !u!61 &2538640933046053611
 BoxCollider2D:

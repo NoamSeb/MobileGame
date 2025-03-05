@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5916911186432313469}
   - component: {fileID: 4941817911252195965}
   - component: {fileID: 2505358013838324563}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Computer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,7 +31,8 @@ Transform:
   m_LocalPosition: {x: -2.5, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5748019903585307380}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5916911186432313469
@@ -101,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4dd356e0b347c649ab307939b7983d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _loadingFeedbacks: {fileID: 2260874802240320753}
 --- !u!61 &2505358013838324563
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3152020291109173050}
   - component: {fileID: 8293349597490969618}
   - component: {fileID: 1061063289574198010}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Tool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,7 +31,8 @@ Transform:
   m_LocalPosition: {x: 3.5, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8755834456997225958}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3152020291109173050
@@ -101,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f786b567ae2344883157edce41edd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _loadingFeedbacks: {fileID: 2965573139364862947}
 --- !u!61 &1061063289574198010
 BoxCollider2D:
   m_ObjectHideFlags: 0

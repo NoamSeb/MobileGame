@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3394040875082829332}
   - component: {fileID: 1594247958636510859}
   - component: {fileID: 2701975544124028324}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: EnemySleep
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,7 +31,8 @@ Transform:
   m_LocalPosition: {x: 1.5, y: -1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5447233053622218317}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3394040875082829332
@@ -101,9 +102,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f95df972435e7f74b87dc15fa0a79c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _robotMovementType: 0
+  _loadingFeedbacks: {fileID: 1962823524386246728}
+  _robotMovementType: 1
   _verticalInitialDirection: 0
   _horizontalInitialDirection: 0
+  _spriteVertical: {fileID: 21300000, guid: c8edbf4899b5a0f4685f08a9cd0e3c8d, type: 3}
+  _spriteHorizontal: {fileID: 21300000, guid: a5cc01ba18e0f684cb52aa55189767f8, type: 3}
 --- !u!61 &2701975544124028324
 BoxCollider2D:
   m_ObjectHideFlags: 0

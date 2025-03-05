@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: cc98424d73b140841a041f96c35490cc
+guid: e6c9cc75e8446814f878fc1e7aedd9ba
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4780720864498542926
-    second: joueur_miroir_0
+      213: 4591745156156329766
+    second: bouton_lock_droite_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,30 +109,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: iOS
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: joueur_miroir_0
+      name: bouton_lock_droite_0
       rect:
         serializedVersion: 2
-        x: 39
-        y: 45
-        width: 178
-        height: 165
+        x: 0
+        y: 0
+        width: 305
+        height: 360
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e49ebb20c48885240800000000000000
-      internalID: 4780720864498542926
+      spriteID: 62f81d334e729bf30800000000000000
+      internalID: 4591745156156329766
       vertices: []
       indices: 
       edges: []
@@ -161,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      joueur_miroir_0: 4780720864498542926
+      bouton_lock_droite_0: 4591745156156329766
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

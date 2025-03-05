@@ -1,13 +1,21 @@
 using UnityEngine;
+using System;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using TMPro;
+using NaughtyAttributes;
 
 public class ActionQueue : MonoBehaviour
 {
     private PlayerGridMovement _player;
-    public TMP_Text actionListText; // référence à l'affichage des actions
-    readonly private List<ActionEntry> actions = new(); // liste des actions avec compteurs
+    public TMP_Text _actionListText; // référence à l'affichage des actions
+    readonly private List<ActionEntry> _actions = new(); // liste des actions avec compteurs
+
+    bool _active;
+
+    private void Awake()
+    {
+        EnergySliderFeedbacks.OnSliderFeedbackFinished += EnableActionsQueueing;
+    }
 
     private void Start()
     {
@@ -24,6 +32,11 @@ public class ActionQueue : MonoBehaviour
             this.actionType = actionType;
             this.count = 1; // par défaut, une action est ajoutée une fois
         }
+    }
+
+    void EnableActionsQueueing()
+    {
+        _active = true;
     }
 
     public void AddMove()
@@ -47,30 +60,53 @@ public class ActionQueue : MonoBehaviour
         UpdateUI();
     }
 
+    public void DeleteLastAction()
+    {
+        if (_actions.Count > 0 && _actions[^1].count > 1)
+        {
+            _actions[^1].count--;
+            UpdateUI();
+        }
+        else if (_actions.Count > 0)
+        {
+            _actions.RemoveAt(_actions.Count - 1);
+            UpdateUI();
+        }
+    }
+
     private void AddAction(PlayerGridMovement.ActionType newAction)
     {
-        // si la liste est vide ou si la dernière action est différente, on ajoute une nouvelle entrée
-        if (actions.Count == 0 || actions[^1].actionType != newAction)
+        if (_active)
         {
-            actions.Add(new ActionEntry(newAction));
+            // si la liste est vide ou si la dernière action est différente, on ajoute une nouvelle entrée
+            if (_actions.Count == 0 || _actions[^1].actionType != newAction)
+            {
+                _actions.Add(new ActionEntry(newAction));
+            }
+            else
+            {
+                // sinon, on incrémente le compteur de la dernière action
+                _actions[^1].count++;
+            }
+            UpdateUI();
         }
-        else
-        {
-            // sinon, on incrémente le compteur de la dernière action
-            actions[^1].count++;
-        }
-        UpdateUI();
     }
 
     public void ClearActions()
     {
-        actions.Clear();
-        UpdateUI();
+        _actions.Clear();
+    }
+
+    private void OnDestroy()
+    {
+        _actionListText.text = "";
+        ClearPrevisualisation();
+        ClearActions();
     }
 
     public void ExecuteActions()
     {
-        foreach (var actionEntry in actions)
+        foreach (var actionEntry in _actions)
         {
             for (int i = 0; i < actionEntry.count; i++)
             {
@@ -79,12 +115,13 @@ public class ActionQueue : MonoBehaviour
         }
         _player.ExecuteActions();
         ClearActions();
+        ClearPrevisualisation();
     }
 
     void UpdateUI()
     {
-        actionListText.text = "";
-        foreach (var actionEntry in actions)
+        _actionListText.text = "";
+        foreach (ActionEntry actionEntry in _actions)
         {
             string actionName = "";
 
@@ -104,8 +141,75 @@ public class ActionQueue : MonoBehaviour
                     break;
             }
 
-            actionListText.text += $">>> {actionName} x{actionEntry.count}\n";
+            _actionListText.text += $">>> {actionName} x{actionEntry.count}\n";
         }
+        DrawPrevisualisation();
+    }
+
+    readonly private List<GameObject> _previsItems = new();
+    [SerializeField] private GameObject _previsDot;
+    [SerializeField, Layer] int _playzoneLayer;
+    [SerializeField, Range(1, 10)] int _maxPrevisAmount;
+
+    void DrawPrevisualisation()
+    {
+        ClearPrevisualisation();
+
+        Vector3 currentPos = GameManager.Instance.PlayerScript.transform.position;
+        int currentRot = GameManager.Instance.PlayerScript.CurrentRotation;
+        int currentPrevisAmount = 0;
+
+        foreach (var action in _actions)
+        {
+            if (action.actionType == PlayerGridMovement.ActionType.Move)
+            {
+                var nextPos = currentRot switch
+                {
+                    0 => Vector3.up,
+                    90 => Vector3.right,
+                    180 => Vector3.down,
+                    270 => Vector3.left,
+                    _ => throw new Exception("The player's rotation isn't correct"),
+                };
+
+                for (int i = 0; i < action.count; i++)
+                {
+                    bool hasHitTilemap = false;
+                    currentPos += nextPos;
+                    Collider2D[] colliders = Physics2D.OverlapPointAll(currentPos);
+                    foreach (var collider in colliders)
+                    {
+                        if (collider.gameObject.layer == _playzoneLayer)
+                        {
+                            hasHitTilemap = true;
+                        }
+                    }
+
+                    if (hasHitTilemap && currentPrevisAmount < _maxPrevisAmount)
+                    {
+                        _previsItems.Add(Instantiate(_previsDot, currentPos, Quaternion.identity));
+                        currentPrevisAmount++;
+                    }
+                }
+            }
+            if (action.actionType == PlayerGridMovement.ActionType.TurnRight)
+            {
+                currentRot = (currentRot + 90) % 360;
+            }
+            if (action.actionType == PlayerGridMovement.ActionType.TurnLeft)
+            {
+                currentRot = (currentRot - 90 + 360) % 360;
+            }
+        }
+    }
+
+    void ClearPrevisualisation()
+    {
+        foreach (GameObject obj in _previsItems)
+        {
+            Destroy(obj);
+        }
+        _previsItems.Clear();
     }
 }
 

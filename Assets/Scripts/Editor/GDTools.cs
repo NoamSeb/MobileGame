@@ -2,6 +2,8 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
+using System;
+using UnityEditor.UI;
 
 public class GDTools : EditorWindow
 {
@@ -24,6 +26,7 @@ public class GDTools : EditorWindow
         if (mirror != null) { mirror.SetPositionInGrid(); }
     }
 
+    string _ID;
     string[] _gridItemsNames = { };
     int _index = 0;
 
@@ -51,15 +54,39 @@ public class GDTools : EditorWindow
             _gridItemsNames = temp2.ToArray();
         }
 
-        GUILayout.Label("Initialize");
+        GUILayout.Label("Level Number");
 
-        if (GUILayout.Button("Set UI Tabs"))
+        _ID = GUILayout.TextArea(_ID);
+
+        if (GUILayout.Button("Assemble In Prefab"))
         {
-            Canvas[] canvas = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
-
-            foreach (Canvas temp in canvas)
+            if (Convert.ToInt64(_ID) > 0)
             {
-                temp.worldCamera = Camera.main;
+                GameObject newLevel = new("Level_"+_ID);
+                GameObject newObjects = new("-------- OBJECTS --------");
+
+                foreach (GridObject obj in FindObjectsByType<GridObject>(FindObjectsSortMode.None))
+                {
+                    obj.transform.SetParent(newObjects.transform);
+                }
+
+                FindFirstObjectByType<PlayerGridMovement>().transform.SetParent(newObjects.transform);
+                if (FindFirstObjectByType<PlayerMirrorMovement>() != null)
+                {
+                    FindFirstObjectByType<PlayerMirrorMovement>().transform.SetParent(newObjects.transform);
+                }
+
+                FindFirstObjectByType<Grid>().transform.SetParent(newLevel.transform);
+                GameObject.Find("UI").transform.SetParent(newLevel.transform);
+                foreach (var obj in FindObjectsByType<Canvas>(FindObjectsSortMode.None))
+                {
+                    if (obj.name == "Background")
+                    {
+                        obj.transform.SetParent(newLevel.transform);
+                    }
+                }
+                newObjects.transform.SetParent(newLevel.transform);
+                newLevel.AddComponent<Level>();
             }
         }
 

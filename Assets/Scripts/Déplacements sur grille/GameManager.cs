@@ -10,12 +10,14 @@ public class GameManager : MonoBehaviour
     //L'objet GameManager est un singleton pr�sent dans chaque sc�ne
     public static GameManager Instance;
     public static int CurrentLevelID { get; set; }
-
     public Grid PlayGrid { get; private set; }
     public Slider OxygenSlider { get; private set; }
     public PlayerGridMovement PlayerScript { get; private set; }
     public Oxygen PlayerOxygen { get; private set; }
     public PlayerMirrorMovement MirrorScript { get; private set; }
+    public bool IsAwake { get; private set; }
+
+    private float _cameraSize;
 
     private void Awake()
     {
@@ -24,7 +26,13 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
+        IsAwake = true;
         Level.OnLevelLoad += SetUp;
+    }
+
+    private void Start()
+    {
+        IsAwake = false;
     }
 
     void SetUp(Level level)
@@ -35,7 +43,13 @@ public class GameManager : MonoBehaviour
         PlayerOxygen = level.Oxygen;
         MirrorScript = level.MirrorMovement;
 
-        Camera.main.orthographicSize = level.CameraSize;
+        _cameraSize = level.CameraSize;
+    }
+
+    private void Update()
+    {
+        if(CurrentLevelID != 0) { Camera.main.orthographicSize = _cameraSize; }
+        else { Camera.main.orthographicSize = 5; }
     }
 
     public static void OnSave(int currentScore)
@@ -46,7 +60,7 @@ public class GameManager : MonoBehaviour
         {
             var dataElement = playerData.data.FirstOrDefault(x => x.idLevel == CurrentLevelID);
 
-            if (!dataElement.Equals(default))
+            if (dataElement.idLevel != 0)
             {
                 if (dataElement.score > currentScore)
                     return;
@@ -59,7 +73,21 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                playerData.data.Add(new PlayerData.DataElement(CurrentLevelID, currentScore, dataElement.biome));
+                BiomeManager bm = GameObject.FindObjectOfType<BiomeManager>();
+
+                if (bm != null) // Ensure bm is found before using it
+                {
+                    BiomeManager.BiomeStructure currentBiome = bm.Biomes.Find(x => x.idBiome == bm._currentBiomeID); // Corrected predicate logic
+
+                    if (currentBiome.biome != null) // Ensure currentBiome is valid
+                    {
+                        playerData.data.Add(new PlayerData.DataElement(CurrentLevelID, currentScore, currentBiome.idBiome)); // Use currentBiome.biome
+                    }
+                }
+                else
+                {
+                    Debug.LogError("BiomeManager not found in the scene!");
+                }
             }
         }
 

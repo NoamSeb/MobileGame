@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine.Tilemaps;
 using TMPro;
+using MoreMountains.Feedbacks;
 
 public class PlayerGridMovement : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class PlayerGridMovement : MonoBehaviour
     public float MoveDuration { get { return _moveDuration; } }
     private bool _isMoving = false; // emp�che les d�placements simultan�s
     private int _currentRotation = 0; // rotation actuelle (0 = haut, 90 = droite, etc.)
+    public int CurrentRotation { get { return _currentRotation; } }
 
     public enum InitialMoveDirection
     {
@@ -24,7 +26,6 @@ public class PlayerGridMovement : MonoBehaviour
     }
 
     [SerializeField] private InitialMoveDirection _initialMoveDirection;
-
     private void OnValidate()
     {
         switch(_initialMoveDirection)
@@ -67,6 +68,13 @@ public class PlayerGridMovement : MonoBehaviour
 
     private PlayerMirrorMovement _playerMirror;
 
+    [SerializeField] private MMF_Player _loadingFeedbacks;
+
+    private void Awake()
+    {
+        _loadingFeedbacks.Initialization();
+    }
+
     void Start()
     {
         _grid = GameManager.Instance.PlayGrid;
@@ -96,6 +104,8 @@ public class PlayerGridMovement : MonoBehaviour
         {
             _playerMirror = GameManager.Instance.MirrorScript;
         }
+
+        PlayFeedbacks(_loadingFeedbacks);
     }
 
     [ExecuteInEditMode]
@@ -209,8 +219,8 @@ public class PlayerGridMovement : MonoBehaviour
     {
         if (!_isRotationLocked)
         {
-            _currentRotation = (_currentRotation + 90) % 360;
-            transform.rotation = Quaternion.Euler(0, 0, -_currentRotation);
+            _currentRotation = (_currentRotation - 90 + 360) % 360;
+            transform.rotation = Quaternion.Euler(0, 0, _currentRotation);
         }
     }
 
@@ -218,17 +228,17 @@ public class PlayerGridMovement : MonoBehaviour
     {
         if (!_isRotationLocked)
         {
-            _currentRotation = (_currentRotation - 90 + 360) % 360; // �viter les valeurs n�gatives
-            transform.rotation = Quaternion.Euler(0, 0, -_currentRotation);
+            _currentRotation = (_currentRotation + 90) % 360;
+            transform.rotation = Quaternion.Euler(0, 0, _currentRotation);
         }
     }
 
     Vector2Int GetDirectionVector()
     {
         if (_currentRotation == 0) return Vector2Int.up;
-        if (_currentRotation == 90) return Vector2Int.right;
+        if (_currentRotation == 270) return Vector2Int.right;
         if (_currentRotation == 180) return Vector2Int.down;
-        if (_currentRotation == 270) return Vector2Int.left;
+        if (_currentRotation == 90) return Vector2Int.left;
         throw new ArgumentException("The player's rotation doesn't match this script's");
     }
 
@@ -331,7 +341,7 @@ public class PlayerGridMovement : MonoBehaviour
     void ForceRotation(int rotation)
     {
         _currentRotation = rotation;
-        transform.rotation = Quaternion.Euler(0, 0, -_currentRotation);
+        transform.rotation = Quaternion.Euler(0, 0, _currentRotation);
         _isRotationLocked = true;
     }
 
@@ -341,5 +351,10 @@ public class PlayerGridMovement : MonoBehaviour
         _executeAction = false;
         _actionQueue.Clear();
         Debug.Log("Le joueur ne bouge plus !");
+    }
+
+    void PlayFeedbacks(MMF_Player player)
+    {
+        player.PlayFeedbacks();
     }
 }

@@ -1,8 +1,6 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using NaughtyAttributes;
-using UnityEngine.Serialization;
 using UnityEditor;
 using System;
 using TMPro;
@@ -25,7 +23,6 @@ public class Oxygen : MonoBehaviour
 
     public TextMeshProUGUI _oxygenLabel;
 
-
     void Start()
     {
         _oxygenSlider = GameManager.Instance.OxygenSlider;
@@ -43,7 +40,7 @@ public class Oxygen : MonoBehaviour
 
     void FixedUpdate()
     {
-        string text = _currentOxygen == 10 ? _currentOxygen.ToString() : "0" + _currentOxygen.ToString();
+        string text = (_currentOxygen * 10).ToString() + "%";
         _oxygenLabel.text = text;
 
         if (_oxygenSlider != null) _oxygenSlider.value = Mathf.Lerp(_oxygenSlider.value, _currentOxygen, Time.fixedDeltaTime * _lerpSpeed);
@@ -91,7 +88,7 @@ public class Oxygen : MonoBehaviour
         else
         {
             OnOverOxygenThreshold?.Invoke();
-        } 
+        }
 
         if (_currentOxygen <= 0)
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
 #if MM_CINEMACHINE
-using Cinemachine;
+using Unity.Cinemachine;
 #endif
 
 namespace MoreMountains.FeedbacksForThirdParty

@@ -30,7 +30,8 @@ Transform:
   m_LocalPosition: {x: -4.5, y: -1.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4422504014946304858}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5421779047664387172
@@ -161,30 +162,6 @@ PrefabInstance:
       propertyPath: managedReferences[921140136061436001].BoundSpriteRenderer
       value: 
       objectReference: {fileID: 5421779047664387172}
-    - target: {fileID: 8999197014851504028, guid: e1e0e68497dd6fe43ad57ee9f9016a00, type: 3}
-      propertyPath: managedReferences[921140132546609231].ColorOverTime.key0.b
-      value: 0.25490198
-      objectReference: {fileID: 0}
-    - target: {fileID: 8999197014851504028, guid: e1e0e68497dd6fe43ad57ee9f9016a00, type: 3}
-      propertyPath: managedReferences[921140132546609231].ColorOverTime.key0.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8999197014851504028, guid: e1e0e68497dd6fe43ad57ee9f9016a00, type: 3}
-      propertyPath: managedReferences[921140132546609231].ColorOverTime.key0.r
-      value: 0.9803922
-      objectReference: {fileID: 0}
-    - target: {fileID: 8999197014851504028, guid: e1e0e68497dd6fe43ad57ee9f9016a00, type: 3}
-      propertyPath: managedReferences[921140132546609231].ColorOverTime.key1.b
-      value: 0.25490198
-      objectReference: {fileID: 0}
-    - target: {fileID: 8999197014851504028, guid: e1e0e68497dd6fe43ad57ee9f9016a00, type: 3}
-      propertyPath: managedReferences[921140132546609231].ColorOverTime.key1.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8999197014851504028, guid: e1e0e68497dd6fe43ad57ee9f9016a00, type: 3}
-      propertyPath: managedReferences[921140132546609231].ColorOverTime.key1.r
-      value: 0.9803922
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

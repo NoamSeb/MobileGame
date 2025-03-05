@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
 #if MM_CINEMACHINE
-using Cinemachine;
+using Unity.Cinemachine;
 #endif
 
 namespace MoreMountains.FeedbacksForThirdParty
@@ -24,7 +24,7 @@ namespace MoreMountains.FeedbacksForThirdParty
 		#if MM_CINEMACHINE
 		/// the impulse definition to broadcast
 		[Tooltip("the impulse definition to broadcast")]
-		[CinemachineImpulseDefinitionProperty]
+		[CinemachineImpulseDefinitionPropertyAttribute]
 		public CinemachineImpulseDefinition m_ImpulseDefinition;
 		#endif
         

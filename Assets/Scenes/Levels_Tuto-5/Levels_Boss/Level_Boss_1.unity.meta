@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 0207b47396ccd1048bba1db2d89240b9
+<<<<<<<< HEAD:Assets/Scenes/Levels_Tuto-5/Levels_manaquants/Level_25.unity.meta
+guid: 21c0c6d84124af447b0667c64183e2b5
+========
+guid: 0bbc990c901fd6a4593df2c7f1c7b59c
+>>>>>>>> DevArthur:Assets/Scenes/Levels_Tuto-5/Levels_Boss/Level_Boss_1.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

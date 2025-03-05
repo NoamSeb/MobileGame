@@ -16,7 +16,7 @@ public class LevelController : MonoBehaviour
         public GameObject level;
     }
 
-    [SerializeField] GameObject TEMPDONTKEEP;
+    [SerializeField] GameObject _levelSelector;
 
     private void Awake()
     {
@@ -32,6 +32,7 @@ public class LevelController : MonoBehaviour
 
         ChangeColorOfFinishLevelInData();
         GridExit.OnLevelEnd += UnloadCurrentLevel;
+        PauseMenu.OnReturnToMenuInGame += UnloadCurrentLevel;
     }
 
     public void GetActiveLevel()
@@ -57,14 +58,14 @@ public class LevelController : MonoBehaviour
     }
 
     public void LoadLevel(int levelID)
-    {
+    {   
         foreach (LevelStructure level in Levels)
         {
             level.level.SetActive(level.idLevel == levelID);
         }
 
         GameManager.CurrentLevelID = levelID;
-        TEMPDONTKEEP.SetActive(false);
+        _levelSelector.SetActive(false);
     }
 
     public void UnloadCurrentLevel()
@@ -73,7 +74,7 @@ public class LevelController : MonoBehaviour
         LevelStructure tempLevel = Levels.Find(x => x.idLevel == tempID);
         tempLevel.level.SetActive(false);
         GameManager.CurrentLevelID = 0;
-        TEMPDONTKEEP.SetActive(true);
+        _levelSelector.SetActive(true);
     }
 
     /// <summary>
@@ -84,12 +85,12 @@ public class LevelController : MonoBehaviour
     {
         PlayerData loadedData = SaveSystem.LoadPlayer();
 
-        var levelButtons = TEMPDONTKEEP.GetComponentsInChildren<ButtonColorManager>();
+        var levelButtons = _levelSelector.GetComponentsInChildren<ScreenShapedButton>();
 
         for (int i = 0; i < levelButtons.Length; i++)
         {
             if(levelButtons[i].TryGetComponent(out Image img))
-                img.color = levelButtons[i]._unfinishedColor;
+                img.color = levelButtons[i].UnfinishedColor;
         }
         
         foreach (PlayerData.DataElement levels in loadedData.data)
@@ -98,11 +99,11 @@ public class LevelController : MonoBehaviour
 
             if (selectLevelButton != null)
             {
-                ButtonColorManager colorManager = selectLevelButton.GetComponent<ButtonColorManager>();
+                ScreenShapedButton colorManager = selectLevelButton.GetComponent<ScreenShapedButton>();
                 Image btnImage = selectLevelButton.GetComponent<Image>();
                 if (btnImage != null && colorManager != null)
                 {
-                    btnImage.color = colorManager._finishedColor;
+                    btnImage.color = colorManager.FinishedColor;
                     Debug.Log("Color Changed !", btnImage);
                 }
             }

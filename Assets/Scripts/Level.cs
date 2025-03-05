@@ -1,6 +1,9 @@
+using NaughtyAttributes;
 using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class Level : MonoBehaviour
@@ -14,14 +17,30 @@ public class Level : MonoBehaviour
     public Oxygen Oxygen { get; private set; }
     public PlayerMirrorMovement MirrorMovement { get; private set; }
 
+    public Vector3 LevelCenter { get; private set; }
+
     private GameObject _initialStateBackup;
-    private bool _isFirstTimeBackingUp;
 
     private void Awake()
     {
         GetNeededComponents();
 
         _initialStateBackup = new("Backup");
+
+        Vector3 levelCenter = PlayGrid.transform.childCount switch
+        {
+            1 => PlayGrid.GetComponentInChildren<Tilemap>().localBounds.center,
+
+            2 => new Vector3
+            (
+                PlayGrid.transform.GetChild(1).GetComponent<Tilemap>().localBounds.max.x,
+                PlayGrid.transform.GetChild(1).GetComponent<Tilemap>().localBounds.center.y,
+                0f),
+
+            _ => throw new ArgumentException($"{gameObject.name} has no or too much tilemaps")
+        };
+
+        LevelCenter = levelCenter;
     }
 
     void GetNeededComponents()
@@ -55,17 +74,20 @@ public class Level : MonoBehaviour
     {
         if (!GameManager.Instance.IsAwake)
         {
-            _initialStateBackup.SetActive(true);
-            foreach (Transform obj in transform)
+            if (_initialStateBackup != null)
             {
-                Destroy(obj.gameObject);
+                _initialStateBackup.SetActive(true);
+                foreach (Transform obj in transform)
+                {
+                    Destroy(obj.gameObject);
+                }
+                foreach (Transform obj in _initialStateBackup.transform)
+                {
+                    Instantiate(obj.gameObject, transform);
+                }
+                if (PlayGrid == null) { throw new Exception(); }
+                _initialStateBackup.SetActive(false);
             }
-            foreach (Transform obj in _initialStateBackup.transform)
-            {
-                Instantiate(obj.gameObject, transform);
-            }
-            if (PlayGrid == null) { throw new Exception(); }
-            _initialStateBackup.SetActive(false);
         }
     }
 }

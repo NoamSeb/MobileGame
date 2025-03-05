@@ -5,7 +5,7 @@ using GooglePlayGames.BasicApi;
 
 public class GooglePlayManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _failToConnectScreen;
+    /*[SerializeField] private GameObject _failToConnectScreen;
     public static GooglePlayManager Instance { get; private set; }
 
     void Awake()
@@ -26,11 +26,13 @@ public class GooglePlayManager : MonoBehaviour
         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
     }
 
-    internal void ProcessAuthentication(SignInStatus status) {
-        if (status == SignInStatus.Success) {
-            
+    internal void ProcessAuthentication(SignInStatus status)
+    {
+        if (status == SignInStatus.Success)
+        {
+
             _failToConnectScreen?.SetActive(false);
-            
+
             PlayGamesPlatform.Instance.LoadAchievements(achievements =>
             {
                 if (achievements.Length > 0)
@@ -42,9 +44,11 @@ public class GooglePlayManager : MonoBehaviour
                     Debug.Log("No achievements found");
                 }
             });
-        } else {
+        }
+        else
+        {
             Debug.LogWarning($"Google Play Games Authentication Failed: {status}");
-            
+
             _failToConnectScreen?.SetActive(true);
         }
     }
@@ -78,5 +82,5 @@ public class GooglePlayManager : MonoBehaviour
         {
             Social.ShowAchievementsUI();
         });
-    }
+    }*/
 }

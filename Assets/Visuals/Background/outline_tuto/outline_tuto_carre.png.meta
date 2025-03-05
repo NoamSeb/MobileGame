@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      outline_tuto_carre_0: 30198150015226497
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

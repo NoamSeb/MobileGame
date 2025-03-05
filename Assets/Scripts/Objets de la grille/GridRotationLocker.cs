@@ -15,6 +15,7 @@ public class GridRotationLocker : GridObject
     [SerializeField] private InitialMoveDirection _rotateDirection;
 
     private int _rotation;
+    public int Rotation { get { return _rotation; } }
 
     [SerializeField, BoxGroup("Sprites")]
     private Sprite _spriteUp, _spriteLeft, _spriteRight, _spriteDown;

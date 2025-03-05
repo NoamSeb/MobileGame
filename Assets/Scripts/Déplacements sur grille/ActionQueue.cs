@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using NaughtyAttributes;
+using UnityEditor.Experimental.GraphView;
 
 public class ActionQueue : MonoBehaviour
 {
@@ -174,7 +175,12 @@ public class ActionQueue : MonoBehaviour
 
                 for (int i = 0; i < action.count; i++)
                 {
-                    bool hasHitTilemap = false;
+                    bool hasHitTilemap = false, hasHitTeleporter = false, hasHitPusher = false, hasHitLocker = false;
+
+                    Vector3 possibleNextPos = Vector3.zero;
+                    Vector3 possibleAdditionalMove = Vector3.zero;
+                    int possibleNextRot = 0;
+
                     currentPos += nextPos;
                     Collider2D[] colliders = Physics2D.OverlapPointAll(currentPos);
                     foreach (var collider in colliders)
@@ -183,12 +189,50 @@ public class ActionQueue : MonoBehaviour
                         {
                             hasHitTilemap = true;
                         }
+                        if (collider.gameObject.TryGetComponent(out GridTeleporter teleport))
+                        {
+                            possibleNextPos = teleport.OtherTeleporter.transform.position;
+                            hasHitTeleporter = true;
+                        }
+                        if (collider.gameObject.TryGetComponent(out GridPusher push))
+                        {
+                            possibleAdditionalMove = push.PushVector;
+                            hasHitPusher = true;
+                        }
+                        if (collider.gameObject.TryGetComponent(out GridRotationLocker rotate))
+                        {
+                            possibleNextRot = rotate.Rotation;
+                            hasHitLocker = true;
+                        }
                     }
 
                     if (hasHitTilemap && currentPrevisAmount < _maxPrevisAmount)
                     {
-                        _previsItems.Add(Instantiate(_previsDot, currentPos, Quaternion.identity));
-                        currentPrevisAmount++;
+                        if (hasHitTeleporter && !hasHitPusher && !hasHitLocker)
+                        {
+                            _previsItems.Add(Instantiate(_previsDot, currentPos, Quaternion.identity));
+                            _previsItems.Add(Instantiate(_previsDot, possibleNextPos, Quaternion.identity));
+                            currentPos = possibleNextPos;
+                            currentPrevisAmount++;
+                        }
+                        if (!hasHitTeleporter && hasHitPusher && !hasHitLocker)
+                        {
+                            _previsItems.Add(Instantiate(_previsDot, currentPos, Quaternion.identity));
+                            currentPos += possibleAdditionalMove;
+                            _previsItems.Add(Instantiate(_previsDot, currentPos, Quaternion.identity));
+                            currentPrevisAmount++;
+                        }
+                        if (!hasHitTeleporter && !hasHitPusher && hasHitLocker)
+                        {
+                            _previsItems.Add(Instantiate(_previsDot, currentPos, Quaternion.identity));
+                            currentRot = possibleNextRot;
+                            currentPrevisAmount++;
+                        }
+                        else
+                        {
+                            _previsItems.Add(Instantiate(_previsDot, currentPos, Quaternion.identity));
+                            currentPrevisAmount++;
+                        }
                     }
                 }
             }

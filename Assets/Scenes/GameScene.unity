@@ -15211,10 +15211,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5373510660144890547, guid: 1ca4129fd9c718d45a7d7637f5140805, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7694481967577411699, guid: 1ca4129fd9c718d45a7d7637f5140805, type: 3}
       propertyPath: _glitchFilter
       value: 
@@ -15264,8 +15260,7 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 5373510660144890547, guid: 1ca4129fd9c718d45a7d7637f5140805, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ca4129fd9c718d45a7d7637f5140805, type: 3}

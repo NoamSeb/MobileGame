@@ -7,8 +7,8 @@ public class GridLaser : GridObject
     private Collider2D _laserCollider;
     private int _movementCount = 0; // compteur de mouvements
 
-    [SerializeField] private Color _activeColor = Color.red; // couleur du laser activé
-    [SerializeField] private Color _inactiveColor = Color.gray; // couleur du laser désactivé
+    [SerializeField] private Color _activeColor = Color.red; // couleur du laser activï¿½
+    [SerializeField] private Color _inactiveColor = Color.gray; // couleur du laser dï¿½sactivï¿½
 
     void Start()
     {

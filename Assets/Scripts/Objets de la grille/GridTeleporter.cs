@@ -6,6 +6,8 @@ using UnityEngine;
 public class GridTeleporter : GridObject
 {
     [SerializeField] private GridTeleporter _otherTeleporter;
+    [SerializeField] private AudioClip _teleportSound;
+    [SerializeField] private AudioSource _audioSource;
     bool IsNoSecondTeleporter => _otherTeleporter == null;
 
     #if UNITY_EDITOR
@@ -36,11 +38,18 @@ public class GridTeleporter : GridObject
     protected override void Effect()
     {
         OnTeleport?.Invoke(_otherTeleporter.GridPosition);
+        PlaySFX();
     }
 
     public static event Action<Vector3Int> OnTeleportMirror;
     protected override void MirrorEffect()
     {
         OnTeleportMirror?.Invoke(_otherTeleporter.GridPosition);
+        PlaySFX();
+    }
+
+    private void PlaySFX()
+    {
+        _audioSource.PlayOneShot(_teleportSound);
     }
 }

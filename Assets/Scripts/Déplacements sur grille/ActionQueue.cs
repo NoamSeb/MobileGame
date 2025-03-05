@@ -7,7 +7,7 @@ using NaughtyAttributes;
 public class ActionQueue : MonoBehaviour
 {
     private PlayerGridMovement _player;
-    public TMP_Text actionListText; // référence à l'affichage des actions
+    public TMP_Text _actionListText; // référence à l'affichage des actions
     readonly private List<ActionEntry> _actions = new(); // liste des actions avec compteurs
 
     bool _active;
@@ -95,13 +95,13 @@ public class ActionQueue : MonoBehaviour
     public void ClearActions()
     {
         _actions.Clear();
-        UpdateUI();
     }
 
     private void OnDestroy()
     {
-        _actions.Clear();
-        UpdateUI();
+        _actionListText.text = "";
+        ClearPrevisualisation();
+        ClearActions();
     }
 
     public void ExecuteActions()
@@ -115,12 +115,13 @@ public class ActionQueue : MonoBehaviour
         }
         _player.ExecuteActions();
         ClearActions();
+        ClearPrevisualisation();
     }
 
     void UpdateUI()
     {
-        actionListText.text = "";
-        foreach (var actionEntry in _actions)
+        _actionListText.text = "";
+        foreach (ActionEntry actionEntry in _actions)
         {
             string actionName = "";
 
@@ -140,19 +141,20 @@ public class ActionQueue : MonoBehaviour
                     break;
             }
 
-            actionListText.text += $">>> {actionName} x{actionEntry.count}\n";
+            _actionListText.text += $">>> {actionName} x{actionEntry.count}\n";
         }
         DrawPrevisualisation();
     }
 
-    readonly private List<GameObject> PrevisItems = new();
+    readonly private List<GameObject> _previsItems = new();
     [SerializeField] private GameObject _previsDot;
     [SerializeField, Layer] int _playzoneLayer;
     [SerializeField, Range(1, 10)] int _maxPrevisAmount;
 
     void DrawPrevisualisation()
     {
-        PrevisItems.Clear();
+        ClearPrevisualisation();
+
         Vector3 currentPos = GameManager.Instance.PlayerScript.transform.position;
         int currentRot = GameManager.Instance.PlayerScript.CurrentRotation;
         int currentPrevisAmount = 0;
@@ -185,7 +187,7 @@ public class ActionQueue : MonoBehaviour
 
                     if (hasHitTilemap && currentPrevisAmount < _maxPrevisAmount)
                     {
-                        PrevisItems.Add(Instantiate(_previsDot, currentPos, Quaternion.identity));
+                        _previsItems.Add(Instantiate(_previsDot, currentPos, Quaternion.identity));
                         currentPrevisAmount++;
                     }
                 }
@@ -199,6 +201,15 @@ public class ActionQueue : MonoBehaviour
                 currentRot = (currentRot - 90 + 360) % 360;
             }
         }
+    }
+
+    void ClearPrevisualisation()
+    {
+        foreach (GameObject obj in _previsItems)
+        {
+            Destroy(obj);
+        }
+        _previsItems.Clear();
     }
 }
 

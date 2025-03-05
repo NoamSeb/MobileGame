@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -57,17 +58,20 @@ public class Level : MonoBehaviour
     {
         if (!GameManager.Instance.IsAwake)
         {
-            _initialStateBackup.SetActive(true);
-            foreach (Transform obj in transform)
-            {
-                Destroy(obj.gameObject);
+            if (_initialStateBackup != null) 
+            { 
+                _initialStateBackup.SetActive(true);
+                foreach (Transform obj in transform)
+                {
+                    Destroy(obj.gameObject);
+                }
+                foreach (Transform obj in _initialStateBackup.transform)
+                {
+                    Instantiate(obj.gameObject, transform);
+                }
+                if (PlayGrid == null) { throw new Exception(); }
+                _initialStateBackup.SetActive(false);
             }
-            foreach (Transform obj in _initialStateBackup.transform)
-            {
-                Instantiate(obj.gameObject, transform);
-            }
-            if (PlayGrid == null) { throw new Exception(); }
-            _initialStateBackup.SetActive(false);
         }
     }
 }

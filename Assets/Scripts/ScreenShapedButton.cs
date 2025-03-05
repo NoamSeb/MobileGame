@@ -7,8 +7,11 @@ public class ScreenShapedButton : MonoBehaviour
     Image _image;
     Button _button;
 
-    [field : SerializeField] public Color UnfinishedColor { get; private set; }
-    [field : SerializeField] public Color FinishedColor{ get; private set; }
+    [SerializeField] private Color _unfinishedColor;
+    [SerializeField] private Color _finishedColor;
+
+    public Color UnfinishedColor { get {  return _unfinishedColor; } }
+    public Color FinishedColor { get { return _finishedColor; } }
 
     bool _isButtonForCurrentLevel;
 

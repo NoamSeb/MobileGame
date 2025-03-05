@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: c4859f2e91e694d4aa25e2d1ce18e6db, type: 3}
-  m_Color: {r: 1, g: 0.9608386, b: 0.3150943, a: 1}
+  m_Color: {r: 0.3679244, g: 1, b: 0.5732138, a: 0.49019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -162,10 +162,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadFeedbacksLate
       objectReference: {fileID: 0}
-    - target: {fileID: 812916810469626848, guid: e1e0e68497dd6fe43ad57ee9f9016a00, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3190446309819775385, guid: e1e0e68497dd6fe43ad57ee9f9016a00, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -214,6 +210,30 @@ PrefabInstance:
       propertyPath: managedReferences[921140136061436001].BoundSpriteRenderer
       value: 
       objectReference: {fileID: 2533632918739931300}
+    - target: {fileID: 8999197014851504028, guid: e1e0e68497dd6fe43ad57ee9f9016a00, type: 3}
+      propertyPath: managedReferences[921140132546609231].ColorOverTime.key0.b
+      value: 0.47058827
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999197014851504028, guid: e1e0e68497dd6fe43ad57ee9f9016a00, type: 3}
+      propertyPath: managedReferences[921140132546609231].ColorOverTime.key0.g
+      value: 0.74509805
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999197014851504028, guid: e1e0e68497dd6fe43ad57ee9f9016a00, type: 3}
+      propertyPath: managedReferences[921140132546609231].ColorOverTime.key0.r
+      value: 0.27450982
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999197014851504028, guid: e1e0e68497dd6fe43ad57ee9f9016a00, type: 3}
+      propertyPath: managedReferences[921140132546609231].ColorOverTime.key1.b
+      value: 0.23529413
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999197014851504028, guid: e1e0e68497dd6fe43ad57ee9f9016a00, type: 3}
+      propertyPath: managedReferences[921140132546609231].ColorOverTime.key1.g
+      value: 0.23529413
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999197014851504028, guid: e1e0e68497dd6fe43ad57ee9f9016a00, type: 3}
+      propertyPath: managedReferences[921140132546609231].ColorOverTime.key1.r
+      value: 0.23529413
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

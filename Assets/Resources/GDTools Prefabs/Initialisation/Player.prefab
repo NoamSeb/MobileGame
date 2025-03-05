@@ -79,12 +79,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 074ae5422d750d14ea9f935caa533e48, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 9112fb97430681646bae94f20f3b2462, type: 3}
+  m_Color: {r: 1, g: 0.6317429, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.7890625, y: 0.8203125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -140,6 +140,30 @@ PrefabInstance:
       propertyPath: managedReferences[921140131259744259].BoundSpriteRenderer
       value: 
       objectReference: {fileID: 5685481278382833374}
+    - target: {fileID: 6094623247314875143, guid: d48c76ccde3d3424b86b0c2d29fd5c71, type: 3}
+      propertyPath: managedReferences[921140131259744259].ColorOverTime.key0.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094623247314875143, guid: d48c76ccde3d3424b86b0c2d29fd5c71, type: 3}
+      propertyPath: managedReferences[921140131259744259].ColorOverTime.key0.g
+      value: 0.6313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094623247314875143, guid: d48c76ccde3d3424b86b0c2d29fd5c71, type: 3}
+      propertyPath: managedReferences[921140131259744259].ColorOverTime.key0.r
+      value: 0.9960785
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094623247314875143, guid: d48c76ccde3d3424b86b0c2d29fd5c71, type: 3}
+      propertyPath: managedReferences[921140131259744259].ColorOverTime.key1.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094623247314875143, guid: d48c76ccde3d3424b86b0c2d29fd5c71, type: 3}
+      propertyPath: managedReferences[921140131259744259].ColorOverTime.key1.g
+      value: 0.6313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094623247314875143, guid: d48c76ccde3d3424b86b0c2d29fd5c71, type: 3}
+      propertyPath: managedReferences[921140131259744259].ColorOverTime.key1.r
+      value: 0.9960785
+      objectReference: {fileID: 0}
     - target: {fileID: 6527525821797413556, guid: d48c76ccde3d3424b86b0c2d29fd5c71, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1

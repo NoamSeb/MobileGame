@@ -1,4 +1,3 @@
-using MoreMountains.Feedbacks;
 using NaughtyAttributes;
 using System;
 using System.ComponentModel;
@@ -10,13 +9,6 @@ public class GridObject : MonoBehaviour
     [ShowNonSerializedField] protected Vector3Int _gridPosition;
     public Vector3Int GridPosition { get { return _gridPosition; } }
     public bool IsImpassable { get; private set; }
-
-    [SerializeField] protected MMF_Player _loadingFeedbacks;
-
-    private void Awake()
-    {
-        _loadingFeedbacks.Initialization();
-    }
 
     void Start()
     {
@@ -32,11 +24,6 @@ public class GridObject : MonoBehaviour
 
         PlayerGridMovement.OnInteraction += Interaction;
         PlayerMirrorMovement.OnInteraction += MirrorInteraction;
-
-        if (_loadingFeedbacks != null)
-        {
-            PlayFeedbacks(_loadingFeedbacks);
-        }
     }
 
     [ExecuteInEditMode]
@@ -73,9 +60,4 @@ public class GridObject : MonoBehaviour
 
     [ExecuteInEditMode]
     protected virtual void BugFix() { }
-
-    protected void PlayFeedbacks(MMF_Player player)
-    {
-        player.PlayFeedbacks();
-    }
 }

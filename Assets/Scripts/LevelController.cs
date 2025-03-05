@@ -16,7 +16,7 @@ public class LevelController : MonoBehaviour
         public GameObject level;
     }
 
-    [SerializeField] GameObject _levelSelector;
+    [SerializeField] GameObject TEMPDONTKEEP;
 
     private void Awake()
     {
@@ -58,14 +58,14 @@ public class LevelController : MonoBehaviour
     }
 
     public void LoadLevel(int levelID)
-    {
+    {   
         foreach (LevelStructure level in Levels)
         {
             level.level.SetActive(level.idLevel == levelID);
         }
 
         GameManager.CurrentLevelID = levelID;
-        _levelSelector.SetActive(false);
+        TEMPDONTKEEP.SetActive(false);
     }
 
     public void UnloadCurrentLevel()
@@ -74,7 +74,7 @@ public class LevelController : MonoBehaviour
         LevelStructure tempLevel = Levels.Find(x => x.idLevel == tempID);
         tempLevel.level.SetActive(false);
         GameManager.CurrentLevelID = 0;
-        _levelSelector.SetActive(true);
+        TEMPDONTKEEP.SetActive(true);
     }
 
     /// <summary>

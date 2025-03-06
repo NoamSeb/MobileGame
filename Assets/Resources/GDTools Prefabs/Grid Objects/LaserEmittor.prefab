@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loadingFeedbacks: {fileID: 292795132708068415}
+  _laserSound: {fileID: 8300000, guid: 4bf85cd2b52cf3d40ad5cb46b8ba2708, type: 3}
+  _audioSource: {fileID: 3517534740039611154, guid: 46341eb8238097b4cbe2f258fde58f74, type: 3}
   _state: 0
   _killDistance: 0.5
   _laserLength: 0

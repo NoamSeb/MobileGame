@@ -8,11 +8,13 @@ using UnityEditor.Experimental.GraphView;
 public class ActionQueue : MonoBehaviour
 {
     private PlayerGridMovement _player;
-    public TMP_Text _actionListText; // référence à l'affichage des actions
+    public TMP_Text _actionListText; // rï¿½fï¿½rence ï¿½ l'affichage des actions
     readonly private List<ActionEntry> _actions = new(); // liste des actions avec compteurs
 
     bool _active;
-
+    
+    [SerializeField] private AudioClip _actionSound;
+    [SerializeField] private AudioSource _audioSource;
     private void Awake()
     {
         EnergySliderFeedbacks.OnSliderFeedbackFinished += EnableActionsQueueing;
@@ -31,7 +33,7 @@ public class ActionQueue : MonoBehaviour
         public ActionEntry(PlayerGridMovement.ActionType actionType)
         {
             this.actionType = actionType;
-            this.count = 1; // par défaut, une action est ajoutée une fois
+            this.count = 1; // par dï¿½faut, une action est ajoutï¿½e une fois
         }
     }
 
@@ -79,14 +81,14 @@ public class ActionQueue : MonoBehaviour
     {
         if (_active)
         {
-            // si la liste est vide ou si la dernière action est différente, on ajoute une nouvelle entrée
+            // si la liste est vide ou si la derniï¿½re action est diffï¿½rente, on ajoute une nouvelle entrï¿½e
             if (_actions.Count == 0 || _actions[^1].actionType != newAction)
             {
                 _actions.Add(new ActionEntry(newAction));
             }
             else
             {
-                // sinon, on incrémente le compteur de la dernière action
+                // sinon, on incrï¿½mente le compteur de la derniï¿½re action
                 _actions[^1].count++;
             }
             UpdateUI();
@@ -144,6 +146,7 @@ public class ActionQueue : MonoBehaviour
 
             _actionListText.text += $">>> {actionName} x{actionEntry.count}\n";
         }
+        _audioSource.PlayOneShot(_actionSound);
         DrawPrevisualisation();
     }
 

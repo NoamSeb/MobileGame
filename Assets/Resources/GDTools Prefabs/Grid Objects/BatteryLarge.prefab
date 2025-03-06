@@ -150,6 +150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loadingFeedbacks: {fileID: 7941999863488446885}
   _batteryModifyAmount: 10
+  _batteryModifySound: {fileID: 8300000, guid: 1fdaa2026dc0f934c9c542ee1a85404c, type: 3}
+  _audioSource: {fileID: 3517534740039611154, guid: 46341eb8238097b4cbe2f258fde58f74, type: 3}
 --- !u!1001 &1356767444036011577
 PrefabInstance:
   m_ObjectHideFlags: 0

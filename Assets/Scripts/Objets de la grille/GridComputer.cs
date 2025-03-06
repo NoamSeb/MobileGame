@@ -7,6 +7,9 @@ public class GridComputer : GridObject
 {
     [ShowNonSerializedField] private int _neededToolsNumber;
     [ShowNonSerializedField] private int _currentTools;
+    [SerializeField] private AudioClip _accessGranted;
+    [SerializeField] private AudioClip _accessDenied;
+    [SerializeField] private AudioSource _audioSource;
     private bool _isEnoughToolsAcquired;
     public bool IsBroken { get; private set; }
 
@@ -35,6 +38,11 @@ public class GridComputer : GridObject
         {
             IsBroken = false;
             OnComputerRepair?.Invoke();
+            _audioSource.PlayOneShot(_accessGranted);
+        }
+        else
+        {
+            _audioSource.PlayOneShot(_accessDenied);
         }
     }
 }

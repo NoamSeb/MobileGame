@@ -1210,7 +1210,7 @@ MonoBehaviour:
   _loadScreen: {fileID: 31443397}
   _progressValue: {fileID: 2031358988}
   _launchSFX: {fileID: 8300000, guid: 96bfb1108bbb5d242a8056cca57e3b1d, type: 3}
-  _menuMusic: {fileID: 8300000, guid: 881a9567b3c7dbc4e91e75a949c46ad9, type: 3}
+  _menuMusic: {fileID: 8300000, guid: 0450de71e4904d04499a3c2c7eab3139, type: 3}
   _audioSource: {fileID: 896981730}
   OpenSettingsMenu:
     m_PersistentCalls:

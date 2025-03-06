@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class BiomeManager : MonoBehaviour
@@ -17,6 +18,7 @@ public class BiomeManager : MonoBehaviour
     
     [Header("Glitch Filter")]
     [SerializeField] SwitchScreen _glitchFilter;
+    [SerializeField] private AudioSource _audioSource;
 
     void Start()
     {
@@ -52,6 +54,8 @@ public class BiomeManager : MonoBehaviour
         if (currentBiome.biome != null)
         {
             currentBiome.biome.SetActive(true);
+            _audioSource.clip = null;
+            _audioSource.clip = currentBiome.biome.GetComponent<LevelController>()._biomeMusic;
         }
         else
         {

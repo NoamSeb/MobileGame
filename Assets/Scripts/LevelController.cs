@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
+using NaughtyAttributes;
 using UnityEngine.UI;
 
 public class LevelController : MonoBehaviour
@@ -11,6 +12,8 @@ public class LevelController : MonoBehaviour
 
     [SerializeField] private AudioClip _gameButton;
     [SerializeField] private AudioSource _audioSource;
+
+    [SerializeField] public AudioClip _biomeMusic;
     
     [Serializable]
     public struct LevelStructure
@@ -32,7 +35,7 @@ public class LevelController : MonoBehaviour
 
             level.level.SetActive(false);
         }
-
+        
         ChangeColorOfFinishLevelInData();
         GridExit.OnLevelEnd += UnloadCurrentLevel;
         PauseMenu.OnReturnToMenuInGame += UnloadCurrentLevel;

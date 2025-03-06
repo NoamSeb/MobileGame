@@ -15167,6 +15167,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 484351157403402258, guid: 1ca4129fd9c718d45a7d7637f5140805, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 484351157403402258, guid: 1ca4129fd9c718d45a7d7637f5140805, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 484351157403402258, guid: 1ca4129fd9c718d45a7d7637f5140805, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 484351157403402258, guid: 1ca4129fd9c718d45a7d7637f5140805, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 998193667416486728, guid: 1ca4129fd9c718d45a7d7637f5140805, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 384224850}
     - target: {fileID: 2049362136509189355, guid: 1ca4129fd9c718d45a7d7637f5140805, type: 3}
       propertyPath: m_Name
       value: BiomeController

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class BiomeManager : MonoBehaviour
@@ -17,6 +18,7 @@ public class BiomeManager : MonoBehaviour
     
     [Header("Glitch Filter")]
     [SerializeField] SwitchScreen _glitchFilter;
+    [SerializeField] private AudioSource _audioSource;
 
     void Start()
     {
@@ -44,6 +46,7 @@ public class BiomeManager : MonoBehaviour
         UpdateBiomeVisibility();
     }
 
+    public static event Action<LevelController> OnBiomeChange;
     void UpdateBiomeVisibility()
     {
         BiomeStructure currentBiome = Biomes.Find(b => b.idBiome == _currentBiomeID);
@@ -52,6 +55,8 @@ public class BiomeManager : MonoBehaviour
         if (currentBiome.biome != null)
         {
             currentBiome.biome.SetActive(true);
+            _audioSource.clip = null;
+            _audioSource.clip = currentBiome.biome.GetComponentInChildren<LevelController>()._biomeMusic;
         }
         else
         {
@@ -60,10 +65,11 @@ public class BiomeManager : MonoBehaviour
 
         // associe le LevelController du biome actif
         Debug.Log(_currentBiomeID);
-        LevelController activeLevelController = Biomes.Find(x => x.idBiome == _currentBiomeID).biome.GetComponent<LevelController>();
+        LevelController activeLevelController = Biomes.Find(x => x.idBiome == _currentBiomeID).biome.GetComponentInChildren<LevelController>();
         if (activeLevelController != null)
         {
-            activeLevelController.GetActiveLevel();
+            //activeLevelController.GetActiveLevel();
+            OnBiomeChange?.Invoke(activeLevelController);
         }
         
     }

@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         if (CurrentLevelID != 0)
         {
             Camera.main.orthographicSize = _cameraSize;
-            Camera.main.transform.position = new(_cameraPos.x+_cameraSize/2, _cameraPos.y, -10);
+            Camera.main.transform.position = new(_cameraPos.x, _cameraPos.y, -10);
         }
         else
         {

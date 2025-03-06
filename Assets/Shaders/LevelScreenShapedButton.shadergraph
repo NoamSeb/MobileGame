@@ -591,7 +591,7 @@
         "m_SerializableColors": []
     },
     "m_TextureType": 0,
-    "m_NormalMapSpace": 0,
+    "m_NormalMapSpace": 1,
     "m_EnableGlobalMipBias": true,
     "m_MipSamplingMode": 0
 }
@@ -928,8 +928,8 @@
     "m_ObjectId": "6f4fd8771a3a46368f3e7350f393d4ab",
     "m_Title": "Emission",
     "m_Position": {
-        "x": -562.4000854492188,
-        "y": -80.00001525878906
+        "x": -562.3999633789063,
+        "y": -79.99998474121094
     }
 }
 

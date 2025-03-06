@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
+using NaughtyAttributes;
 using UnityEngine.UI;
 
 public class LevelController : MonoBehaviour
@@ -11,6 +12,8 @@ public class LevelController : MonoBehaviour
 
     [SerializeField] private AudioClip _gameButton;
     [SerializeField] private AudioSource _audioSource;
+
+    [SerializeField] public AudioClip _biomeMusic;
     
     [Serializable]
     public struct LevelStructure
@@ -20,6 +23,8 @@ public class LevelController : MonoBehaviour
     }
 
     [SerializeField] GameObject _levelSelector;
+
+    LevelController _controller;
 
     private void Awake()
     {
@@ -32,10 +37,16 @@ public class LevelController : MonoBehaviour
 
             level.level.SetActive(false);
         }
-
+        
         ChangeColorOfFinishLevelInData();
         GridExit.OnLevelEnd += UnloadCurrentLevel;
         PauseMenu.OnReturnToMenuInGame += UnloadCurrentLevel;
+        BiomeManager.OnBiomeChange += SetLevelControllerUsedByMenus;
+    }
+
+    void SetLevelControllerUsedByMenus(LevelController controller)
+    {
+        _controller = controller;
     }
 
     public void GetActiveLevel()
@@ -74,11 +85,14 @@ public class LevelController : MonoBehaviour
 
     public void UnloadCurrentLevel()
     {
-        int tempID = GameManager.CurrentLevelID;
-        LevelStructure tempLevel = Levels.Find(x => x.idLevel == tempID);
-        tempLevel.level.SetActive(false);
-        GameManager.CurrentLevelID = 0;
-        _levelSelector.SetActive(true);
+        if (_controller == this)
+        {
+            int tempID = GameManager.CurrentLevelID;
+            LevelStructure tempLevel = Levels.Find(x => x.idLevel == tempID);
+            tempLevel.level.SetActive(false);
+            GameManager.CurrentLevelID = 0;
+            _levelSelector.SetActive(true);
+        }
     }
 
     /// <summary>

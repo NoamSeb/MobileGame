@@ -50,12 +50,14 @@ public class PauseMenu : MonoBehaviour
 
     BiomeManager _biomeManager;
     GameObject _currentBiomeEnvironment;
+    LevelController _currentLevelController;
 
     private void Start()
     {
         _audioSource = Camera.main.GetComponent<AudioSource>();
         _audioSource.volume = PlayerPrefs.GetFloat("volume");
         if (_type == Type.InBiome) { _biomeManager = FindFirstObjectByType<BiomeManager>(); }
+        BiomeManager.OnBiomeChange += SetCurrentLevelController;
     }
 
     private void Update()
@@ -82,11 +84,15 @@ public class PauseMenu : MonoBehaviour
                 _pauseButton.SetActive(true);
             }
 
-            _currentBiomeEnvironment = 
+            _currentBiomeEnvironment =
                 _biomeManager.Biomes.Find(x => x.idBiome == _biomeManager._currentBiomeID)
                 .biome.transform.Find("Environment").gameObject;
-
         }
+    }
+
+    void SetCurrentLevelController(LevelController manager)
+    {
+        _currentLevelController = manager;
     }
 
     public void Pause()
@@ -142,7 +148,10 @@ public class PauseMenu : MonoBehaviour
     public void LoadMenu()
     {
         if (_type == Type.InBiome) { StartCoroutine(PlayLaunchSFXAndLoadMenuScene()); }
-        else if (_type == Type.InGame) { OnReturnToMenuInGame?.Invoke(); Resume(); }
+        else if (_type == Type.InGame) 
+        { 
+            OnReturnToMenuInGame?.Invoke(); Resume(); 
+        }
     }
 
     // ReSharper disable Unity.PerformanceAnalysis

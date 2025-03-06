@@ -1,0 +1,1079 @@
+fileFormatVersion: 2
+guid: a808f45e20365dc4581d14d40739153c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 485886113248841819
+    second: UseHeadphones_v5_0
+  - first:
+      213: -4407218899916624282
+    second: UseHeadphones_v5_1
+  - first:
+      213: 7048211836875448721
+    second: UseHeadphones_v5_2
+  - first:
+      213: 8338778187427701377
+    second: UseHeadphones_v5_3
+  - first:
+      213: -8987604958534615886
+    second: UseHeadphones_v5_4
+  - first:
+      213: -8857169802207239361
+    second: UseHeadphones_v5_5
+  - first:
+      213: -7686221440694567507
+    second: UseHeadphones_v5_6
+  - first:
+      213: 2553811219568082661
+    second: UseHeadphones_v5_7
+  - first:
+      213: 5999526172251454374
+    second: UseHeadphones_v5_8
+  - first:
+      213: -10748101725431675
+    second: UseHeadphones_v5_9
+  - first:
+      213: -7011785303097381418
+    second: UseHeadphones_v5_10
+  - first:
+      213: 2640754602173870740
+    second: UseHeadphones_v5_11
+  - first:
+      213: -3851497385956149035
+    second: UseHeadphones_v5_12
+  - first:
+      213: 7488988095550963760
+    second: UseHeadphones_v5_13
+  - first:
+      213: -5809356982951696493
+    second: UseHeadphones_v5_14
+  - first:
+      213: -7775427295793986676
+    second: UseHeadphones_v5_15
+  - first:
+      213: 972300681037866779
+    second: UseHeadphones_v5_16
+  - first:
+      213: -3625000358358758211
+    second: UseHeadphones_v5_17
+  - first:
+      213: -5849770088520561081
+    second: UseHeadphones_v5_18
+  - first:
+      213: -9121571328355406356
+    second: UseHeadphones_v5_19
+  - first:
+      213: -5959043956464157252
+    second: UseHeadphones_v5_20
+  - first:
+      213: 9113917326958932269
+    second: UseHeadphones_v5_21
+  - first:
+      213: -4154591756997086111
+    second: UseHeadphones_v5_22
+  - first:
+      213: -8966760414362468246
+    second: UseHeadphones_v5_23
+  - first:
+      213: 384864594158001838
+    second: UseHeadphones_v5_24
+  - first:
+      213: 8763905684952078998
+    second: UseHeadphones_v5_25
+  - first:
+      213: 5675081929986731038
+    second: UseHeadphones_v5_26
+  - first:
+      213: -7157184579934795489
+    second: UseHeadphones_v5_27
+  - first:
+      213: -2824351916272362094
+    second: UseHeadphones_v5_28
+  - first:
+      213: -2374351895079986456
+    second: UseHeadphones_v5_29
+  - first:
+      213: 6582997383260929903
+    second: UseHeadphones_v5_30
+  - first:
+      213: -4016547367247265157
+    second: UseHeadphones_v5_31
+  - first:
+      213: 5960033559760324023
+    second: UseHeadphones_v5_32
+  - first:
+      213: 2981514301219528822
+    second: UseHeadphones_v5_33
+  - first:
+      213: 3102660451883827590
+    second: UseHeadphones_v5_34
+  - first:
+      213: 1472613299171748545
+    second: UseHeadphones_v5_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: UseHeadphones_v5_0
+      rect:
+        serializedVersion: 2
+        x: 1676
+        y: 998
+        width: 488
+        height: 384
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b501e7d78d63eb600800000000000000
+      internalID: 485886113248841819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_1
+      rect:
+        serializedVersion: 2
+        x: 1728
+        y: 945
+        width: 65
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66ee41fc2c966d2c0800000000000000
+      internalID: -4407218899916624282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_2
+      rect:
+        serializedVersion: 2
+        x: 1795
+        y: 927
+        width: 246
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1912aa6925740d160800000000000000
+      internalID: 7048211836875448721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_3
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 945
+        width: 65
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 182676aa49a49b370800000000000000
+      internalID: 8338778187427701377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_4
+      rect:
+        serializedVersion: 2
+        x: 1043
+        y: 779
+        width: 52
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bc310998ec954380800000000000000
+      internalID: -8987604958534615886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_5
+      rect:
+        serializedVersion: 2
+        x: 1096
+        y: 779
+        width: 51
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f33ee100ef2051580800000000000000
+      internalID: -8857169802207239361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_6
+      rect:
+        serializedVersion: 2
+        x: 1149
+        y: 779
+        width: 47
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dadb862b25e055590800000000000000
+      internalID: -7686221440694567507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_7
+      rect:
+        serializedVersion: 2
+        x: 1224
+        y: 779
+        width: 51
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ee33c506c5f07320800000000000000
+      internalID: 2553811219568082661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_8
+      rect:
+        serializedVersion: 2
+        x: 1278
+        y: 779
+        width: 47
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6abf4bd4449924350800000000000000
+      internalID: 5999526172251454374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_9
+      rect:
+        serializedVersion: 2
+        x: 1326
+        y: 779
+        width: 59
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58855ae88a0d9dff0800000000000000
+      internalID: -10748101725431675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_10
+      rect:
+        serializedVersion: 2
+        x: 1386
+        y: 779
+        width: 51
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dd6397ba6221be90800000000000000
+      internalID: -7011785303097381418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_11
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 779
+        width: 51
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4923d81c158d5a420800000000000000
+      internalID: 2640754602173870740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_12
+      rect:
+        serializedVersion: 2
+        x: 1492
+        y: 779
+        width: 51
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d8fcb8988bbc8ac0800000000000000
+      internalID: -3851497385956149035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_13
+      rect:
+        serializedVersion: 2
+        x: 1546
+        y: 779
+        width: 57
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 030c17a9efa3ee760800000000000000
+      internalID: 7488988095550963760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_14
+      rect:
+        serializedVersion: 2
+        x: 1605
+        y: 778
+        width: 55
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 397aab17a94016fa0800000000000000
+      internalID: -5809356982951696493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_15
+      rect:
+        serializedVersion: 2
+        x: 1663
+        y: 779
+        width: 47
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c83c2590212281490800000000000000
+      internalID: -7775427295793986676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_16
+      rect:
+        serializedVersion: 2
+        x: 1711
+        y: 779
+        width: 51
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b17e124615e4e7d00800000000000000
+      internalID: 972300681037866779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_17
+      rect:
+        serializedVersion: 2
+        x: 1789
+        y: 779
+        width: 47
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbccc51516961bdc0800000000000000
+      internalID: -3625000358358758211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_18
+      rect:
+        serializedVersion: 2
+        x: 1837
+        y: 779
+        width: 57
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74ec600191171dea0800000000000000
+      internalID: -5849770088520561081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_19
+      rect:
+        serializedVersion: 2
+        x: 1897
+        y: 779
+        width: 50
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cedecfb743ba96180800000000000000
+      internalID: -9121571328355406356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_20
+      rect:
+        serializedVersion: 2
+        x: 1975
+        y: 779
+        width: 50
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbdf30e08193d4da0800000000000000
+      internalID: -5959043956464157252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_21
+      rect:
+        serializedVersion: 2
+        x: 2026
+        y: 779
+        width: 47
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d213aa175832b7e70800000000000000
+      internalID: 9113917326958932269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_22
+      rect:
+        serializedVersion: 2
+        x: 2074
+        y: 779
+        width: 52
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1643c691fcce756c0800000000000000
+      internalID: -4154591756997086111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_23
+      rect:
+        serializedVersion: 2
+        x: 2126
+        y: 779
+        width: 52
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6004eb39eaaf8380800000000000000
+      internalID: -8966760414362468246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_24
+      rect:
+        serializedVersion: 2
+        x: 2179
+        y: 779
+        width: 47
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eae996d2f40575500800000000000000
+      internalID: 384864594158001838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_25
+      rect:
+        serializedVersion: 2
+        x: 2229
+        y: 779
+        width: 50
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69a589c89c5af9970800000000000000
+      internalID: 8763905684952078998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_26
+      rect:
+        serializedVersion: 2
+        x: 2307
+        y: 779
+        width: 47
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1ce81c82f0f1ce40800000000000000
+      internalID: 5675081929986731038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_27
+      rect:
+        serializedVersion: 2
+        x: 2354
+        y: 779
+        width: 64
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1945118b829cac90800000000000000
+      internalID: -7157184579934795489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_28
+      rect:
+        serializedVersion: 2
+        x: 2419
+        y: 779
+        width: 51
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29d54ed65e2edc8d0800000000000000
+      internalID: -2824351916272362094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_29
+      rect:
+        serializedVersion: 2
+        x: 2472
+        y: 779
+        width: 47
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ea5bf1088b9c0fd0800000000000000
+      internalID: -2374351895079986456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_30
+      rect:
+        serializedVersion: 2
+        x: 2522
+        y: 779
+        width: 50
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6ff79aed318b5b50800000000000000
+      internalID: 6582997383260929903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_31
+      rect:
+        serializedVersion: 2
+        x: 2574
+        y: 779
+        width: 14
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7242b7337b5248c0800000000000000
+      internalID: -4016547367247265157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_32
+      rect:
+        serializedVersion: 2
+        x: 2592
+        y: 779
+        width: 47
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b5cbeae1fa46b250800000000000000
+      internalID: 5960033559760324023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_33
+      rect:
+        serializedVersion: 2
+        x: 2642
+        y: 778
+        width: 55
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 670efe0d577706920800000000000000
+      internalID: 2981514301219528822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_34
+      rect:
+        serializedVersion: 2
+        x: 2700
+        y: 779
+        width: 48
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 681403d0e3dde0b20800000000000000
+      internalID: 3102660451883827590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UseHeadphones_v5_35
+      rect:
+        serializedVersion: 2
+        x: 2749
+        y: 779
+        width: 47
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cae5ac4ef5cf6410800000000000000
+      internalID: 1472613299171748545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      UseHeadphones_v5_0: 485886113248841819
+      UseHeadphones_v5_1: -4407218899916624282
+      UseHeadphones_v5_10: -7011785303097381418
+      UseHeadphones_v5_11: 2640754602173870740
+      UseHeadphones_v5_12: -3851497385956149035
+      UseHeadphones_v5_13: 7488988095550963760
+      UseHeadphones_v5_14: -5809356982951696493
+      UseHeadphones_v5_15: -7775427295793986676
+      UseHeadphones_v5_16: 972300681037866779
+      UseHeadphones_v5_17: -3625000358358758211
+      UseHeadphones_v5_18: -5849770088520561081
+      UseHeadphones_v5_19: -9121571328355406356
+      UseHeadphones_v5_2: 7048211836875448721
+      UseHeadphones_v5_20: -5959043956464157252
+      UseHeadphones_v5_21: 9113917326958932269
+      UseHeadphones_v5_22: -4154591756997086111
+      UseHeadphones_v5_23: -8966760414362468246
+      UseHeadphones_v5_24: 384864594158001838
+      UseHeadphones_v5_25: 8763905684952078998
+      UseHeadphones_v5_26: 5675081929986731038
+      UseHeadphones_v5_27: -7157184579934795489
+      UseHeadphones_v5_28: -2824351916272362094
+      UseHeadphones_v5_29: -2374351895079986456
+      UseHeadphones_v5_3: 8338778187427701377
+      UseHeadphones_v5_30: 6582997383260929903
+      UseHeadphones_v5_31: -4016547367247265157
+      UseHeadphones_v5_32: 5960033559760324023
+      UseHeadphones_v5_33: 2981514301219528822
+      UseHeadphones_v5_34: 3102660451883827590
+      UseHeadphones_v5_35: 1472613299171748545
+      UseHeadphones_v5_4: -8987604958534615886
+      UseHeadphones_v5_5: -8857169802207239361
+      UseHeadphones_v5_6: -7686221440694567507
+      UseHeadphones_v5_7: 2553811219568082661
+      UseHeadphones_v5_8: 5999526172251454374
+      UseHeadphones_v5_9: -10748101725431675
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

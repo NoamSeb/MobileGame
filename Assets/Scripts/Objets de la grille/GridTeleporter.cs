@@ -6,6 +6,7 @@ using UnityEngine;
 public class GridTeleporter : GridObject
 {
     [SerializeField] private GridTeleporter _otherTeleporter;
+    public GridTeleporter OtherTeleporter {  get { return _otherTeleporter; } }
     bool IsNoSecondTeleporter => _otherTeleporter == null;
 
     #if UNITY_EDITOR

@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public bool IsAwake { get; private set; }
 
     private float _cameraSize;
+    private Vector3 _cameraPos;
 
     private void Awake()
     {
@@ -44,12 +45,21 @@ public class GameManager : MonoBehaviour
         MirrorScript = level.MirrorMovement;
 
         _cameraSize = level.CameraSize;
+        _cameraPos = level.LevelCenter;
     }
 
     private void Update()
     {
-        if(CurrentLevelID != 0) { Camera.main.orthographicSize = _cameraSize; }
-        else { Camera.main.orthographicSize = 5; }
+        if (CurrentLevelID != 0)
+        {
+            Camera.main.orthographicSize = _cameraSize;
+            Camera.main.transform.position = new(_cameraPos.x+_cameraSize/2, _cameraPos.y, -10);
+        }
+        else
+        {
+            Camera.main.orthographicSize = 5;
+            Camera.main.transform.position = new(0, 0, -10);
+        }
     }
 
     public static void OnSave(int currentScore)
@@ -93,5 +103,5 @@ public class GameManager : MonoBehaviour
 
         SaveSystem.SavePlayer(playerData);
     }
-    
+
 }

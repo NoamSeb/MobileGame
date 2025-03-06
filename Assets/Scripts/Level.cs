@@ -16,7 +16,6 @@ public class Level : MonoBehaviour
     public PlayerGridMovement Movement { get; private set; }
     public Oxygen Oxygen { get; private set; }
     public PlayerMirrorMovement MirrorMovement { get; private set; }
-
     public Vector3 LevelCenter { get; private set; }
 
     private GameObject _initialStateBackup;
@@ -27,20 +26,35 @@ public class Level : MonoBehaviour
 
         _initialStateBackup = new("Backup");
 
-        Vector3 levelCenter = PlayGrid.transform.childCount switch
+        Tilemap map = PlayGrid.transform.childCount switch
         {
-            1 => PlayGrid.GetComponentInChildren<Tilemap>().localBounds.center,
+            1 => PlayGrid.GetComponentInChildren<Tilemap>(),
 
-            2 => new Vector3
-            (
-                PlayGrid.transform.GetChild(1).GetComponent<Tilemap>().localBounds.max.x,
-                PlayGrid.transform.GetChild(1).GetComponent<Tilemap>().localBounds.center.y,
-                0f),
+            2 => PlayGrid.transform.GetChild(1).GetComponent<Tilemap>(),
 
-            _ => throw new ArgumentException($"{gameObject.name} has no or too much tilemaps")
+            _ => throw new ArgumentException($"{gameObject.name} has no tilemap or too much tilemaps")
         };
 
-        LevelCenter = levelCenter;
+        map.CompressBounds();
+        BoundsInt bounds = map.cellBounds;
+        Vector3 correctionX = Vector3.zero, correctionY = Vector3.zero;
+        if (bounds.size.y % 2 != 0) { correctionY = Vector3.up / 2; }
+
+        if (PlayGrid.transform.childCount == 1)
+        {
+            Vector3Int point = new(Mathf.FloorToInt(bounds.center.x), Mathf.FloorToInt(bounds.center.y), 0);
+            Vector3 realpoint = map.CellToWorld(point);
+            if (bounds.size.x % 2 != 0) { correctionX = Vector3.right / 2; }
+
+            LevelCenter = realpoint + correctionX + correctionY;
+        }
+        else
+        {
+            Vector3Int point = new(Mathf.FloorToInt(bounds.max.x), Mathf.FloorToInt(bounds.center.y), 0);
+            Vector3 realpoint = map.CellToWorld(point);
+
+            LevelCenter = realpoint + correctionX + correctionY;
+        }
     }
 
     void GetNeededComponents()

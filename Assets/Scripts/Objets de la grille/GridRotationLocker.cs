@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NaughtyAttributes;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -14,25 +15,30 @@ public class GridRotationLocker : GridObject
     [SerializeField] private InitialMoveDirection _rotateDirection;
 
     private int _rotation;
+    public int Rotation { get { return _rotation; } }
+
+    [SerializeField, BoxGroup("Sprites")]
+    private Sprite _spriteUp, _spriteLeft, _spriteRight, _spriteDown;
 
     private void OnValidate()
     {
+        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
         switch (_rotateDirection)
         {
             case InitialMoveDirection.Left:
-                transform.rotation = Quaternion.Euler(0, 0, 90);
+                renderer.sprite = _spriteLeft;
                 _rotation = 90;
                 break;
             case InitialMoveDirection.Down:
-                transform.rotation = Quaternion.Euler(0, 0, 180);
+                renderer.sprite = _spriteDown;
                 _rotation = 180;
                 break;
             case InitialMoveDirection.Right:
-                transform.rotation = Quaternion.Euler(0, 0, -90);
+                renderer.sprite = _spriteRight;
                 _rotation = 270;
                 break;
             case InitialMoveDirection.Up:
-                transform.rotation = Quaternion.identity;
+                renderer.sprite = _spriteUp;
                 _rotation = 0;
                 break;
         }

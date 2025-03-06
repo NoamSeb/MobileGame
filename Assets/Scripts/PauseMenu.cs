@@ -46,10 +46,14 @@ public class PauseMenu : MonoBehaviour
     [Foldout("Settings")]
     [SerializeField] Toggle _isHapticEnable;
 
+    BiomeManager _biomeManager;
+    GameObject _currentBiomeEnvironment;
+
     private void Start()
     {
         _audioSource = Camera.main.GetComponent<AudioSource>();
         _audioSource.volume = PlayerPrefs.GetFloat("volume");
+        if (_type == Type.InBiome) { _biomeManager = FindFirstObjectByType<BiomeManager>(); }
     }
 
     private void Update()
@@ -75,11 +79,17 @@ public class PauseMenu : MonoBehaviour
             {
                 _pauseButton.SetActive(true);
             }
+
+            _currentBiomeEnvironment = 
+                _biomeManager.Biomes.Find(x => x.idBiome == _biomeManager._currentBiomeID)
+                .biome.transform.Find("Environment").gameObject;
+
         }
     }
 
     public void Pause()
     {
+        if (_type == Type.InBiome) { _currentBiomeEnvironment.SetActive(false); }
         _pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         //IsPaused = true;
@@ -87,6 +97,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        if (_type == Type.InBiome) { _currentBiomeEnvironment.SetActive(true); }
         _pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         //IsPaused = false;

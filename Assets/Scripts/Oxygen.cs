@@ -109,8 +109,27 @@ public class Oxygen : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("You are dead ! Loser !");
+        Debug.Log("Le joueur est mort, il ne peut plus bouger !");
+
+        GameManager.Instance.PlayerScript.StopMovement();
+        if (GameManager.Instance.MirrorScript != null)
+        {
+            GameManager.Instance.MirrorScript.StopMovement();
+        }
+
+        GameManager.Instance.PlayerScript.DisableActions();
+        if (GameManager.Instance.MirrorScript != null)
+        {
+            GameManager.Instance.MirrorScript.DisableActions();
+        }
+
+        if (GameManager.Instance.DefeatCanvas != null)
+        {
+            GameManager.Instance.DefeatCanvas.SetActive(true);
+        }
     }
+
+
 
     public void StopPlayer()
     {

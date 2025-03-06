@@ -113,4 +113,21 @@ public class LevelController : MonoBehaviour
             }
         }
     }
+
+    public void LevelCompleted()
+    {
+        Debug.Log("Niveau terminé, afficher la victoire !");
+
+        GameManager.Instance.PlayerScript.StopMovement();
+        if (GameManager.Instance.MirrorScript != null)
+        {
+            GameManager.Instance.MirrorScript.StopMovement();
+        }
+
+        if (GameManager.Instance.VictoryCanvas != null)
+        {
+            GameManager.Instance.VictoryCanvas.SetActive(true);
+        }
+    }
+
 }

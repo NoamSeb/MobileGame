@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
     private float _cameraSize;
     private Vector3 _cameraPos;
 
+    public GameObject VictoryCanvas;
+    public GameObject DefeatCanvas;
+
     private void Awake()
     {
         if (Instance == null || Instance != this)
@@ -29,7 +32,14 @@ public class GameManager : MonoBehaviour
 
         IsAwake = true;
         Level.OnLevelLoad += SetUp;
+
+        VictoryCanvas = GameObject.FindGameObjectWithTag("VictoryCanvas");
+        DefeatCanvas = GameObject.FindGameObjectWithTag("DefeatCanvas");
+
+        if (VictoryCanvas != null) VictoryCanvas.SetActive(false);
+        if (DefeatCanvas != null) DefeatCanvas.SetActive(false);
     }
+
 
     private void Start()
     {

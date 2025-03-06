@@ -147,7 +147,10 @@ public class ActionQueue : MonoBehaviour
             _actionListText.text += $">>> {actionName} x{actionEntry.count}\n";
         }
         _audioSource.PlayOneShot(_actionSound);
-        DrawPrevisualisation();
+        if (PlayerPrefs.GetInt("IsPrevisEnabled") == 1)
+        {
+            DrawPrevisualisation();
+        }
     }
 
     readonly private List<GameObject> _previsItems = new();

@@ -50,15 +50,37 @@ public class LevelController : MonoBehaviour
     public static event Action<ScreenShapedButton> OnFirstLevelLoad;
     private void Start()
     {
+        List<LevelStructure> levelsActivatedAtStart = new();
         int lowestLevelOrder = 100;
 
         foreach (LevelStructure level in Levels)
         {
+            level.screenButton.Deactivate();
             if (level.orderAmongLevels < lowestLevelOrder) { lowestLevelOrder = level.orderAmongLevels; }
-            if (!level.screenButton.IsFinished) { level.screenButton.Deactivate(); }
+            if (level.screenButton.IsFinished) 
+            { 
+                levelsActivatedAtStart.Add(level);
+            }
+        }
+
+        int highestOrderInFinishedLevels = 0;
+
+        foreach (LevelStructure level in levelsActivatedAtStart)
+        {
+            OnFirstLevelLoad?.Invoke(level.screenButton);
+            if (level.orderAmongLevels > highestOrderInFinishedLevels) 
+            { 
+                highestOrderInFinishedLevels = level.orderAmongLevels;
+            }
         }
 
         OnFirstLevelLoad?.Invoke(Levels.Find(x => x.orderAmongLevels == lowestLevelOrder).screenButton);
+
+        if (highestOrderInFinishedLevels != 0)
+        {
+            highestOrderInFinishedLevels++;
+            OnFirstLevelLoad?.Invoke(Levels.Find(x => x.orderAmongLevels == highestOrderInFinishedLevels).screenButton);
+        }
     }
 
     void SetLevelControllerUsedByMenus(LevelController controller)

@@ -46,7 +46,7 @@ public class PauseMenu : MonoBehaviour
     [Foldout("Settings")]
     [SerializeField] Slider _volume;
     [Foldout("Settings")]
-    [SerializeField] Toggle _isHapticEnable;
+    [SerializeField] Toggle _isPrevisEnable;
 
     BiomeManager _biomeManager;
     GameObject _currentBiomeEnvironment;
@@ -125,7 +125,7 @@ public class PauseMenu : MonoBehaviour
     private void GetSettingsValue()
     {
         _volume.value = PlayerPrefs.GetFloat("Volume");
-        _isHapticEnable.isOn = PlayerPrefs.GetInt("IsHapticEnabled") == 1;
+        _isPrevisEnable.isOn = PlayerPrefs.GetInt("IsPrevisEnabled") == 1;
     }
     public void CloseSettings()
     {
@@ -136,7 +136,7 @@ public class PauseMenu : MonoBehaviour
     public void SaveSettings()
     {
         PlayerPrefs.SetFloat("Volume", _volume.value);
-        PlayerPrefs.SetInt("IsHapticEnabled", _isHapticEnable.isOn ? 1 : 0);
+        PlayerPrefs.SetInt("IsPrevisEnabled", _isPrevisEnable.isOn ? 1 : 0);
         PlayerPrefs.Save();
 
         _audioSource.volume = _volume.value;

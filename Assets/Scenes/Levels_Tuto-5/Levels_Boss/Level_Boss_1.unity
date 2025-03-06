@@ -367,6 +367,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2254136101312084284, guid: 76e60cfb740b83f44909bd54261882b4, type: 3}
+      propertyPath: _batteryModifyAmount
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3050586696124332725, guid: 76e60cfb740b83f44909bd54261882b4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -538,6 +542,10 @@ PrefabInstance:
     - target: {fileID: 8594856266914306160, guid: 76e60cfb740b83f44909bd54261882b4, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969509653658075406, guid: 76e60cfb740b83f44909bd54261882b4, type: 3}
+      propertyPath: _batteryModifyAmount
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9213074331069487560, guid: 76e60cfb740b83f44909bd54261882b4, type: 3}
       propertyPath: m_Name

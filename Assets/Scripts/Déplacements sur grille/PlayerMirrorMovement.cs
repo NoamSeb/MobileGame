@@ -1,34 +1,35 @@
-﻿using NaughtyAttributes;
+﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
-using UnityEngine;
+using NaughtyAttributes;
 using UnityEngine.Tilemaps;
+using TMPro;
 using MoreMountains.Feedbacks;
 
 public class PlayerMirrorMovement : MonoBehaviour
 {
-    private Grid _grid; // r�f�rence au composant grid
-    [ShowNonSerializedField] private Vector2Int _gridPosition; // position actuelle du joueur
+    private Grid _grid;
+    [ShowNonSerializedField] private Vector2Int _gridPosition;
     private float _moveDuration;
-    private bool _isMoving = false; // emp�che les d�placements simultan�s
-    private int _currentRotation = 0; // rotation actuelle (0 = haut, 90 = droite, etc.)
+    private bool _isMoving = false;
+    private int _currentRotation = 0;
 
     public void MatchPlayerRotation(PlayerGridMovement.InitialMoveDirection playerDirection)
     {
         switch (playerDirection)
         {
             case PlayerGridMovement.InitialMoveDirection.Left:
-                transform.rotation = Quaternion.Euler(0, 0, 90);
-                _currentRotation = 90;
+                transform.rotation = Quaternion.Euler(0, 0, -90); // Inverse la rotation
+                _currentRotation = 270;
                 break;
             case PlayerGridMovement.InitialMoveDirection.Down:
                 transform.rotation = Quaternion.Euler(0, 0, 180);
                 _currentRotation = 180;
                 break;
             case PlayerGridMovement.InitialMoveDirection.Right:
-                transform.rotation = Quaternion.Euler(0, 0, -90);
-                _currentRotation = 270;
+                transform.rotation = Quaternion.Euler(0, 0, 90); // Inverse la rotation
+                _currentRotation = 90;
                 break;
             case PlayerGridMovement.InitialMoveDirection.Up:
                 transform.rotation = Quaternion.identity;
@@ -42,7 +43,7 @@ public class PlayerMirrorMovement : MonoBehaviour
     private bool _isInAction = false;
     private bool _executeAction = false;
 
-    readonly private Queue<PlayerGridMovement.ActionType> _actionQueue = new(); // file d'attente des actions
+    readonly private Queue<PlayerGridMovement.ActionType> _actionQueue = new();
 
     private bool _isRotationLocked;
 
@@ -58,15 +59,11 @@ public class PlayerMirrorMovement : MonoBehaviour
         _grid = GameManager.Instance.PlayGrid;
         if (_grid == null)
         {
-            Debug.LogError("Le Grid n'est pas assign� dans l'inspector.");
+            Debug.LogError("Le Grid n'est pas assigné dans l'inspector.");
             return;
         }
 
         SetPositionInGrid();
-
-        GridTeleporter.OnTeleportMirror += Teleport;
-        GridPusher.OnPushMirror += Push;
-        GridRotationLocker.OnRotateMirror += ForceRotation;
 
         _moveDuration = GameManager.Instance.PlayerScript.MoveDuration;
 
@@ -122,11 +119,11 @@ public class PlayerMirrorMovement : MonoBehaviour
         }
         else if (action == PlayerGridMovement.ActionType.TurnRight)
         {
-            TurnRight();
+            TurnLeft(); // Inversion de la rotation
         }
         else if (action == PlayerGridMovement.ActionType.TurnLeft)
         {
-            TurnLeft();
+            TurnRight(); // Inversion de la rotation
         }
         else if (action == PlayerGridMovement.ActionType.Wait)
         {
@@ -166,10 +163,11 @@ public class PlayerMirrorMovement : MonoBehaviour
             _isMoving = false;
         }
     }
+
     IEnumerator WaitCoroutine()
     {
         _isMoving = true;
-        yield return new WaitForSeconds(_moveDuration); // dur�e d'attente �quivalente � un d�placement
+        yield return new WaitForSeconds(_moveDuration);
         _isMoving = false;
     }
 
@@ -177,8 +175,8 @@ public class PlayerMirrorMovement : MonoBehaviour
     {
         if (!_isRotationLocked)
         {
-            _currentRotation = (_currentRotation + 90) % 360;
-            transform.rotation = Quaternion.Euler(0, 0, -_currentRotation);
+            _currentRotation = (_currentRotation - 90 + 360) % 360; // Inversion du sens de rotation
+            transform.rotation = Quaternion.Euler(0, 0, _currentRotation);
         }
     }
 
@@ -186,18 +184,21 @@ public class PlayerMirrorMovement : MonoBehaviour
     {
         if (!_isRotationLocked)
         {
-            _currentRotation = (_currentRotation - 90 + 360) % 360; // �viter les valeurs n�gatives
-            transform.rotation = Quaternion.Euler(0, 0, -_currentRotation);
+            _currentRotation = (_currentRotation + 90) % 360; // Inversion du sens de rotation
+            transform.rotation = Quaternion.Euler(0, 0, _currentRotation);
         }
     }
 
     Vector2Int GetDirectionVector()
     {
-        if (_currentRotation == 0) return Vector2Int.up;
-        if (_currentRotation == 90) return Vector2Int.right;
-        if (_currentRotation == 180) return Vector2Int.down;
-        if (_currentRotation == 270) return Vector2Int.left;
-        throw new ArgumentException("The player's rotation doesn't match this script's");
+        switch (_currentRotation)
+        {
+            case 0: return Vector2Int.up;     
+            case 90: return Vector2Int.left;  
+            case 180: return Vector2Int.down; 
+            case 270: return Vector2Int.right;
+        }
+        throw new ArgumentException("Rotation invalide pour le Mirror Player !");
     }
 
     bool IsNextGridCaseAValidDestination(Vector3 pos)
@@ -228,8 +229,7 @@ public class PlayerMirrorMovement : MonoBehaviour
             }
         }
 
-        if (hasGroundBeenDetected) { return true; }
-        return false;
+        return hasGroundBeenDetected;
     }
 
     public static event Action<GridObject> OnInteraction;
@@ -245,69 +245,12 @@ public class PlayerMirrorMovement : MonoBehaviour
         _isInAction = false;
     }
 
-    void Teleport(Vector3Int pos)
-    {
-        StartCoroutine(TeleportMovement(pos));
-    }
-
-    IEnumerator TeleportMovement(Vector3Int pos)
-    {
-        _isMoving = true;
-        Vector3 targetPos = _grid.GetCellCenterWorld(new Vector3Int(pos.x, pos.y, 0));
-        yield return new WaitForSeconds(_moveDuration);
-        transform.position = targetPos;
-        _gridPosition = (Vector2Int)pos;
-        _isMoving = false;
-    }
-
-    void Push(Vector2Int direction)
-    {
-        StartCoroutine(PushMovement(direction));
-    }
-
-    IEnumerator PushMovement(Vector2Int direction)
-    {
-        _isMoving = true;
-        Vector2Int targetPosition = _gridPosition + direction;
-
-        Vector3 startPosition = transform.position;
-        Vector3 targetPositionWorld = _grid.GetCellCenterWorld(new Vector3Int(targetPosition.x, targetPosition.y, 0));
-
-        if (IsNextGridCaseAValidDestination(targetPositionWorld))
-        {
-            float elapsedTime = 0f;
-
-            while (elapsedTime < _moveDuration)
-            {
-                transform.position = Vector3.Lerp(startPosition, targetPositionWorld, elapsedTime / _moveDuration);
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-
-            transform.position = targetPositionWorld;
-            _gridPosition = targetPosition;
-            _isMoving = false;
-        }
-        else
-        {
-            _isMoving = false;
-            yield return new WaitForSeconds(_moveDuration);
-        }
-    }
-
-    void ForceRotation(int rotation)
-    {
-        _currentRotation = rotation;
-        transform.rotation = Quaternion.Euler(0, 0, -_currentRotation);
-        _isRotationLocked = true;
-    }
-
     public void StopMovement()
     {
         _isMoving = false;
         _executeAction = false;
         _actionQueue.Clear();
-        Debug.Log("Le joueur ne bouge plus !");
+        Debug.Log("Le joueur miroir ne bouge plus !");
     }
 
     void PlayFeedbacks(MMF_Player player)

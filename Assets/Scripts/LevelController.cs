@@ -9,6 +9,9 @@ public class LevelController : MonoBehaviour
 {
     public List<LevelStructure> Levels;
 
+    [SerializeField] private AudioClip _gameButton;
+    [SerializeField] private AudioSource _audioSource;
+    
     [Serializable]
     public struct LevelStructure
     {
@@ -48,6 +51,7 @@ public class LevelController : MonoBehaviour
         if (activeLevel.HasValue)
         {
             activeLevel.Value.level.SetActive(true);
+            _audioSource.PlayOneShot(_gameButton);
             Debug.Log($"Niveau actif : {activeLevel.Value.idLevel}");
         }
         else if (Levels.Count > 0)

@@ -39,6 +39,8 @@ public class PauseMenu : MonoBehaviour
     [Foldout("Audio")]
     [SerializeField] private AudioClip _launchSFX;
     [Foldout("Audio")]
+    [SerializeField] private AudioClip _clicButton;
+    [Foldout("Audio")]
     private AudioSource _audioSource;
 
     [Foldout("Settings")]
@@ -91,6 +93,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (_type == Type.InBiome) { _currentBiomeEnvironment.SetActive(false); }
         _pauseMenuUI.SetActive(true);
+        _audioSource.PlayOneShot(_clicButton);
         Time.timeScale = 0f;
         //IsPaused = true;
     }
@@ -99,6 +102,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (_type == Type.InBiome) { _currentBiomeEnvironment.SetActive(true); }
         _pauseMenuUI.SetActive(false);
+        _audioSource.PlayOneShot(_clicButton);
         Time.timeScale = 1f;
         //IsPaused = false;
     }
@@ -109,6 +113,7 @@ public class PauseMenu : MonoBehaviour
     {
         GetSettingsValue();
         OpenSettingsMenu.Invoke();
+        _audioSource.PlayOneShot(_clicButton);
     }
 
     private void GetSettingsValue()
@@ -119,6 +124,7 @@ public class PauseMenu : MonoBehaviour
     public void CloseSettings()
     {
         CloseSettingsMenu.Invoke();
+        _audioSource.PlayOneShot(_clicButton);
     }
 
     public void SaveSettings()

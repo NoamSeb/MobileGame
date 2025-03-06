@@ -1174,6 +1174,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _launchSFX: {fileID: 8300000, guid: 96bfb1108bbb5d242a8056cca57e3b1d, type: 3}
+  _clicButton: {fileID: 8300000, guid: 87984ba6903058641955964cc22ca8e5, type: 3}
   _volume: {fileID: 358668223316089581}
   _isHapticEnable: {fileID: 3338969814438075290}
 --- !u!1 &3533890344306362244

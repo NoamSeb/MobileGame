@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class GridLaserEmittor : GridObject
 {
+    [SerializeField] private AudioClip _laserSound;
+    [SerializeField] private AudioSource _audioSource;
     enum LaserState
     {
         Activating,
@@ -80,6 +82,7 @@ public class GridLaserEmittor : GridObject
                 _state = LaserState.Activated; 
                 _isActivated = true; 
                 OnActivate?.Invoke();
+                _audioSource.PlayOneShot(_laserSound);
                 break;
 
             case LaserState.Activated:

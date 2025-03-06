@@ -11,6 +11,15 @@ public class ActionQueue : MonoBehaviour
     public TMP_Text actionListText; // r�f�rence � l'affichage des actions
     readonly private List<ActionEntry> actions = new(); // liste des actions avec compteurs
 
+    bool _active;
+    
+    [SerializeField] private AudioClip _actionSound;
+    [SerializeField] private AudioSource _audioSource;
+    private void Awake()
+    {
+        EnergySliderFeedbacks.OnSliderFeedbackFinished += EnableActionsQueueing;
+    }
+
     private void Start()
     {
         _player = GameManager.Instance.PlayerScript;
@@ -108,6 +117,8 @@ public class ActionQueue : MonoBehaviour
 
             actionListText.text += $">>> {actionName} x{actionEntry.count}\n";
         }
+        _audioSource.PlayOneShot(_actionSound);
+        DrawPrevisualisation();
     }
 
     readonly private List<GameObject> _previsItems = new();

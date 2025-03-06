@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 85afc89581bc54549a5299b514152496
+guid: f4b3856b6df64a043a5b316613939229
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7115141547062280955
-    second: tablette_red_0
+      213: -8878088185706026076
+    second: pause_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tablette_red_0
+      name: pause_0
       rect:
         serializedVersion: 2
-        x: 102
-        y: 52
-        width: 1716
-        height: 969
+        x: 58
+        y: 0
+        width: 343
+        height: 454
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bf245471a8f0eb260800000000000000
-      internalID: 7115141547062280955
+      spriteID: 4ab666e45d1bac480800000000000000
+      internalID: -8878088185706026076
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      tablette_red_0: 7115141547062280955
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

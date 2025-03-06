@@ -15,6 +15,7 @@ public class BiomeManager : MonoBehaviour
 
     public List<BiomeStructure> Biomes;
     internal int _currentBiomeID = 1;
+    public int CurrentBiomeID { get { return _currentBiomeID; } }
     
     [Header("Glitch Filter")]
     [SerializeField] SwitchScreen _glitchFilter;
@@ -65,26 +66,37 @@ public class BiomeManager : MonoBehaviour
 
         // associe le LevelController du biome actif
         Debug.Log(_currentBiomeID);
-        LevelController activeLevelController = Biomes.Find(x => x.idBiome == _currentBiomeID).biome.GetComponentInChildren<LevelController>();
+        LevelController activeLevelController = currentBiome.biome.GetComponentInChildren<LevelController>();
         if (activeLevelController != null)
         {
             //activeLevelController.GetActiveLevel();
             OnBiomeChange?.Invoke(activeLevelController);
+            foreach (Transform obj in transform.GetChild(0))
+            {
+                if (obj.TryGetComponent(out BiomeSwitcherButton button))
+                {
+                    button.SetLevelController(activeLevelController);
+                }
+            }
         }
         
     }
 
     public void NextBiome()
     {
-        if (1 <= _currentBiomeID  && _currentBiomeID < 5)
+        BiomeStructure currentBiome = Biomes.Find(b => b.idBiome == _currentBiomeID);
+        if (currentBiome.biome.GetComponentInChildren<LevelController>().AreAllLevelsFinishedInThisBiome())
         {
-            int nextBiomeID = _currentBiomeID + 1;
-            _glitchFilter._prevScreen = Biomes.Find(b => b.idBiome == _currentBiomeID).biome;
-            _glitchFilter._nextScreen = Biomes.Find(b => b.idBiome == nextBiomeID).biome;
-            _glitchFilter.OnChangedScreen();
-            
-            _currentBiomeID++;
-            UpdateBiomeVisibility();
+            if (1 <= _currentBiomeID && _currentBiomeID < 5)
+            {
+                int nextBiomeID = _currentBiomeID + 1;
+                _glitchFilter._prevScreen = Biomes.Find(b => b.idBiome == _currentBiomeID).biome;
+                _glitchFilter._nextScreen = Biomes.Find(b => b.idBiome == nextBiomeID).biome;
+                _glitchFilter.OnChangedScreen();
+
+                _currentBiomeID++;
+                UpdateBiomeVisibility();
+            }
         }
     }
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Mime;
 using NaughtyAttributes;
 using UnityEngine.UI;
+using log4net.Core;
 
 public class LevelController : MonoBehaviour
 {
@@ -14,12 +15,14 @@ public class LevelController : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
 
     [SerializeField] public AudioClip _biomeMusic;
-    
+
     [Serializable]
     public struct LevelStructure
     {
         public int idLevel;
         public GameObject level;
+        public int orderAmongLevels;
+        public ScreenShapedButton screenButton;
     }
 
     [SerializeField] GameObject _levelSelector;
@@ -37,16 +40,43 @@ public class LevelController : MonoBehaviour
 
             level.level.SetActive(false);
         }
-        
+
         ChangeColorOfFinishLevelInData();
         GridExit.OnLevelEnd += UnloadCurrentLevel;
         PauseMenu.OnReturnToMenuInGame += UnloadCurrentLevel;
         BiomeManager.OnBiomeChange += SetLevelControllerUsedByMenus;
     }
 
+    public static event Action<ScreenShapedButton> OnFirstLevelLoad;
+    private void Start()
+    {
+        int lowestLevelOrder = 100;
+
+        foreach (LevelStructure level in Levels)
+        {
+            if (level.orderAmongLevels < lowestLevelOrder) { lowestLevelOrder = level.orderAmongLevels; }
+            if (!level.screenButton.IsFinished) { level.screenButton.Deactivate(); }
+        }
+
+        OnFirstLevelLoad?.Invoke(Levels.Find(x => x.orderAmongLevels == lowestLevelOrder).screenButton);
+    }
+
     void SetLevelControllerUsedByMenus(LevelController controller)
     {
         _controller = controller;
+    }
+
+    public bool AreAllLevelsFinishedInThisBiome()
+    {
+        foreach (LevelStructure level in Levels)
+        {
+            if (!level.screenButton.IsFinished)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public void GetActiveLevel()
@@ -73,7 +103,7 @@ public class LevelController : MonoBehaviour
     }
 
     public void LoadLevel(int levelID)
-    {   
+    {
         foreach (LevelStructure level in Levels)
         {
             level.level.SetActive(level.idLevel == levelID);
@@ -83,15 +113,24 @@ public class LevelController : MonoBehaviour
         _levelSelector.SetActive(false);
     }
 
+    public static event Action<ScreenShapedButton> OnLevelUnload;
     public void UnloadCurrentLevel()
     {
         if (_controller == this)
         {
             int tempID = GameManager.CurrentLevelID;
             LevelStructure tempLevel = Levels.Find(x => x.idLevel == tempID);
-            tempLevel.level.SetActive(false);
+
             GameManager.CurrentLevelID = 0;
+
+            LevelStructure tempNextLevel = Levels.Find(x => x.orderAmongLevels == tempLevel.orderAmongLevels + 1);
+            if (tempNextLevel.idLevel != 0 && !tempNextLevel.screenButton.IsFinished)
+            {
+                OnLevelUnload?.Invoke(tempNextLevel.screenButton);
+            }
+
             _levelSelector.SetActive(true);
+            tempLevel.level.SetActive(false);
         }
     }
 
@@ -107,10 +146,10 @@ public class LevelController : MonoBehaviour
 
         for (int i = 0; i < levelButtons.Length; i++)
         {
-            if(levelButtons[i].TryGetComponent(out Image img))
+            if (levelButtons[i].TryGetComponent(out Image img))
                 img.color = levelButtons[i].UnfinishedColor;
         }
-        
+
         foreach (PlayerData.DataElement levels in loadedData.data)
         {
             var selectLevelButton = levelButtons.ToList().Find(x => x.name == $"Lvl{levels.idLevel}");

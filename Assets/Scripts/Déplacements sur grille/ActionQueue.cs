@@ -131,16 +131,16 @@ public class ActionQueue : MonoBehaviour
             switch (actionEntry.actionType)
             {
                 case PlayerGridMovement.ActionType.Move:
-                    actionName = "Avancer";
+                    actionName = "Move";
                     break;
                 case PlayerGridMovement.ActionType.TurnRight:
-                    actionName = "Tourner Droite";
+                    actionName = "Turn Right";
                     break;
                 case PlayerGridMovement.ActionType.TurnLeft:
-                    actionName = "Tourner Gauche";
+                    actionName = "Turn Left";
                     break;
                 case PlayerGridMovement.ActionType.Wait:
-                    actionName = "Attendre";
+                    actionName = "Wait";
                     break;
             }
 
@@ -231,11 +231,9 @@ public class ActionQueue : MonoBehaviour
                             currentRot = possibleNextRot;
                             currentPrevisAmount++;
                         }
-                        else
-                        {
-                            _previsItems.Add(Instantiate(_previsDot, currentPos, Quaternion.identity));
-                            currentPrevisAmount++;
-                        }
+
+                        _previsItems.Add(Instantiate(_previsDot, currentPos, Quaternion.identity));
+                        currentPrevisAmount++;
                     }
                 }
             }

@@ -1008,7 +1008,7 @@ MonoBehaviour:
   _actionSound: {fileID: 8300000, guid: 9546898eb39171d418501ed4876ae5e1, type: 3}
   _audioSource: {fileID: 3517534740039611154, guid: 46341eb8238097b4cbe2f258fde58f74, type: 3}
   _previsDot: {fileID: 6005765783578959954, guid: 22603b80d04c6a54a8b82f1bac6da2cf, type: 3}
-  _playzoneLayer: 0
+  _playzoneLayer: 6
   _maxPrevisAmount: 10
 --- !u!1 &7014182310612419501
 GameObject:

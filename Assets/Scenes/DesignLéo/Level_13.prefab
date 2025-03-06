@@ -199,6 +199,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loadingFeedbacks: {fileID: 0}
   _otherTeleporter: {fileID: 5645059637771177494}
+  _teleportSound: {fileID: 0}
+  _audioSource: {fileID: 0}
 --- !u!61 &1380237230155942391
 BoxCollider2D:
   m_ObjectHideFlags: 0

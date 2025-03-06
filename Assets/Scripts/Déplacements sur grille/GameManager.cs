@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                BiomeManager bm = GameObject.FindObjectOfType<BiomeManager>();
+                BiomeManager bm = FindFirstObjectByType<BiomeManager>();
 
                 if (bm != null) // Ensure bm is found before using it
                 {

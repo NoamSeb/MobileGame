@@ -70,11 +70,6 @@ public class Oxygen : MonoBehaviour
         _currentOxygen = _maxOxygen;
     }
 
-    public bool IsDead()
-    {
-        return _currentOxygen <= 0;
-    }
-
     public static event Action OnUnderOxygenThreshold;
     public static event Action OnOverOxygenThreshold;
     public void LoseOxygen()
@@ -107,15 +102,30 @@ public class Oxygen : MonoBehaviour
         _currentOxygen += amount;
     }
 
+    public static event Action OnDeath;
     private void Die()
     {
-        Debug.Log("You are dead ! Loser !");
+        Debug.Log("Le joueur est mort, il ne peut plus bouger !");
+
+        GameManager.Instance.PlayerScript.StopMovement();
+        if (GameManager.Instance.MirrorScript != null)
+        {
+            GameManager.Instance.MirrorScript.StopMovement();
+        }
+
+        GameManager.Instance.PlayerScript.DisableActions();
+        if (GameManager.Instance.MirrorScript != null)
+        {
+            GameManager.Instance.MirrorScript.DisableActions();
+        }
+
+        OnDeath?.Invoke();
     }
+
 
     public void StopPlayer()
     {
         SetOxygenToZero();
-        IsDead();
         GameManager.Instance.PlayerScript.StopMovement();
         Debug.Log("Le joueur est touché par un laser !");
     }

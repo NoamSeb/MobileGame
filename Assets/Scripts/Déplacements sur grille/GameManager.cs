@@ -20,6 +20,12 @@ public class GameManager : MonoBehaviour
     private float _cameraSize;
     private Vector3 _cameraPos;
 
+    [SerializeField] GameObject _victoryCanvas;
+    [SerializeField] GameObject _defeatCanvas;
+
+    public GameObject VictoryCanvas { get { return _victoryCanvas; } }
+    public GameObject DefeatCanvas { get { return _defeatCanvas; } }
+
     private void Awake()
     {
         if (Instance == null || Instance != this)
@@ -30,6 +36,7 @@ public class GameManager : MonoBehaviour
         IsAwake = true;
         Level.OnLevelLoad += SetUp;
     }
+
 
     private void Start()
     {

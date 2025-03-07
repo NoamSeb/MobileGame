@@ -5,7 +5,7 @@ using GooglePlayGames.BasicApi;
 
 public class GooglePlayManager : MonoBehaviour
 {
-    /*[SerializeField] private GameObject _failToConnectScreen;
+    [SerializeField] private GameObject _failToConnectScreen;
     public static GooglePlayManager Instance { get; private set; }
 
     void Awake()
@@ -78,5 +78,5 @@ public class GooglePlayManager : MonoBehaviour
         {
             Social.ShowAchievementsUI();
         });
-    }*/
+    }
 }

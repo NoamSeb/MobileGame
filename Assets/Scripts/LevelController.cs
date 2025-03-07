@@ -42,8 +42,11 @@ public class LevelController : MonoBehaviour
         }
 
         ChangeColorOfFinishLevelInData();
-        GridExit.OnLevelEnd += UnloadCurrentLevel;
-        PauseMenu.OnReturnToMenuInGame += UnloadCurrentLevel;
+        GridExit.OnLevelEnd += Victory;
+        Oxygen.OnDeath += Defeat;
+        WinPanel.OnLevelEnd += UnloadCurrentLevelAsWin;
+        LossPanel.OnLevelEnd += UnloadCurrentLevelAsLoss;
+        PauseMenu.OnReturnToMenuInGame += UnloadCurrentLevelAsLoss;
         BiomeManager.OnBiomeChange += SetLevelControllerUsedByMenus;
     }
 
@@ -136,7 +139,7 @@ public class LevelController : MonoBehaviour
     }
 
     public static event Action<ScreenShapedButton> OnLevelUnload;
-    public void UnloadCurrentLevel()
+    public void UnloadCurrentLevelAsWin()
     {
         if (_controller == this)
         {
@@ -150,6 +153,20 @@ public class LevelController : MonoBehaviour
             {
                 OnLevelUnload?.Invoke(tempNextLevel.screenButton);
             }
+
+            _levelSelector.SetActive(true);
+            tempLevel.level.SetActive(false);
+        }
+    }
+
+    void UnloadCurrentLevelAsLoss()
+    {
+        if (_controller == this)
+        {
+            int tempID = GameManager.CurrentLevelID;
+            LevelStructure tempLevel = Levels.Find(x => x.idLevel == tempID);
+
+            GameManager.CurrentLevelID = 0;
 
             _levelSelector.SetActive(true);
             tempLevel.level.SetActive(false);
@@ -187,5 +204,15 @@ public class LevelController : MonoBehaviour
                 }
             }
         }
+    }
+
+    void Victory()
+    {
+        GameManager.Instance.VictoryCanvas.SetActive(true);
+    }
+
+    void Defeat()
+    {
+        GameManager.Instance.DefeatCanvas.SetActive(true);
     }
 }

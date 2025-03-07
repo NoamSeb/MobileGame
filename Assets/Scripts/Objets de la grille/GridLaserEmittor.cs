@@ -75,7 +75,7 @@ public class GridLaserEmittor : GridObject
         Vector3Int tempGridPos = GridPosition + _setupDirection;
         for (int i = 1; i < _laserLength; i++)
         {
-            GameObject tempBlock = Instantiate(laserBlock, _grid.GetCellCenterWorld(tempGridPos), Quaternion.identity);
+            GameObject tempBlock = Instantiate(laserBlock, _grid.GetCellCenterWorld(tempGridPos), Quaternion.identity, transform.parent);
             tempBlock.GetComponent<GridLaserBlock>().SecondSetup(_playerPos, _killDistance, _rotation, _inactiveColor);
             tempGridPos += _setupDirection;
         }

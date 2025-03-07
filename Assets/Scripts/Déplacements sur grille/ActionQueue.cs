@@ -20,15 +20,6 @@ public class ActionQueue : MonoBehaviour
         EnergySliderFeedbacks.OnSliderFeedbackFinished += EnableActionsQueueing;
     }
 
-    bool _active;
-    
-    [SerializeField] private AudioClip _actionSound;
-    [SerializeField] private AudioSource _audioSource;
-    private void Awake()
-    {
-        EnergySliderFeedbacks.OnSliderFeedbackFinished += EnableActionsQueueing;
-    }
-
     private void Start()
     {
         _player = GameManager.Instance.PlayerScript;

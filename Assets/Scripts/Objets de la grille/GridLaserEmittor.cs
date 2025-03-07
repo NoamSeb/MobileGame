@@ -5,6 +5,12 @@ public class GridLaserEmittor : GridObject
 {
     [SerializeField] private AudioClip _laserSound;
     [SerializeField] private AudioSource _audioSource;
+
+    SpriteRenderer _renderer;
+    Animator _animator;
+    [SerializeField] Color _inactiveColor;
+    [SerializeField] Color _baseColor;
+
     enum LaserState
     {
         Activating,
@@ -60,6 +66,8 @@ public class GridLaserEmittor : GridObject
     protected override void Setup()
     {
         base.Setup();
+        _renderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
         _playerPos = GameManager.Instance.PlayerScript.transform;
         PlayerGridMovement.OnActionExecuted += UpdateLaserState;
 
@@ -68,7 +76,7 @@ public class GridLaserEmittor : GridObject
         for (int i = 1; i < _laserLength; i++)
         {
             GameObject tempBlock = Instantiate(laserBlock, _grid.GetCellCenterWorld(tempGridPos), Quaternion.identity);
-            tempBlock.GetComponent<GridLaserBlock>().SecondSetup(_playerPos, _killDistance, _rotation);
+            tempBlock.GetComponent<GridLaserBlock>().SecondSetup(_playerPos, _killDistance, _rotation, _inactiveColor);
             tempGridPos += _setupDirection;
         }
     }
@@ -83,20 +91,34 @@ public class GridLaserEmittor : GridObject
                 _isActivated = true; 
                 OnActivate?.Invoke();
                 _audioSource.PlayOneShot(_laserSound);
+
+                _renderer.color = _baseColor;
+                _animator.SetBool("IsFlashing", false);
                 break;
 
             case LaserState.Activated:
-                _state = LaserState.Deactivating; 
+                _state = LaserState.Deactivating;
+                _isActivated = false;
+
+                _renderer.color = _baseColor;
+                _animator.SetBool("IsFlashing", true);
                 break;
 
             case LaserState.Deactivating:
                 _state = LaserState.Deactivated; 
                 _isActivated = true;
                 OnActivate?.Invoke();
+
+                _renderer.color = _inactiveColor;
+                _animator.SetBool("IsFlashing", false);
                 break;
 
             case LaserState.Deactivated:
-                _state = LaserState.Activating; 
+                _state = LaserState.Activating;
+                _isActivated = false;
+
+                _renderer.color = _inactiveColor;
+                _animator.SetBool("IsFlashing", true);
                 break;
         }
     }

@@ -3,11 +3,9 @@ using UnityEngine;
 public class Tablette : MonoBehaviour
 {
     [SerializeField] PauseMenu PauseMenu;
-    Animator _animator;
 
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
     }
 
     public void TablettePause()

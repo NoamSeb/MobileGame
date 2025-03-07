@@ -12,7 +12,7 @@ public class ActionQueue : MonoBehaviour
     readonly private List<ActionEntry> _actions = new(); // liste des actions avec compteurs
 
     bool _active;
-    
+
     [SerializeField] private AudioClip _actionSound;
     [SerializeField] private AudioSource _audioSource;
     private void Awake()
@@ -151,8 +151,6 @@ public class ActionQueue : MonoBehaviour
         {
             DrawPrevisualisation();
         }
-        _audioSource.PlayOneShot(_actionSound);
-        DrawPrevisualisation();
     }
 
     readonly private List<GameObject> _previsItems = new();
@@ -244,12 +242,19 @@ public class ActionQueue : MonoBehaviour
             }
             if (action.actionType == PlayerGridMovement.ActionType.TurnRight)
             {
-                currentRot = (currentRot + 90) % 360;
+                for (int i = 0; i < action.count; i++)
+                {
+                    currentRot = (currentRot + 90) % 360;
+                }
             }
             if (action.actionType == PlayerGridMovement.ActionType.TurnLeft)
             {
-                currentRot = (currentRot - 90 + 360) % 360;
+                for (int i = 0; i < action.count; i++)
+                {
+                    currentRot = (currentRot - 90 + 360) % 360;
+                }
             }
+            else { }
         }
     }
 

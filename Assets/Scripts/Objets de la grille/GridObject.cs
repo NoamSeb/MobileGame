@@ -15,7 +15,7 @@ public class GridObject : MonoBehaviour
 
     private void Awake()
     {
-        _loadingFeedbacks.Initialization();
+        if (_loadingFeedbacks != null) { _loadingFeedbacks.Initialization(); }
     }
 
     void Start()

@@ -44,7 +44,7 @@ public class GridSleepingEnemy : GridObject
 
     void WakeYoAssUp()
     {
-        GridEnemy temp = Instantiate(_enemy, transform.position, Quaternion.identity).GetComponent<GridEnemy>();
+        GridEnemy temp = Instantiate(_enemy, transform.position, Quaternion.identity, transform.parent).GetComponent<GridEnemy>();
         if (IsVertical()) { temp.TransferMovementParams(_robotMovementType, _verticalInitialDirection); }
         else { temp.TransferMovementParams(_robotMovementType, _horizontalInitialDirection); }
         Oxygen.OnUnderOxygenThreshold -= WakeYoAssUp;

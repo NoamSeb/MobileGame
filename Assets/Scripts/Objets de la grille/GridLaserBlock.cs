@@ -6,19 +6,28 @@ public class GridLaserBlock : GridObject
     private float _killDistance;
     bool _isActive;
 
-    public void SecondSetup(Transform pos, float _distance, int angle)
+    SpriteRenderer _renderer;
+    Color _inactiveColor;
+    Color _baseColor;
+
+    public void SecondSetup(Transform pos, float _distance, int angle, Color disabledColor)
     {
+        _renderer = GetComponent<SpriteRenderer>();
+        _baseColor = _renderer.color;
+        _inactiveColor = disabledColor;
+
         _playerPos = pos;
         _killDistance = _distance;
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
         GridLaserEmittor.OnActivate += Activate;
+        _isActive = true;
     }
 
     void Activate()
     {
-        if (_isActive) { _isActive = false; return; }
-        _isActive = true;
+        if (_isActive) { _isActive = false; _renderer.color = _inactiveColor; return; }
+        _isActive = true; _renderer.color = _baseColor;
     }
 
     private void Update()

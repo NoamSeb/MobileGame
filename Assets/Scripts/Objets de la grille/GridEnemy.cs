@@ -7,7 +7,7 @@ public class GridEnemy : GridObject
 {
     [ShowNonSerializedField] private float _moveDuration;
     [ShowNonSerializedField] private int _currentRotation = 0;
-    private GameObject _sleepingEnemy;
+    [SerializeField] private GameObject _sleepingEnemy;
 
     [SerializeField] private Sprite _verticalSprite, _horizontalSprite;
     private SpriteRenderer _skin;
@@ -171,11 +171,17 @@ public class GridEnemy : GridObject
         }
     }
 
+    private void OnDestroy()
+    {
+        ReturnToMimir();
+    }
+
     void ReturnToMimir()
     {
-        GridSleepingEnemy temp = Instantiate(_sleepingEnemy, transform.position, Quaternion.identity).GetComponent<GridSleepingEnemy>();
+        GridSleepingEnemy temp = Instantiate(_sleepingEnemy, transform.position, Quaternion.identity, transform.parent).GetComponent<GridSleepingEnemy>();
         if (IsVertical()) { temp.TransferMovementParams(_movementType, _verticalInitialDirection); }
         else { temp.TransferMovementParams(_movementType, _horizontalInitialDirection); }
+        PlayerGridMovement.OnActionExecuted -= StartMovement;
         Oxygen.OnOverOxygenThreshold -= ReturnToMimir;
         Destroy(gameObject);
     }

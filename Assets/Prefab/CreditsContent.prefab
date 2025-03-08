@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3724081995925199828, guid: 86515e88ea6abb043b58b0dcaf4bcd6d, type: 3}
+  m_Sprite: {fileID: 3724081995925199828, guid: abeb973059f6c56419e034e3716c7b08, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -185,7 +185,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 24, y: -354}
+  m_AnchoredPosition: {x: 24, y: -438}
   m_SizeDelta: {x: 894.0204, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &557969203719070191
@@ -333,7 +333,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 312.91614, y: -1080.602}
+  m_AnchoredPosition: {x: 312.91614, y: -1164.602}
   m_SizeDelta: {x: 422.7167, y: 153.2042}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5205604058501217610
@@ -476,7 +476,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 49, y: -1274}
+  m_AnchoredPosition: {x: 49, y: -1358}
   m_SizeDelta: {x: 701.63, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7374517507514206314
@@ -587,6 +587,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8005152876793737232}
+  - component: {fileID: 7057644585048837055}
+  - component: {fileID: 4507967591691541748}
   m_Layer: 5
   m_Name: CreditsContent
   m_TagString: Untagged
@@ -620,6 +622,41 @@ RectTransform:
   m_AnchoredPosition: {x: 292.63, y: -1657}
   m_SizeDelta: {x: 2340, y: 1080}
   m_Pivot: {x: 0.6250537, y: 0.16652107}
+--- !u!95 &7057644585048837055
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3948008921236485780}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 51d38ee48d09de349b1a54305f9f5662, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4507967591691541748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3948008921236485780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b768ede52124ff42a69297f2de9294e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelManager: {fileID: 0}
 --- !u!1 &4218046606436470965
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +691,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -240, y: -1023}
+  m_AnchoredPosition: {x: -240, y: -1107}
   m_SizeDelta: {x: 509.2458, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &681718859607474067
@@ -833,7 +870,13 @@ MonoBehaviour:
 
 
 
-    Game Programming'
+    Game Programming
+
+
+
+
+    Music
+    Composing'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ba94e7a306d0af74f9df72cd0ad89b4f, type: 2}
   m_sharedMaterial: {fileID: 366375311338649740, guid: ba94e7a306d0af74f9df72cd0ad89b4f, type: 2}
@@ -971,7 +1014,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Simon PHILIPPE\r\nLucas PRINZIVALLI\r\nL\xE9o AIT SI SLIMANE\n\n\n\nMarie
     COLPART\r\nSara SILVA DA CRUZ\r\nLilou TRIDON\n\n\n\nArthur BEAUQUESNE\r\nMaria
-    KIPENDA TULEKI\r\nNoam SEBAHOUN"
+    KIPENDA TULEKI\r\nNoam SEBAHOUN\n\n\nTerence BORDEAU"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 50029b863ddbf26418c1a05b1687c7de, type: 2}
   m_sharedMaterial: {fileID: -4268001174047566976, guid: 50029b863ddbf26418c1a05b1687c7de, type: 2}
@@ -1076,7 +1119,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8, y: -1913}
+  m_AnchoredPosition: {x: 8, y: -1997}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5150524193014804660

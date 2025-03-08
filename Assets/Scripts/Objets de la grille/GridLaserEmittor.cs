@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class GridLaserEmittor : GridObject
@@ -38,6 +39,11 @@ public class GridLaserEmittor : GridObject
 
     private void OnValidate()
     {
+        SetRotationCorrectly();
+    }
+
+    void SetRotationCorrectly()
+    {
         switch (_direction)
         {
             case Direction.Left:
@@ -66,6 +72,8 @@ public class GridLaserEmittor : GridObject
     protected override void Setup()
     {
         base.Setup();
+        SetRotationCorrectly();
+
         _renderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         _playerPos = GameManager.Instance.PlayerScript.transform;
@@ -92,13 +100,17 @@ public class GridLaserEmittor : GridObject
                 OnActivate?.Invoke();
                 _audioSource.PlayOneShot(_laserSound);
 
+                StartCoroutine(KillPlayerIfOver());
+
                 _renderer.color = _baseColor;
                 _animator.SetBool("IsFlashing", false);
                 break;
 
             case LaserState.Activated:
                 _state = LaserState.Deactivating;
-                _isActivated = false;
+                _isActivated = true;
+
+                StartCoroutine(KillPlayerIfOver());
 
                 _renderer.color = _baseColor;
                 _animator.SetBool("IsFlashing", true);
@@ -106,7 +118,7 @@ public class GridLaserEmittor : GridObject
 
             case LaserState.Deactivating:
                 _state = LaserState.Deactivated; 
-                _isActivated = true;
+                _isActivated = false;
                 OnActivate?.Invoke();
 
                 _renderer.color = _inactiveColor;
@@ -123,11 +135,17 @@ public class GridLaserEmittor : GridObject
         }
     }
 
-    private void Update()
+    IEnumerator KillPlayerIfOver()
     {
+        yield return new WaitForSeconds(GameManager.Instance.PlayerScript.MoveDuration);
         if (Vector3.Distance(_playerPos.position, transform.position) < _killDistance && _isActivated)
         {
             GameManager.Instance.PlayerOxygen.StopPlayer();
         }
+    }
+
+    private void OnDestroy()
+    {
+        PlayerGridMovement.OnActionExecuted -= UpdateLaserState;
     }
 }

@@ -16,6 +16,7 @@ public class Oxygen : MonoBehaviour
     [ProgressBar("Oxygen", nameof(_maxOxygen), EColor.Green)]
     [SerializeField]
     int _currentOxygen;
+    public int CurrentOxygen { get { return _currentOxygen; } }
 
     private Slider _oxygenSlider;
 
@@ -41,7 +42,7 @@ public class Oxygen : MonoBehaviour
 
     void FixedUpdate()
     {
-        string text = (_currentOxygen * 10).ToString() + "%";
+        string text = Mathf.Clamp(_currentOxygen * 10, 0, _maxOxygen*10).ToString() + "%";
         _oxygenLabel.text = text;
 
         if (_oxygenSlider != null) _oxygenSlider.value = Mathf.Lerp(_oxygenSlider.value, _currentOxygen, Time.fixedDeltaTime * _lerpSpeed);
@@ -77,7 +78,7 @@ public class Oxygen : MonoBehaviour
 
     public void GainOxygen(int amount)
     {
-        _currentOxygen += amount;
+        _currentOxygen = Mathf.Clamp(_currentOxygen + amount, 0, _maxOxygen);
 
         if (_currentOxygen < 5)
         {

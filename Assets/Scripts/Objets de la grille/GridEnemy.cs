@@ -171,18 +171,31 @@ public class GridEnemy : GridObject
         }
     }
 
+    bool _isDuringOnDestroy;
+
     private void OnDestroy()
     {
+        _isDuringOnDestroy = true;
         ReturnToMimir();
     }
 
     void ReturnToMimir()
     {
-        GridSleepingEnemy temp = Instantiate(_sleepingEnemy, transform.position, Quaternion.identity, transform.parent).GetComponent<GridSleepingEnemy>();
-        if (IsVertical()) { temp.TransferMovementParams(_movementType, _verticalInitialDirection); }
-        else { temp.TransferMovementParams(_movementType, _horizontalInitialDirection); }
         PlayerGridMovement.OnActionExecuted -= StartMovement;
         Oxygen.OnOverOxygenThreshold -= ReturnToMimir;
-        Destroy(gameObject);
+        if (!_isDuringOnDestroy) { StartCoroutine(ReturnToSleep()); }
+    }
+
+    IEnumerator ReturnToSleep()
+    {
+        yield return new WaitForSeconds(.1f);
+        if (GameManager.Instance.PlayerOxygen.CurrentOxygen >= 5)
+        {
+            GridSleepingEnemy temp = Instantiate(_sleepingEnemy, transform.position, Quaternion.identity, transform.parent).GetComponent<GridSleepingEnemy>();
+            if (IsVertical()) { temp.TransferMovementParams(_movementType, _verticalInitialDirection); }
+            else { temp.TransferMovementParams(_movementType, _horizontalInitialDirection); }
+            
+            Destroy(gameObject);
+        }
     }
 }

@@ -356,6 +356,8 @@ public class PlayerGridMovement : MonoBehaviour
         _isMoving = false;
         _executeAction = false;
         Debug.Log("Le joueur ne bouge plus !");
+
+        _actionQueue.Clear();
     }
 
     public void DisableActions()
@@ -363,7 +365,6 @@ public class PlayerGridMovement : MonoBehaviour
         _executeAction = false;
         _actionQueue.Clear(); 
     }
-
 
     void PlayFeedbacks(MMF_Player player)
     {

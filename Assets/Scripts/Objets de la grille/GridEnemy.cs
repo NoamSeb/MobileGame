@@ -52,7 +52,7 @@ public class GridEnemy : GridObject
         base.Setup();
         _skin = GetComponent<SpriteRenderer>();
         _moveDuration = GameManager.Instance.PlayerScript.MoveDuration / 2f;
-        _sleepingEnemy = Resources.Load<GameObject>("GDTools Prefabs/Grid Objects/SleepingEnemy");
+        _sleepingEnemy = Resources.Load<GameObject>("GDTools Prefabs/Grid Objects/EnemySleep");
         PlayerGridMovement.OnActionExecuted += StartMovement;
         Oxygen.OnOverOxygenThreshold += ReturnToMimir;
         SetupRotation();

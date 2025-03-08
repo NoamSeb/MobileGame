@@ -28,7 +28,12 @@ public class PlayerGridMovement : MonoBehaviour
     [SerializeField] private InitialMoveDirection _initialMoveDirection;
     private void OnValidate()
     {
-        switch(_initialMoveDirection)
+        SetCorrectDirection();
+    }
+
+    void SetCorrectDirection()
+    {
+        switch (_initialMoveDirection)
         {
             case InitialMoveDirection.Left:
                 transform.rotation = Quaternion.Euler(0, 0, 90);
@@ -48,9 +53,9 @@ public class PlayerGridMovement : MonoBehaviour
                 break;
         }
 
-        if (FindFirstObjectByType<PlayerMirrorMovement>() != null) 
+        if (FindFirstObjectByType<PlayerMirrorMovement>() != null)
         {
-            FindFirstObjectByType<PlayerMirrorMovement>().MatchPlayerRotation(_initialMoveDirection); 
+            FindFirstObjectByType<PlayerMirrorMovement>().MatchPlayerRotation(_initialMoveDirection);
         }
     }
 
@@ -95,6 +100,7 @@ public class PlayerGridMovement : MonoBehaviour
         // aligner le joueur sur une case de la grille
 
         SetPositionInGrid();
+        SetCorrectDirection();
 
         GridTeleporter.OnTeleport += Teleport;
         GridPusher.OnPush += Push;

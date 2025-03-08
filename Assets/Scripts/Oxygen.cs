@@ -78,6 +78,15 @@ public class Oxygen : MonoBehaviour
     public void GainOxygen(int amount)
     {
         _currentOxygen += amount;
+
+        if (_currentOxygen < 5)
+        {
+            OnUnderOxygenThreshold?.Invoke();
+        }
+        else
+        {
+            OnOverOxygenThreshold?.Invoke();
+        }
     }
 
     public static event Action OnDeath;

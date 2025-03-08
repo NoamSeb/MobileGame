@@ -95,6 +95,22 @@ public class BiomeManager : MonoBehaviour
                 _glitchFilter.OnChangedScreen();
 
                 _currentBiomeID++;
+
+                switch (_currentBiomeID)
+                {
+                    case 2 :
+                        GooglePlayManager.UnlockAchievement((GPGSlds.achievement_eternal_rest));
+                        break;
+                    case 3 : 
+                        GooglePlayManager.UnlockAchievement((GPGSlds.achievement_unblocked_track));
+                        break;
+                    case 4 :
+                        GooglePlayManager.UnlockAchievement((GPGSlds.achievement_care_under_surveillance));
+                        break;
+                    case 5 :
+                        GooglePlayManager.UnlockAchievement((GPGSlds.achievement_congested_track));
+                        break;
+                }
                 UpdateBiomeVisibility();
             }
         }
@@ -111,5 +127,13 @@ public class BiomeManager : MonoBehaviour
             _currentBiomeID--;
             UpdateBiomeVisibility();
         }
+    }
+    
+    /// <summary>
+    /// Just For biome 3 => Unlock Captain Harlock achievement if click on eye
+    /// </summary>
+    public void CaptainHarlock()
+    {
+        GooglePlayManager.UnlockAchievement((GPGSlds.achievement_become_a_space_pirate_like_captain_harlock));
     }
 }

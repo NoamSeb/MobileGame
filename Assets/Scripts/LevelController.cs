@@ -5,7 +5,6 @@ using System.Linq;
 using System.Net.Mime;
 using NaughtyAttributes;
 using UnityEngine.UI;
-using log4net.Core;
 
 public class LevelController : MonoBehaviour
 {
@@ -101,6 +100,12 @@ public class LevelController : MonoBehaviour
             }
         }
 
+        BiomeManager biomeManager = FindObjectOfType<BiomeManager>();
+        if (biomeManager.CurrentBiomeID == 5)
+        {
+            LevelManager lvlChanger = FindObjectOfType<LevelManager>();
+            lvlChanger.ChangeLevel("CreditScene");
+        }
         return true;
     }
 

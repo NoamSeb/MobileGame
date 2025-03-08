@@ -72,11 +72,12 @@ public class GooglePlayManager : MonoBehaviour
     /// Tooltip : Use the GPGSlds at the root project to get the achivementID
     /// </summary>
     /// <param name="achievementID"></param>
-    public void UnlockAchievement(string achievementID)
+    public static void UnlockAchievement(string achievementID)
     {
         Social.ReportProgress(achievementID, 100.0f, success =>
         {
             Social.ShowAchievementsUI();
         });
     }
+    
 }

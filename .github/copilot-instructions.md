@@ -2,7 +2,7 @@
 - Project name: MobileGame
 - Unity version: Unity 6000.0.23f1
 - Active game object:
-  - Name: ControlPanel
+  - Name: LevelController1
   - Tag: Untagged
-  - Layer: UI
+  - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

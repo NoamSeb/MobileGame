@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net.Mime;
 using NaughtyAttributes;
 using UnityEngine.UI;
+using System.Collections;
+using System.Threading.Tasks;
 
 public class LevelController : MonoBehaviour
 {
@@ -132,15 +134,29 @@ public class LevelController : MonoBehaviour
         }
     }
 
-    public void LoadLevel(int levelID)
+    public async void LoadLevel(int levelID)
     {
+        await LaunchLevel(levelID);
+
+        GameManager.Instance.GameLoadTablette.SetActive(false);
+    }
+
+    async Task LaunchLevel(int levelID)
+    {
+        GameManager.Instance.GameLoadTablette.SetActive(true);
+
+        await Task.Delay(1500);
+
         foreach (LevelStructure level in Levels)
         {
             level.level.SetActive(level.idLevel == levelID);
         }
-
         GameManager.CurrentLevelID = levelID;
         _levelSelector.SetActive(false);
+
+        await Task.Delay(0166);
+
+        return;
     }
 
     public static event Action<ScreenShapedButton> OnLevelUnload;
@@ -160,8 +176,16 @@ public class LevelController : MonoBehaviour
             }
 
             _levelSelector.SetActive(true);
+            GameManager.Instance.GameUnloadTablette.SetActive(true);
+            StartCoroutine(UnloadAnimation());
             tempLevel.level.SetActive(false);
         }
+    }
+
+    IEnumerator UnloadAnimation()
+    {
+        yield return new WaitForSeconds(1.6f);
+        GameManager.Instance.GameUnloadTablette.SetActive(false);
     }
 
     void UnloadCurrentLevelAsLoss()
@@ -174,6 +198,8 @@ public class LevelController : MonoBehaviour
             GameManager.CurrentLevelID = 0;
 
             _levelSelector.SetActive(true);
+            GameManager.Instance.GameUnloadTablette.SetActive(true);
+            StartCoroutine(UnloadAnimation());
             tempLevel.level.SetActive(false);
         }
     }

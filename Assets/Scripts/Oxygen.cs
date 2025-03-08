@@ -4,6 +4,7 @@ using NaughtyAttributes;
 using UnityEditor;
 using System;
 using TMPro;
+using System.Collections;
 
 public class Oxygen : MonoBehaviour
 {
@@ -44,30 +45,6 @@ public class Oxygen : MonoBehaviour
         _oxygenLabel.text = text;
 
         if (_oxygenSlider != null) _oxygenSlider.value = Mathf.Lerp(_oxygenSlider.value, _currentOxygen, Time.fixedDeltaTime * _lerpSpeed);
-
-        if (_currentOxygen == 0) Die();
-    }
-
-    [Button("Loss Oxygen")]
-    void LossOxygen()
-    {
-        LossOxygen(_lossOxygen);
-    }
-    private void LossOxygen(int _value)
-    {
-        _currentOxygen -= _value;
-    }
-
-    [Button("Get Oxygen")]
-    void GetOxygen()
-    {
-        _currentOxygen += _gainOxygen;
-    }
-
-    [Button("Reset Oxygen")]
-    private void ResetOxygen()
-    {
-        _currentOxygen = _maxOxygen;
     }
 
     public static event Action OnUnderOxygenThreshold;
@@ -95,6 +72,7 @@ public class Oxygen : MonoBehaviour
     public void SetOxygenToZero()
     {
         _currentOxygen = 0;
+        Die();
     }
 
     public void GainOxygen(int amount)
@@ -105,21 +83,31 @@ public class Oxygen : MonoBehaviour
     public static event Action OnDeath;
     private void Die()
     {
-        Debug.Log("Le joueur est mort, il ne peut plus bouger !");
+        StartCoroutine(DeathCoroutine());
+    }
 
-        GameManager.Instance.PlayerScript.StopMovement();
-        if (GameManager.Instance.MirrorScript != null)
+    IEnumerator DeathCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        if (_currentOxygen <= 0)
         {
-            GameManager.Instance.MirrorScript.StopMovement();
-        }
+            Debug.Log("Le joueur est mort, il ne peut plus bouger !");
 
-        GameManager.Instance.PlayerScript.DisableActions();
-        if (GameManager.Instance.MirrorScript != null)
-        {
-            GameManager.Instance.MirrorScript.DisableActions();
-        }
+            GameManager.Instance.PlayerScript.StopMovement();
+            if (GameManager.Instance.MirrorScript != null)
+            {
+                GameManager.Instance.MirrorScript.StopMovement();
+            }
 
-        OnDeath?.Invoke();
+            GameManager.Instance.PlayerScript.DisableActions();
+            if (GameManager.Instance.MirrorScript != null)
+            {
+                GameManager.Instance.MirrorScript.DisableActions();
+            }
+
+            OnDeath?.Invoke();
+        }
     }
 
 

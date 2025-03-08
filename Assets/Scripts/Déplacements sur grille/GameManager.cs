@@ -22,9 +22,13 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject _victoryCanvas;
     [SerializeField] GameObject _defeatCanvas;
+    [SerializeField] GameObject _tabletteLoadGame;
+    [SerializeField] GameObject _tabletteUnloadGame;
 
     public GameObject VictoryCanvas { get { return _victoryCanvas; } }
     public GameObject DefeatCanvas { get { return _defeatCanvas; } }
+    public GameObject GameLoadTablette { get { return _tabletteLoadGame; } }
+    public GameObject GameUnloadTablette { get { return _tabletteUnloadGame; } }
 
     private void Awake()
     {

@@ -11066,9 +11066,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3517534740039611154, guid: 46341eb8238097b4cbe2f258fde58f74, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517534740039611154, guid: 46341eb8238097b4cbe2f258fde58f74, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 9d290613db2bd94408e9ab0d1de12977, type: 3}
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517534740039611154, guid: 46341eb8238097b4cbe2f258fde58f74, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517534740039611154, guid: 46341eb8238097b4cbe2f258fde58f74, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 83a23af959a09bf47848070c56df8e95, type: 2}
     - target: {fileID: 5224122881357458866, guid: 46341eb8238097b4cbe2f258fde58f74, type: 3}
       propertyPath: m_LocalPosition.x
       value: 823.14355
@@ -21481,6 +21493,26 @@ PrefabInstance:
       propertyPath: Biomes.Array.data[4].idBiome
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7694481967577411699, guid: 1ca4129fd9c718d45a7d7637f5140805, type: 3}
+      propertyPath: Biomes.Array.data[0]._biomeMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: dbbea1d0b0f93a34bbfa4b6f12529db0, type: 3}
+    - target: {fileID: 7694481967577411699, guid: 1ca4129fd9c718d45a7d7637f5140805, type: 3}
+      propertyPath: Biomes.Array.data[1]._biomeMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 9d290613db2bd94408e9ab0d1de12977, type: 3}
+    - target: {fileID: 7694481967577411699, guid: 1ca4129fd9c718d45a7d7637f5140805, type: 3}
+      propertyPath: Biomes.Array.data[2]._biomeMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 63536c26017e74947877015696b4eaa4, type: 3}
+    - target: {fileID: 7694481967577411699, guid: 1ca4129fd9c718d45a7d7637f5140805, type: 3}
+      propertyPath: Biomes.Array.data[3]._biomeMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 747af621269eea04eb6ae7ebe1a29057, type: 3}
+    - target: {fileID: 7694481967577411699, guid: 1ca4129fd9c718d45a7d7637f5140805, type: 3}
+      propertyPath: Biomes.Array.data[4]._biomeMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 55493434f7281f4438b17367b935f920, type: 3}
     - target: {fileID: 8886489643225500642, guid: 1ca4129fd9c718d45a7d7637f5140805, type: 3}
       propertyPath: m_Color.a
       value: 0.3137255
@@ -22536,8 +22568,8 @@ GameObject:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1000513463}
   - {fileID: 1511488728}
+  - {fileID: 1000513463}
   - {fileID: 384224854}
   - {fileID: 1631430182}
   - {fileID: 1777994307}

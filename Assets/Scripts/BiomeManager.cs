@@ -11,6 +11,7 @@ public class BiomeManager : MonoBehaviour
     {
         public int idBiome;
         public GameObject biome;
+        public AudioClip _biomeMusic;
     }
 
     public List<BiomeStructure> Biomes;
@@ -57,7 +58,6 @@ public class BiomeManager : MonoBehaviour
         {
             currentBiome.biome.SetActive(true);
             _audioSource.clip = null;
-            _audioSource.clip = currentBiome.biome.GetComponentInChildren<LevelController>()._biomeMusic;
         }
         else
         {
@@ -71,6 +71,8 @@ public class BiomeManager : MonoBehaviour
         {
             //activeLevelController.GetActiveLevel();
             OnBiomeChange?.Invoke(activeLevelController);
+            _audioSource.clip = currentBiome._biomeMusic;
+            _audioSource.Play();
             foreach (Transform obj in transform.GetChild(0))
             {
                 if (obj.TryGetComponent(out BiomeSwitcherButton button))

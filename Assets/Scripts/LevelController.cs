@@ -14,8 +14,7 @@ public class LevelController : MonoBehaviour
 
     [SerializeField] private AudioClip _gameButton;
     [SerializeField] private AudioSource _audioSource;
-
-    [SerializeField] public AudioClip _biomeMusic;
+    
 
     [Serializable]
     public struct LevelStructure

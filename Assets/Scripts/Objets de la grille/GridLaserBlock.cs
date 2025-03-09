@@ -7,12 +7,15 @@ public class GridLaserBlock : GridObject
     private float _killDistance;
     bool _isActive;
 
+    GridLaserEmittor _emittor;
     SpriteRenderer _renderer;
     Color _inactiveColor;
     Color _baseColor;
 
-    public void SecondSetup(Transform pos, float _distance, int angle, Color disabledColor)
+    public void SecondSetup(Transform pos, float _distance, int angle, Color disabledColor, GridLaserEmittor emittor)
     {
+        _emittor = emittor;
+
         _renderer = GetComponent<SpriteRenderer>();
         _baseColor = _renderer.color;
         _inactiveColor = disabledColor;
@@ -26,12 +29,20 @@ public class GridLaserBlock : GridObject
         _isActive = true;
     }
 
-    void Activate()
+    void Activate(GridLaserEmittor emittor)
     {
-        if (_renderer != null)
+        if (_renderer != null && emittor == _emittor)
         {
-            if (_isActive) { _isActive = false; _renderer.color = _inactiveColor; return; }
-            _isActive = true; _renderer.color = _baseColor;
+            if (_isActive)
+            {
+                _renderer.color = _inactiveColor;
+                _isActive = false;
+            }
+            else
+            {
+                _renderer.color = _baseColor;
+                _isActive = true;
+            }
         }
     }
 

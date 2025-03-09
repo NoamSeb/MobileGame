@@ -1,5 +1,7 @@
 using NaughtyAttributes;
+using System;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using static GridEnemy;
 
@@ -43,14 +45,14 @@ public class GridSleepingEnemy : GridObject
         _horizontalInitialDirection = dir;
     }
 
-    void WakeYoAssUp()
+    async void WakeYoAssUp()
     {
-        StartCoroutine(WakeUp());
+        await WakeUp();
     }
 
-    IEnumerator WakeUp()
+    async Task WakeUp()
     {
-        yield return new WaitForSeconds(.1f);
+        await Task.Delay(0100);
         if (GameManager.Instance.PlayerOxygen.CurrentOxygen < 5)
         {
             GridEnemy temp = Instantiate(_enemy, transform.position, Quaternion.identity, transform.parent).GetComponent<GridEnemy>();
@@ -59,5 +61,6 @@ public class GridSleepingEnemy : GridObject
             Oxygen.OnUnderOxygenThreshold -= WakeYoAssUp;
             Destroy(gameObject);
         }
+        return;
     }
 }

@@ -193,7 +193,7 @@ public class PlayerGridMovement : MonoBehaviour
         {
             float elapsedTime = 0f;
 
-            while (elapsedTime < _moveDuration)
+            while (elapsedTime < _moveDuration * 4f / 5f)
             {
                 transform.position = Vector3.Lerp(startPosition, targetPositionWorld, elapsedTime / _moveDuration);
                 elapsedTime += Time.deltaTime;

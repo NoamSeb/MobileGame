@@ -51,7 +51,7 @@ public class GridEnemy : GridObject
     {
         base.Setup();
         _skin = GetComponent<SpriteRenderer>();
-        _moveDuration = GameManager.Instance.PlayerScript.MoveDuration / 2f;
+        _moveDuration = GameManager.Instance.PlayerScript.MoveDuration * 4f / 5f;
         _sleepingEnemy = Resources.Load<GameObject>("GDTools Prefabs/Grid Objects/EnemySleep");
         PlayerGridMovement.OnActionExecuted += StartMovement;
         Oxygen.OnOverOxygenThreshold += ReturnToMimir;
@@ -160,14 +160,9 @@ public class GridEnemy : GridObject
 
     void KillPlayerIfOverThem()
     {
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.position, Mathf.Infinity);
-
-        foreach (RaycastHit2D hit in hits)
+        if (Vector3.Distance(GameManager.Instance.PlayerScript.transform.position, transform.position) < .1f)
         {
-            if (hit.collider.gameObject.TryGetComponent(out Oxygen playerOxygenScript))
-            {
-                playerOxygenScript.SetOxygenToZero();
-            }
+            GameManager.Instance.PlayerOxygen.StopPlayer();
         }
     }
 
@@ -191,11 +186,34 @@ public class GridEnemy : GridObject
         yield return new WaitForSeconds(.1f);
         if (GameManager.Instance.PlayerOxygen.CurrentOxygen >= 5)
         {
+            CorrectDirectionOnFallingAsleep();
             GridSleepingEnemy temp = Instantiate(_sleepingEnemy, transform.position, Quaternion.identity, transform.parent).GetComponent<GridSleepingEnemy>();
             if (IsVertical()) { temp.TransferMovementParams(_movementType, _verticalInitialDirection); }
             else { temp.TransferMovementParams(_movementType, _horizontalInitialDirection); }
             
             Destroy(gameObject);
+        }
+    }
+
+    void CorrectDirectionOnFallingAsleep()
+    {
+        if (_movementType == MovementType.Vertical)
+        {
+            _verticalInitialDirection = _currentRotation switch
+            {
+                0 => VerticalInitialDir.Down,
+                180 => VerticalInitialDir.Up,
+                _ => throw new ArgumentException($"{name}'s script-side rotation is invalid")
+            };
+        }
+        if (_movementType == MovementType.Horizontal)
+        {
+            _horizontalInitialDirection = _currentRotation switch
+            {
+                90 => HorizontalInitialDir.Left,
+                270 => HorizontalInitialDir.Right,
+                _ => throw new ArgumentException($"{name}'s script-side rotation is invalid")
+            };
         }
     }
 }

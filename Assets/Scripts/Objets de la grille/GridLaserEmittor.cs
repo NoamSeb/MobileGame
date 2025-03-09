@@ -84,12 +84,12 @@ public class GridLaserEmittor : GridObject
         for (int i = 1; i < _laserLength; i++)
         {
             GameObject tempBlock = Instantiate(laserBlock, _grid.GetCellCenterWorld(tempGridPos), Quaternion.identity, transform.parent);
-            tempBlock.GetComponent<GridLaserBlock>().SecondSetup(_playerPos, _killDistance, _rotation, _inactiveColor);
+            tempBlock.GetComponent<GridLaserBlock>().SecondSetup(_playerPos, _killDistance, _rotation, _inactiveColor, this);
             tempGridPos += _setupDirection;
         }
     }
 
-    public static event Action OnActivate;
+    public static event Action<GridLaserEmittor> OnActivate;
     void UpdateLaserState()
     {
         switch (_state)
@@ -97,7 +97,7 @@ public class GridLaserEmittor : GridObject
             case LaserState.Activating:
                 _state = LaserState.Activated; 
                 _isActivated = true; 
-                OnActivate?.Invoke();
+                OnActivate?.Invoke(this);
                 _audioSource.PlayOneShot(_laserSound);
 
                 StartCoroutine(KillPlayerIfOver());
@@ -119,7 +119,7 @@ public class GridLaserEmittor : GridObject
             case LaserState.Deactivating:
                 _state = LaserState.Deactivated; 
                 _isActivated = false;
-                OnActivate?.Invoke();
+                OnActivate?.Invoke(this);
 
                 _renderer.color = _inactiveColor;
                 _animator.SetBool("IsFlashing", false);

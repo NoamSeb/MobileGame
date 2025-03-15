@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ee8da45862dd40a4aa0e29c39dd43000
+guid: 3f987ee0d4a87864dadad449b00aa841
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9208038143747445727
-    second: exp_outline_tuto_full_0
+      213: 228637374411134176
+    second: Tuto_Mask_03_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: exp_outline_tuto_full_0
+      name: Tuto_Mask_03_0
       rect:
         serializedVersion: 2
-        x: 114
-        y: 91
-        width: 1693
-        height: 897
+        x: 0
+        y: 0
+        width: 2330
+        height: 1295
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 12cafa3381a763080800000000000000
-      internalID: -9208038143747445727
+      spriteID: 0e4572c0b784c2300800000000000000
+      internalID: 228637374411134176
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      exp_outline_tuto_full_0: -9208038143747445727
+      Tuto_Mask_03_0: 228637374411134176
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

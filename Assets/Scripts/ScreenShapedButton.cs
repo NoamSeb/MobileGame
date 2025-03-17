@@ -1,6 +1,7 @@
 using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.UI;
+using NaughtyAttributes;
 
 public class ScreenShapedButton : MonoBehaviour
 {
@@ -15,12 +16,16 @@ public class ScreenShapedButton : MonoBehaviour
 
     bool _isButtonForCurrentLevel;
 
+    public bool IsFinished { get { return _image.color == FinishedColor; } }
+
     private void Awake()
     {
         _image = GetComponent<Image>();
         _button = GetComponent<Button>();
 
         GridExit.OnLevelEnd += ChangeColorFinished;
+        LevelController.OnFirstLevelLoad += Activate;
+        LevelController.OnLevelUnload += Activate;
     }
 
     private void Start()
@@ -30,7 +35,22 @@ public class ScreenShapedButton : MonoBehaviour
         _button.onClick.AddListener(WaitForLevelFinishEvent);
     }
 
-    void ChangeColorUnfinished()
+    public void Deactivate()
+    {
+        _image.enabled = false;
+        _button.interactable = false;
+    }
+
+    public void Activate(ScreenShapedButton button)
+    {
+        if (button == this)
+        {
+            _image.enabled = true;
+            _button.interactable = true;
+        }
+    }
+
+    public void ChangeColorUnfinished()
     {
         _image.color = UnfinishedColor;
     }

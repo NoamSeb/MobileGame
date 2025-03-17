@@ -22,6 +22,7 @@ public class GridExit : GridObject
     {
         if (IsExitOpen)
         {
+            GameManager.Instance.PlayerOxygen.GainOxygen(10);
             Debug.Log("ok");
             GameManager.OnSave(1);
             OnLevelEnd?.Invoke();

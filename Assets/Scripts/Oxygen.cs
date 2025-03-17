@@ -4,6 +4,7 @@ using NaughtyAttributes;
 using UnityEditor;
 using System;
 using TMPro;
+using System.Collections;
 
 public class Oxygen : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Oxygen : MonoBehaviour
     [ProgressBar("Oxygen", nameof(_maxOxygen), EColor.Green)]
     [SerializeField]
     int _currentOxygen;
+    public int CurrentOxygen { get { return _currentOxygen; } }
 
     private Slider _oxygenSlider;
 
@@ -40,39 +42,10 @@ public class Oxygen : MonoBehaviour
 
     void FixedUpdate()
     {
-        string text = (_currentOxygen * 10).ToString() + "%";
+        string text = Mathf.Clamp(_currentOxygen * 10, 0, _maxOxygen*10).ToString() + "%";
         _oxygenLabel.text = text;
 
         if (_oxygenSlider != null) _oxygenSlider.value = Mathf.Lerp(_oxygenSlider.value, _currentOxygen, Time.fixedDeltaTime * _lerpSpeed);
-
-        if (_currentOxygen == 0) Die();
-    }
-
-    [Button("Loss Oxygen")]
-    void LossOxygen()
-    {
-        LossOxygen(_lossOxygen);
-    }
-    private void LossOxygen(int _value)
-    {
-        _currentOxygen -= _value;
-    }
-
-    [Button("Get Oxygen")]
-    void GetOxygen()
-    {
-        _currentOxygen += _gainOxygen;
-    }
-
-    [Button("Reset Oxygen")]
-    private void ResetOxygen()
-    {
-        _currentOxygen = _maxOxygen;
-    }
-
-    public bool IsDead()
-    {
-        return _currentOxygen <= 0;
     }
 
     public static event Action OnUnderOxygenThreshold;
@@ -100,41 +73,57 @@ public class Oxygen : MonoBehaviour
     public void SetOxygenToZero()
     {
         _currentOxygen = 0;
+        Die();
     }
 
     public void GainOxygen(int amount)
     {
-        _currentOxygen += amount;
+        _currentOxygen = Mathf.Clamp(_currentOxygen + amount, 0, _maxOxygen);
+
+        if (_currentOxygen < 5)
+        {
+            OnUnderOxygenThreshold?.Invoke();
+        }
+        else
+        {
+            OnOverOxygenThreshold?.Invoke();
+        }
     }
 
+    public static event Action OnDeath;
     private void Die()
     {
-        Debug.Log("Le joueur est mort, il ne peut plus bouger !");
-
-        GameManager.Instance.PlayerScript.StopMovement();
-        if (GameManager.Instance.MirrorScript != null)
-        {
-            GameManager.Instance.MirrorScript.StopMovement();
-        }
-
-        GameManager.Instance.PlayerScript.DisableActions();
-        if (GameManager.Instance.MirrorScript != null)
-        {
-            GameManager.Instance.MirrorScript.DisableActions();
-        }
-
-        if (GameManager.Instance.DefeatCanvas != null)
-        {
-            GameManager.Instance.DefeatCanvas.SetActive(true);
-        }
+        StartCoroutine(DeathCoroutine());
     }
 
+    IEnumerator DeathCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        if (_currentOxygen <= 0)
+        {
+            Debug.Log("Le joueur est mort, il ne peut plus bouger !");
+
+            GameManager.Instance.PlayerScript.StopMovement();
+            if (GameManager.Instance.MirrorScript != null)
+            {
+                GameManager.Instance.MirrorScript.StopMovement();
+            }
+
+            GameManager.Instance.PlayerScript.DisableActions();
+            if (GameManager.Instance.MirrorScript != null)
+            {
+                GameManager.Instance.MirrorScript.DisableActions();
+            }
+
+            OnDeath?.Invoke();
+        }
+    }
 
 
     public void StopPlayer()
     {
         SetOxygenToZero();
-        IsDead();
         GameManager.Instance.PlayerScript.StopMovement();
         Debug.Log("Le joueur est touché par un laser !");
     }

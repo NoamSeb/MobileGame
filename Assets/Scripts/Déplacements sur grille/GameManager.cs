@@ -20,8 +20,15 @@ public class GameManager : MonoBehaviour
     private float _cameraSize;
     private Vector3 _cameraPos;
 
-    public GameObject VictoryCanvas;
-    public GameObject DefeatCanvas;
+    [SerializeField] GameObject _victoryCanvas;
+    [SerializeField] GameObject _defeatCanvas;
+    [SerializeField] GameObject _tabletteLoadGame;
+    [SerializeField] GameObject _tabletteUnloadGame;
+
+    public GameObject VictoryCanvas { get { return _victoryCanvas; } }
+    public GameObject DefeatCanvas { get { return _defeatCanvas; } }
+    public GameObject GameLoadTablette { get { return _tabletteLoadGame; } }
+    public GameObject GameUnloadTablette { get { return _tabletteUnloadGame; } }
 
     private void Awake()
     {
@@ -32,12 +39,6 @@ public class GameManager : MonoBehaviour
 
         IsAwake = true;
         Level.OnLevelLoad += SetUp;
-
-        VictoryCanvas = GameObject.FindGameObjectWithTag("VictoryCanvas");
-        DefeatCanvas = GameObject.FindGameObjectWithTag("DefeatCanvas");
-
-        if (VictoryCanvas != null) VictoryCanvas.SetActive(false);
-        if (DefeatCanvas != null) DefeatCanvas.SetActive(false);
     }
 
 
@@ -63,7 +64,7 @@ public class GameManager : MonoBehaviour
         if (CurrentLevelID != 0)
         {
             Camera.main.orthographicSize = _cameraSize;
-            Camera.main.transform.position = new(_cameraPos.x+_cameraSize/2, _cameraPos.y, -10);
+            Camera.main.transform.position = new(_cameraPos.x, _cameraPos.y, -10);
         }
         else
         {
@@ -93,7 +94,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                BiomeManager bm = GameObject.FindObjectOfType<BiomeManager>();
+                BiomeManager bm = FindFirstObjectByType<BiomeManager>();
 
                 if (bm != null) // Ensure bm is found before using it
                 {

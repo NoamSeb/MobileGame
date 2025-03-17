@@ -46,16 +46,18 @@ public class PauseMenu : MonoBehaviour
     [Foldout("Settings")]
     [SerializeField] Slider _volume;
     [Foldout("Settings")]
-    [SerializeField] Toggle _isHapticEnable;
+    [SerializeField] Toggle _isPrevisEnable;
 
     BiomeManager _biomeManager;
     GameObject _currentBiomeEnvironment;
+    LevelController _currentLevelController;
 
     private void Start()
     {
         _audioSource = Camera.main.GetComponent<AudioSource>();
         _audioSource.volume = PlayerPrefs.GetFloat("volume");
         if (_type == Type.InBiome) { _biomeManager = FindFirstObjectByType<BiomeManager>(); }
+        BiomeManager.OnBiomeChange += SetCurrentLevelController;
     }
 
     private void Update()
@@ -82,11 +84,15 @@ public class PauseMenu : MonoBehaviour
                 _pauseButton.SetActive(true);
             }
 
-            _currentBiomeEnvironment = 
+            _currentBiomeEnvironment =
                 _biomeManager.Biomes.Find(x => x.idBiome == _biomeManager._currentBiomeID)
                 .biome.transform.Find("Environment").gameObject;
-
         }
+    }
+
+    void SetCurrentLevelController(LevelController manager)
+    {
+        _currentLevelController = manager;
     }
 
     public void Pause()
@@ -98,9 +104,10 @@ public class PauseMenu : MonoBehaviour
         //IsPaused = true;
     }
 
+    [ShowIf(nameof(_type), Type.InBiome), Foldout("Events")] public UnityEvent OnBiomeResume;
     public void Resume()
     {
-        if (_type == Type.InBiome) { _currentBiomeEnvironment.SetActive(true); }
+        if (_type == Type.InBiome) { _currentBiomeEnvironment.SetActive(true); OnBiomeResume?.Invoke(); }
         _pauseMenuUI.SetActive(false);
         _audioSource.PlayOneShot(_clicButton);
         Time.timeScale = 1f;
@@ -119,7 +126,7 @@ public class PauseMenu : MonoBehaviour
     private void GetSettingsValue()
     {
         _volume.value = PlayerPrefs.GetFloat("Volume");
-        _isHapticEnable.isOn = PlayerPrefs.GetInt("IsHapticEnabled") == 1;
+        _isPrevisEnable.isOn = PlayerPrefs.GetInt("IsPrevisEnabled") == 1;
     }
     public void CloseSettings()
     {
@@ -130,7 +137,7 @@ public class PauseMenu : MonoBehaviour
     public void SaveSettings()
     {
         PlayerPrefs.SetFloat("Volume", _volume.value);
-        PlayerPrefs.SetInt("IsHapticEnabled", _isHapticEnable.isOn ? 1 : 0);
+        PlayerPrefs.SetInt("IsPrevisEnabled", _isPrevisEnable.isOn ? 1 : 0);
         PlayerPrefs.Save();
 
         _audioSource.volume = _volume.value;
@@ -142,7 +149,10 @@ public class PauseMenu : MonoBehaviour
     public void LoadMenu()
     {
         if (_type == Type.InBiome) { StartCoroutine(PlayLaunchSFXAndLoadMenuScene()); }
-        else if (_type == Type.InGame) { OnReturnToMenuInGame?.Invoke(); Resume(); }
+        else if (_type == Type.InGame) 
+        { 
+            OnReturnToMenuInGame?.Invoke(); Resume(); 
+        }
     }
 
     // ReSharper disable Unity.PerformanceAnalysis

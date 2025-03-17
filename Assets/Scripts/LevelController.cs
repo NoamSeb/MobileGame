@@ -3,7 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
+using NaughtyAttributes;
 using UnityEngine.UI;
+using System.Collections;
+using System.Threading.Tasks;
 
 public class LevelController : MonoBehaviour
 {
@@ -12,14 +15,19 @@ public class LevelController : MonoBehaviour
     [SerializeField] private AudioClip _gameButton;
     [SerializeField] private AudioSource _audioSource;
     
+
     [Serializable]
     public struct LevelStructure
     {
         public int idLevel;
         public GameObject level;
+        public int orderAmongLevels;
+        public ScreenShapedButton screenButton;
     }
 
     [SerializeField] GameObject _levelSelector;
+
+    LevelController _controller;
 
     private void Awake()
     {
@@ -34,8 +42,72 @@ public class LevelController : MonoBehaviour
         }
 
         ChangeColorOfFinishLevelInData();
-        GridExit.OnLevelEnd += UnloadCurrentLevel;
-        PauseMenu.OnReturnToMenuInGame += UnloadCurrentLevel;
+        GridExit.OnLevelEnd += Victory;
+        Oxygen.OnDeath += Defeat;
+        WinPanel.OnLevelEnd += UnloadCurrentLevelAsWin;
+        LossPanel.OnLevelEnd += UnloadCurrentLevelAsLoss;
+        PauseMenu.OnReturnToMenuInGame += UnloadCurrentLevelAsLoss;
+        BiomeManager.OnBiomeChange += SetLevelControllerUsedByMenus;
+    }
+
+    public static event Action<ScreenShapedButton> OnFirstLevelLoad;
+    private void Start()
+    {
+        List<LevelStructure> levelsActivatedAtStart = new();
+        int lowestLevelOrder = 100;
+
+        foreach (LevelStructure level in Levels)
+        {
+            level.screenButton.Deactivate();
+            if (level.orderAmongLevels < lowestLevelOrder) { lowestLevelOrder = level.orderAmongLevels; }
+            if (level.screenButton.IsFinished) 
+            { 
+                levelsActivatedAtStart.Add(level);
+            }
+        }
+
+        int highestOrderInFinishedLevels = 0;
+
+        foreach (LevelStructure level in levelsActivatedAtStart)
+        {
+            OnFirstLevelLoad?.Invoke(level.screenButton);
+            if (level.orderAmongLevels > highestOrderInFinishedLevels) 
+            { 
+                highestOrderInFinishedLevels = level.orderAmongLevels;
+            }
+        }
+
+        OnFirstLevelLoad?.Invoke(Levels.Find(x => x.orderAmongLevels == lowestLevelOrder).screenButton);
+
+        if (highestOrderInFinishedLevels != 0)
+        {
+            highestOrderInFinishedLevels++;
+            OnFirstLevelLoad?.Invoke(Levels.Find(x => x.orderAmongLevels == highestOrderInFinishedLevels).screenButton);
+        }
+    }
+
+    void SetLevelControllerUsedByMenus(LevelController controller)
+    {
+        _controller = controller;
+    }
+
+    public bool AreAllLevelsFinishedInThisBiome()
+    {
+        foreach (LevelStructure level in Levels)
+        {
+            if (!level.screenButton.IsFinished)
+            {
+                return false;
+            }
+        }
+
+        BiomeManager biomeManager = FindObjectOfType<BiomeManager>();
+        if (biomeManager.CurrentBiomeID == 5)
+        {
+            LevelManager lvlChanger = FindObjectOfType<LevelManager>();
+            lvlChanger.ChangeLevel("CreditScene");
+        }
+        return true;
     }
 
     public void GetActiveLevel()
@@ -61,24 +133,74 @@ public class LevelController : MonoBehaviour
         }
     }
 
-    public void LoadLevel(int levelID)
-    {   
+    public async void LoadLevel(int levelID)
+    {
+        await LaunchLevel(levelID);
+
+        GameManager.Instance.GameLoadTablette.SetActive(false);
+    }
+
+    async Task LaunchLevel(int levelID)
+    {
+        GameManager.Instance.GameLoadTablette.SetActive(true);
+
+        await Task.Delay(1500);
+
         foreach (LevelStructure level in Levels)
         {
             level.level.SetActive(level.idLevel == levelID);
         }
-
         GameManager.CurrentLevelID = levelID;
         _levelSelector.SetActive(false);
+
+        await Task.Delay(0166);
+
+        return;
     }
 
-    public void UnloadCurrentLevel()
+    public static event Action<ScreenShapedButton> OnLevelUnload;
+    public void UnloadCurrentLevelAsWin()
     {
-        int tempID = GameManager.CurrentLevelID;
-        LevelStructure tempLevel = Levels.Find(x => x.idLevel == tempID);
-        tempLevel.level.SetActive(false);
-        GameManager.CurrentLevelID = 0;
-        _levelSelector.SetActive(true);
+        if (_controller == this)
+        {
+            int tempID = GameManager.CurrentLevelID;
+            LevelStructure tempLevel = Levels.Find(x => x.idLevel == tempID);
+
+            GameManager.CurrentLevelID = 0;
+
+            LevelStructure tempNextLevel = Levels.Find(x => x.orderAmongLevels == tempLevel.orderAmongLevels + 1);
+            if (tempNextLevel.idLevel != 0 && !tempNextLevel.screenButton.IsFinished)
+            {
+                OnLevelUnload?.Invoke(tempNextLevel.screenButton);
+            }
+
+            _levelSelector.SetActive(true);
+            GameManager.Instance.GameUnloadTablette.SetActive(true);
+            StartCoroutine(UnloadAnimation());
+            tempLevel.level.SetActive(false);
+        }
+    }
+
+    IEnumerator UnloadAnimation()
+    {
+        yield return new WaitForSeconds(1.6f);
+        GameManager.Instance.GameUnloadTablette.SetActive(false);
+    }
+
+    void UnloadCurrentLevelAsLoss()
+    {
+        if (_controller == this)
+        {
+            int tempID = GameManager.CurrentLevelID;
+            LevelStructure tempLevel = Levels.Find(x => x.idLevel == tempID);
+
+            GameManager.CurrentLevelID = 0;
+
+            _levelSelector.SetActive(true);
+            GameManager.Instance.GameUnloadTablette.SetActive(true);
+            StartCoroutine(UnloadAnimation());
+            tempLevel.level.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -93,10 +215,10 @@ public class LevelController : MonoBehaviour
 
         for (int i = 0; i < levelButtons.Length; i++)
         {
-            if(levelButtons[i].TryGetComponent(out Image img))
+            if (levelButtons[i].TryGetComponent(out Image img))
                 img.color = levelButtons[i].UnfinishedColor;
         }
-        
+
         foreach (PlayerData.DataElement levels in loadedData.data)
         {
             var selectLevelButton = levelButtons.ToList().Find(x => x.name == $"Lvl{levels.idLevel}");
@@ -114,20 +236,13 @@ public class LevelController : MonoBehaviour
         }
     }
 
-    public void LevelCompleted()
+    void Victory()
     {
-        Debug.Log("Niveau terminé, afficher la victoire !");
-
-        GameManager.Instance.PlayerScript.StopMovement();
-        if (GameManager.Instance.MirrorScript != null)
-        {
-            GameManager.Instance.MirrorScript.StopMovement();
-        }
-
-        if (GameManager.Instance.VictoryCanvas != null)
-        {
-            GameManager.Instance.VictoryCanvas.SetActive(true);
-        }
+        GameManager.Instance.VictoryCanvas.SetActive(true);
     }
 
+    void Defeat()
+    {
+        GameManager.Instance.DefeatCanvas.SetActive(true);
+    }
 }

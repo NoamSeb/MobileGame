@@ -192,6 +192,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loadingFeedbacks: {fileID: 0}
   _batteryModifyAmount: -2
+  _batteryModifySound: {fileID: 0}
+  _audioSource: {fileID: 0}
 --- !u!1 &2232651609204873416
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,6 +343,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loadingFeedbacks: {fileID: 0}
   _batteryModifyAmount: 2
+  _batteryModifySound: {fileID: 0}
+  _audioSource: {fileID: 0}
 --- !u!1 &3073355847901749359
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,6 +494,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loadingFeedbacks: {fileID: 0}
   _batteryModifyAmount: 5
+  _batteryModifySound: {fileID: 0}
+  _audioSource: {fileID: 0}
 --- !u!1 &3153541425285138032
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,6 +645,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loadingFeedbacks: {fileID: 0}
   _batteryModifyAmount: -2
+  _batteryModifySound: {fileID: 0}
+  _audioSource: {fileID: 0}
 --- !u!1 &3172022342012765662
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,6 +796,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loadingFeedbacks: {fileID: 0}
   _batteryModifyAmount: -2
+  _batteryModifySound: {fileID: 0}
+  _audioSource: {fileID: 0}
 --- !u!1 &4274896365687926845
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,6 +996,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loadingFeedbacks: {fileID: 0}
   _batteryModifyAmount: -2
+  _batteryModifySound: {fileID: 0}
+  _audioSource: {fileID: 0}
 --- !u!1001 &880699610068095193
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,4 @@
-﻿using NaughtyAttributes;
+using NaughtyAttributes;
 using System;
 using System.Collections;
 using UnityEngine;

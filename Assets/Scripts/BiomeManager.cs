@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class BiomeManager : MonoBehaviour
@@ -10,13 +11,16 @@ public class BiomeManager : MonoBehaviour
     {
         public int idBiome;
         public GameObject biome;
+        public AudioClip _biomeMusic;
     }
 
     public List<BiomeStructure> Biomes;
     internal int _currentBiomeID = 1;
+    public int CurrentBiomeID { get { return _currentBiomeID; } }
     
     [Header("Glitch Filter")]
     [SerializeField] SwitchScreen _glitchFilter;
+    [SerializeField] private AudioSource _audioSource;
 
     void Start()
     {
@@ -44,6 +48,7 @@ public class BiomeManager : MonoBehaviour
         UpdateBiomeVisibility();
     }
 
+    public static event Action<LevelController> OnBiomeChange;
     void UpdateBiomeVisibility()
     {
         BiomeStructure currentBiome = Biomes.Find(b => b.idBiome == _currentBiomeID);
@@ -52,6 +57,7 @@ public class BiomeManager : MonoBehaviour
         if (currentBiome.biome != null)
         {
             currentBiome.biome.SetActive(true);
+            _audioSource.clip = null;
         }
         else
         {
@@ -60,25 +66,55 @@ public class BiomeManager : MonoBehaviour
 
         // associe le LevelController du biome actif
         Debug.Log(_currentBiomeID);
-        LevelController activeLevelController = Biomes.Find(x => x.idBiome == _currentBiomeID).biome.GetComponent<LevelController>();
+        LevelController activeLevelController = currentBiome.biome.GetComponentInChildren<LevelController>();
         if (activeLevelController != null)
         {
-            activeLevelController.GetActiveLevel();
+            //activeLevelController.GetActiveLevel();
+            OnBiomeChange?.Invoke(activeLevelController);
+            _audioSource.clip = currentBiome._biomeMusic;
+            _audioSource.Play();
+            foreach (Transform obj in transform.GetChild(0))
+            {
+                if (obj.TryGetComponent(out BiomeSwitcherButton button))
+                {
+                    button.SetLevelController(activeLevelController);
+                }
+            }
         }
         
     }
 
     public void NextBiome()
     {
-        if (1 <= _currentBiomeID  && _currentBiomeID < 5)
+        BiomeStructure currentBiome = Biomes.Find(b => b.idBiome == _currentBiomeID);
+        if (currentBiome.biome.GetComponentInChildren<LevelController>().AreAllLevelsFinishedInThisBiome())
         {
-            int nextBiomeID = _currentBiomeID + 1;
-            _glitchFilter._prevScreen = Biomes.Find(b => b.idBiome == _currentBiomeID).biome;
-            _glitchFilter._nextScreen = Biomes.Find(b => b.idBiome == nextBiomeID).biome;
-            _glitchFilter.OnChangedScreen();
-            
-            _currentBiomeID++;
-            UpdateBiomeVisibility();
+            if (1 <= _currentBiomeID && _currentBiomeID < 5)
+            {
+                int nextBiomeID = _currentBiomeID + 1;
+                _glitchFilter._prevScreen = Biomes.Find(b => b.idBiome == _currentBiomeID).biome;
+                _glitchFilter._nextScreen = Biomes.Find(b => b.idBiome == nextBiomeID).biome;
+                _glitchFilter.OnChangedScreen();
+
+                _currentBiomeID++;
+
+                switch (_currentBiomeID)
+                {
+                    case 2 :
+                        GooglePlayManager.UnlockAchievement((GPGSlds.achievement_eternal_rest));
+                        break;
+                    case 3 : 
+                        GooglePlayManager.UnlockAchievement((GPGSlds.achievement_unblocked_track));
+                        break;
+                    case 4 :
+                        GooglePlayManager.UnlockAchievement((GPGSlds.achievement_care_under_surveillance));
+                        break;
+                    case 5 :
+                        GooglePlayManager.UnlockAchievement((GPGSlds.achievement_congested_track));
+                        break;
+                }
+                UpdateBiomeVisibility();
+            }
         }
     }
 
@@ -93,5 +129,13 @@ public class BiomeManager : MonoBehaviour
             _currentBiomeID--;
             UpdateBiomeVisibility();
         }
+    }
+    
+    /// <summary>
+    /// Just For biome 3 => Unlock Captain Harlock achievement if click on eye
+    /// </summary>
+    public void CaptainHarlock()
+    {
+        GooglePlayManager.UnlockAchievement((GPGSlds.achievement_become_a_space_pirate_like_captain_harlock));
     }
 }

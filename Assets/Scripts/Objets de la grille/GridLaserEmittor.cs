@@ -1,10 +1,17 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class GridLaserEmittor : GridObject
 {
     [SerializeField] private AudioClip _laserSound;
     [SerializeField] private AudioSource _audioSource;
+
+    SpriteRenderer _renderer;
+    Animator _animator;
+    [SerializeField] Color _inactiveColor;
+    [SerializeField] Color _baseColor;
+
     enum LaserState
     {
         Activating,
@@ -31,6 +38,11 @@ public class GridLaserEmittor : GridObject
     private int _rotation;
 
     private void OnValidate()
+    {
+        SetRotationCorrectly();
+    }
+
+    void SetRotationCorrectly()
     {
         switch (_direction)
         {
@@ -60,6 +72,10 @@ public class GridLaserEmittor : GridObject
     protected override void Setup()
     {
         base.Setup();
+        SetRotationCorrectly();
+
+        _renderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
         _playerPos = GameManager.Instance.PlayerScript.transform;
         PlayerGridMovement.OnActionExecuted += UpdateLaserState;
 
@@ -67,13 +83,13 @@ public class GridLaserEmittor : GridObject
         Vector3Int tempGridPos = GridPosition + _setupDirection;
         for (int i = 1; i < _laserLength; i++)
         {
-            GameObject tempBlock = Instantiate(laserBlock, _grid.GetCellCenterWorld(tempGridPos), Quaternion.identity);
-            tempBlock.GetComponent<GridLaserBlock>().SecondSetup(_playerPos, _killDistance, _rotation);
+            GameObject tempBlock = Instantiate(laserBlock, _grid.GetCellCenterWorld(tempGridPos), Quaternion.identity, transform.parent);
+            tempBlock.GetComponent<GridLaserBlock>().SecondSetup(_playerPos, _killDistance, _rotation, _inactiveColor, this);
             tempGridPos += _setupDirection;
         }
     }
 
-    public static event Action OnActivate;
+    public static event Action<GridLaserEmittor> OnActivate;
     void UpdateLaserState()
     {
         switch (_state)
@@ -81,31 +97,55 @@ public class GridLaserEmittor : GridObject
             case LaserState.Activating:
                 _state = LaserState.Activated; 
                 _isActivated = true; 
-                OnActivate?.Invoke();
+                OnActivate?.Invoke(this);
                 _audioSource.PlayOneShot(_laserSound);
+
+                StartCoroutine(KillPlayerIfOver());
+
+                _renderer.color = _baseColor;
+                _animator.SetBool("IsFlashing", false);
                 break;
 
             case LaserState.Activated:
-                _state = LaserState.Deactivating; 
+                _state = LaserState.Deactivating;
+                _isActivated = true;
+
+                StartCoroutine(KillPlayerIfOver());
+
+                _renderer.color = _baseColor;
+                _animator.SetBool("IsFlashing", true);
                 break;
 
             case LaserState.Deactivating:
                 _state = LaserState.Deactivated; 
-                _isActivated = true;
-                OnActivate?.Invoke();
+                _isActivated = false;
+                OnActivate?.Invoke(this);
+
+                _renderer.color = _inactiveColor;
+                _animator.SetBool("IsFlashing", false);
                 break;
 
             case LaserState.Deactivated:
-                _state = LaserState.Activating; 
+                _state = LaserState.Activating;
+                _isActivated = false;
+
+                _renderer.color = _inactiveColor;
+                _animator.SetBool("IsFlashing", true);
                 break;
         }
     }
 
-    private void Update()
+    IEnumerator KillPlayerIfOver()
     {
+        yield return new WaitForSeconds(GameManager.Instance.PlayerScript.MoveDuration);
         if (Vector3.Distance(_playerPos.position, transform.position) < _killDistance && _isActivated)
         {
             GameManager.Instance.PlayerOxygen.StopPlayer();
         }
+    }
+
+    private void OnDestroy()
+    {
+        PlayerGridMovement.OnActionExecuted -= UpdateLaserState;
     }
 }

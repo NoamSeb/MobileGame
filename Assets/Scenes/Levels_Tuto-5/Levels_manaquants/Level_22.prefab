@@ -256,6 +256,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loadingFeedbacks: {fileID: 0}
   _otherTeleporter: {fileID: 3307416741288003704}
+  _teleportSound: {fileID: 0}
+  _audioSource: {fileID: 0}
 --- !u!61 &6293953493110912856
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -604,6 +606,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loadingFeedbacks: {fileID: 0}
   _batteryModifyAmount: 5
+  _batteryModifySound: {fileID: 0}
+  _audioSource: {fileID: 0}
 --- !u!1 &4277330723792582549
 GameObject:
   m_ObjectHideFlags: 0

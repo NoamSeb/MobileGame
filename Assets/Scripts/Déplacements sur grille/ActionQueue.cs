@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using NaughtyAttributes;
-using UnityEditor.Experimental.GraphView;
 
 public class ActionQueue : MonoBehaviour
 {
@@ -12,7 +11,7 @@ public class ActionQueue : MonoBehaviour
     readonly private List<ActionEntry> _actions = new(); // liste des actions avec compteurs
 
     bool _active;
-    
+
     [SerializeField] private AudioClip _actionSound;
     [SerializeField] private AudioSource _audioSource;
     private void Awake()
@@ -131,23 +130,26 @@ public class ActionQueue : MonoBehaviour
             switch (actionEntry.actionType)
             {
                 case PlayerGridMovement.ActionType.Move:
-                    actionName = "Avancer";
+                    actionName = "Move";
                     break;
                 case PlayerGridMovement.ActionType.TurnRight:
-                    actionName = "Tourner Droite";
+                    actionName = "Turn Right";
                     break;
                 case PlayerGridMovement.ActionType.TurnLeft:
-                    actionName = "Tourner Gauche";
+                    actionName = "Turn Left";
                     break;
                 case PlayerGridMovement.ActionType.Wait:
-                    actionName = "Attendre";
+                    actionName = "Wait";
                     break;
             }
 
             _actionListText.text += $">>> {actionName} x{actionEntry.count}\n";
         }
         _audioSource.PlayOneShot(_actionSound);
-        DrawPrevisualisation();
+        if (PlayerPrefs.GetInt("IsPrevisEnabled") == 1)
+        {
+            DrawPrevisualisation();
+        }
     }
 
     readonly private List<GameObject> _previsItems = new();
@@ -231,22 +233,27 @@ public class ActionQueue : MonoBehaviour
                             currentRot = possibleNextRot;
                             currentPrevisAmount++;
                         }
-                        else
-                        {
-                            _previsItems.Add(Instantiate(_previsDot, currentPos, Quaternion.identity));
-                            currentPrevisAmount++;
-                        }
+
+                        _previsItems.Add(Instantiate(_previsDot, currentPos, Quaternion.identity));
+                        currentPrevisAmount++;
                     }
                 }
             }
             if (action.actionType == PlayerGridMovement.ActionType.TurnRight)
             {
-                currentRot = (currentRot + 90) % 360;
+                for (int i = 0; i < action.count; i++)
+                {
+                    currentRot = (currentRot + 90) % 360;
+                }
             }
             if (action.actionType == PlayerGridMovement.ActionType.TurnLeft)
             {
-                currentRot = (currentRot - 90 + 360) % 360;
+                for (int i = 0; i < action.count; i++)
+                {
+                    currentRot = (currentRot - 90 + 360) % 360;
+                }
             }
+            else { }
         }
     }
 

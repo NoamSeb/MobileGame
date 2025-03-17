@@ -1,4 +1,7 @@
 using NaughtyAttributes;
+using System;
+using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using static GridEnemy;
 
@@ -42,12 +45,22 @@ public class GridSleepingEnemy : GridObject
         _horizontalInitialDirection = dir;
     }
 
-    void WakeYoAssUp()
+    async void WakeYoAssUp()
     {
-        GridEnemy temp = Instantiate(_enemy, transform.position, Quaternion.identity).GetComponent<GridEnemy>();
-        if (IsVertical()) { temp.TransferMovementParams(_robotMovementType, _verticalInitialDirection); }
-        else { temp.TransferMovementParams(_robotMovementType, _horizontalInitialDirection); }
-        Oxygen.OnUnderOxygenThreshold -= WakeYoAssUp;
-        Destroy(gameObject);
+        await WakeUp();
+    }
+
+    async Task WakeUp()
+    {
+        await Task.Delay(0100);
+        if (GameManager.Instance.PlayerOxygen.CurrentOxygen < 5)
+        {
+            GridEnemy temp = Instantiate(_enemy, transform.position, Quaternion.identity, transform.parent).GetComponent<GridEnemy>();
+            if (IsVertical()) { temp.TransferMovementParams(_robotMovementType, _verticalInitialDirection); }
+            else { temp.TransferMovementParams(_robotMovementType, _horizontalInitialDirection); }
+            Oxygen.OnUnderOxygenThreshold -= WakeYoAssUp;
+            Destroy(gameObject);
+        }
+        return;
     }
 }

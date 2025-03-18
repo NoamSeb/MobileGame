@@ -26,18 +26,23 @@ public class Level : MonoBehaviour
 
         _initialStateBackup = new("Backup");
 
+        foreach(Transform transf in PlayGrid.transform)
+        {
+            transf.gameObject.TryGetComponent(out Tilemap tempMap);
+            tempMap.CompressBounds();
+        }
+
         Tilemap map = PlayGrid.transform.childCount switch
         {
             1 => PlayGrid.GetComponentInChildren<Tilemap>(),
 
-            2 => PlayGrid.transform.GetChild(1).GetComponent<Tilemap>(),
+            2 => PlayGrid.transform.GetChild(0).GetComponent<Tilemap>(),
 
             _ => throw new ArgumentException($"{gameObject.name} has no tilemap or too much tilemaps")
         };
 
-        map.CompressBounds();
         BoundsInt bounds = map.cellBounds;
-        Vector3 correctionX = Vector3.zero, correctionY = Vector3.zero;
+        Vector3 correctionX = Vector3.zero, correctionX2 = Vector3.zero, correctionY = Vector3.zero;
         if (bounds.size.y % 2 != 0) { correctionY = Vector3.up / 2; }
 
         if (PlayGrid.transform.childCount == 1)
@@ -46,15 +51,26 @@ public class Level : MonoBehaviour
             Vector3 realpoint = map.CellToWorld(point);
             if (bounds.size.x % 2 != 0) { correctionX = Vector3.right / 2; }
 
-            LevelCenter = realpoint + correctionX + correctionY;
+            float mapCenterXCorrection = bounds.size.x / 4.666f;
+            correctionX2 = new(mapCenterXCorrection, 0, 0);
+
+            LevelCenter = realpoint + correctionX + correctionX2 + correctionY;
         }
         else
         {
             Vector3Int point = new(Mathf.FloorToInt(bounds.max.x), Mathf.FloorToInt(bounds.center.y), 0);
             Vector3 realpoint = map.CellToWorld(point);
 
-            LevelCenter = realpoint + correctionX + correctionY;
+            float mapCenterXCorrection = bounds.size.x / 3f;
+            correctionX2 = new(mapCenterXCorrection, 0, 0);
+
+            LevelCenter = realpoint + correctionX + correctionX2 +correctionY;
         }
+    }
+
+    void DoNothing()
+    {
+
     }
 
     void GetNeededComponents()

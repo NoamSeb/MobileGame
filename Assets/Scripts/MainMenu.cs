@@ -39,7 +39,8 @@ public class MainMenu : MonoBehaviour
     private void Awake()
     {
         _audioSource.PlayOneShot(_menuMusic);
-        _audioSource.volume = PlayerPrefs.GetFloat("volume");
+        _audioSource.volume = PlayerPrefs.HasKey("volume") ? PlayerPrefs.GetFloat("volume") : 0.5f;
+        _volume.value = PlayerPrefs.HasKey("volume") ? PlayerPrefs.GetFloat("volume") : 0.5f;
     }
 
     public void Play()

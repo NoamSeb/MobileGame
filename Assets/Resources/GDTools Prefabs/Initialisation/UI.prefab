@@ -132,6 +132,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1211622407024552979, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1211622407024552979, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1211622407024552979, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -236,12 +244,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4215790345933550079, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4215790345933550079, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4215790345933550079, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4215790345933550079, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532568217161608973, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
+      propertyPath: m_fontSize
+      value: 52.45
       objectReference: {fileID: 0}
     - target: {fileID: 5537526518030756235, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
       propertyPath: m_AnchorMax.y
@@ -257,6 +277,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5537526518030756235, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5537526518030756235, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5537526518030756235, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
@@ -288,6 +312,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6585236140898743942, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6585236140898743942, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -312,6 +340,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7463505444373369658, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7463505444373369658, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7463505444373369658, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -333,6 +369,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8277125860270814676, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8277125860270814676, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8277125860270814676, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8277125860270814676, guid: 2d76c76b6e98bf34890482fd4677a520, type: 3}

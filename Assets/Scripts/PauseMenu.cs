@@ -104,9 +104,10 @@ public class PauseMenu : MonoBehaviour
         //IsPaused = true;
     }
 
+    [ShowIf(nameof(_type), Type.InBiome), Foldout("Events")] public UnityEvent OnBiomeResume;
     public void Resume()
     {
-        if (_type == Type.InBiome) { _currentBiomeEnvironment.SetActive(true); }
+        if (_type == Type.InBiome) { _currentBiomeEnvironment.SetActive(true); OnBiomeResume?.Invoke(); }
         _pauseMenuUI.SetActive(false);
         _audioSource.PlayOneShot(_clicButton);
         Time.timeScale = 1f;

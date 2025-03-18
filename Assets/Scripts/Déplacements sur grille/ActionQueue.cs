@@ -97,6 +97,7 @@ public class ActionQueue : MonoBehaviour
     public void ClearActions()
     {
         _actions.Clear();
+        UpdateUI();
     }
 
     private void OnDestroy()
@@ -117,7 +118,7 @@ public class ActionQueue : MonoBehaviour
         }
         _player.ExecuteActions();
         ClearActions();
-        ClearPrevisualisation();
+        UpdateUI();
     }
 
     void UpdateUI()

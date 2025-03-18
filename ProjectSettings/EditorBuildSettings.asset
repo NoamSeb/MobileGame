@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: 730c68709e5d76e4e875fa4ede5620e4
+  - enabled: 1
+    path: Assets/Scenes/CreditScene.unity
+    guid: 49d60166d267d3b4f87abfd6cb2fe61d
   - enabled: 0
     path: Assets/Scenes/DevArthur/DevArthurLevelSelector.unity
     guid: 884260dabcd544f4c8e16b38b9ba874c

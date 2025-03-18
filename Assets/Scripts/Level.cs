@@ -68,11 +68,6 @@ public class Level : MonoBehaviour
         }
     }
 
-    void DoNothing()
-    {
-
-    }
-
     void GetNeededComponents()
     {
         PlayGrid = GetComponentInChildren<Grid>(true);

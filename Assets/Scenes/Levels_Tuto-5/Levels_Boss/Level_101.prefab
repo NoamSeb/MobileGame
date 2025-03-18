@@ -403,9 +403,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 2197171807481500383}
     m_Modifications:
     - target: {fileID: 1594247958636510859, guid: 4a2279fd621e09145a64305cfca0962d, type: 3}
+      propertyPath: _robotMovementType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1594247958636510859, guid: 4a2279fd621e09145a64305cfca0962d, type: 3}
       propertyPath: _verticalInitialDirection
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3394040875082829332, guid: 4a2279fd621e09145a64305cfca0962d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c8edbf4899b5a0f4685f08a9cd0e3c8d, type: 3}
     - target: {fileID: 4651563589963896665, guid: 4a2279fd621e09145a64305cfca0962d, type: 3}
       propertyPath: m_Name
       value: EnemySleep (1)
@@ -2881,6 +2889,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2197171807481500383}
     m_Modifications:
+    - target: {fileID: 1594247958636510859, guid: 4a2279fd621e09145a64305cfca0962d, type: 3}
+      propertyPath: _robotMovementType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3394040875082829332, guid: 4a2279fd621e09145a64305cfca0962d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c8edbf4899b5a0f4685f08a9cd0e3c8d, type: 3}
     - target: {fileID: 4651563589963896665, guid: 4a2279fd621e09145a64305cfca0962d, type: 3}
       propertyPath: m_Name
       value: EnemySleep (4)

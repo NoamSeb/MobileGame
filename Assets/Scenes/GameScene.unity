@@ -5704,6 +5704,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prevScreen: {fileID: 0}
   _nextScreen: {fileID: 0}
+  _switchSound: {fileID: 8300000, guid: a014656e3100b104398e83c8643dce2d, type: 3}
+  _audioSource: {fileID: 1000513464}
   _material: {fileID: 2100000, guid: d02cb3206b74f0e4ba25f40ece7624e9, type: 2}
 --- !u!1001 &610678652
 PrefabInstance:
@@ -23197,6 +23199,22 @@ PrefabInstance:
       propertyPath: OnBiomeResume.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 555076270}
+    - target: {fileID: 1421065417143268461, guid: 430cbc5de8b779e4d92a2ccc2c875a2b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1421065417143268461, guid: 430cbc5de8b779e4d92a2ccc2c875a2b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1421065417143268461, guid: 430cbc5de8b779e4d92a2ccc2c875a2b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1421065417143268461, guid: 430cbc5de8b779e4d92a2ccc2c875a2b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2221834092330506302, guid: 430cbc5de8b779e4d92a2ccc2c875a2b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -23277,9 +23295,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3065934880865371642, guid: 430cbc5de8b779e4d92a2ccc2c875a2b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3065934880865371642, guid: 430cbc5de8b779e4d92a2ccc2c875a2b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3065934880865371642, guid: 430cbc5de8b779e4d92a2ccc2c875a2b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3065934880865371642, guid: 430cbc5de8b779e4d92a2ccc2c875a2b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3422136772806988167, guid: 430cbc5de8b779e4d92a2ccc2c875a2b, type: 3}
       propertyPath: m_Name
       value: Pause_InBiome
+      objectReference: {fileID: 0}
+    - target: {fileID: 9008937974094957095, guid: 430cbc5de8b779e4d92a2ccc2c875a2b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9008937974094957095, guid: 430cbc5de8b779e4d92a2ccc2c875a2b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9008937974094957095, guid: 430cbc5de8b779e4d92a2ccc2c875a2b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9008937974094957095, guid: 430cbc5de8b779e4d92a2ccc2c875a2b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9092321267797000738, guid: 430cbc5de8b779e4d92a2ccc2c875a2b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

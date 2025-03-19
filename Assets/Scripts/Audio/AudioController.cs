@@ -4,6 +4,7 @@ public class AudioController : MonoBehaviour
 {
 
     [SerializeField] private AudioSource _audioSource;
+    
     private void Reset()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -11,6 +12,6 @@ public class AudioController : MonoBehaviour
 
     private void Update()
     {
-        _audioSource.volume = PlayerPrefs.GetFloat("Volume");
+        _audioSource.volume = PlayerPrefs.HasKey("Volume")? PlayerPrefs.GetFloat("Volume") : 0.5f;
     }
 }

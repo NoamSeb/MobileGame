@@ -1,10 +1,15 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SwitchScreen : MonoBehaviour
 {
     public GameObject _prevScreen;
     public GameObject _nextScreen;
+
+    [Header("Audio")] 
+    public AudioClip _switchSound;
+    public AudioSource _audioSource;
     
     public Material _material;
 
@@ -17,7 +22,7 @@ public class SwitchScreen : MonoBehaviour
     {
         _material.SetFloat("_Shake", 2f);
         _material.SetFloat("_Scale", 300f);
-        
+        _audioSource.PlayOneShot(_switchSound);
         yield return new WaitForSeconds(0.25f);
         
         _prevScreen.SetActive(false);

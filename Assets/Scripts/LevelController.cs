@@ -101,10 +101,10 @@ public class LevelController : MonoBehaviour
             }
         }
 
-        BiomeManager biomeManager = FindObjectOfType<BiomeManager>();
+        BiomeManager biomeManager = FindFirstObjectByType<BiomeManager>();
         if (biomeManager.CurrentBiomeID == 5)
         {
-            LevelManager lvlChanger = FindObjectOfType<LevelManager>();
+            LevelManager lvlChanger = FindFirstObjectByType<LevelManager>();
             lvlChanger.ChangeLevel("CreditScene");
         }
         return true;
@@ -236,13 +236,36 @@ public class LevelController : MonoBehaviour
         }
     }
 
-    void Victory()
+    async void Victory()
     {
-        GameManager.Instance.VictoryCanvas.SetActive(true);
+        await PlayVictory();
+    }
+
+    async Task PlayVictory()
+    {
+        await Task.Delay(1500);
+        if (!_hasLost)
+        {
+            GameManager.Instance.VictoryCanvas.SetActive(true);
+        }
     }
 
     void Defeat()
     {
         GameManager.Instance.DefeatCanvas.SetActive(true);
+        MarkAsLoss();
+    }
+
+    bool _hasLost;
+    async void MarkAsLoss()
+    {
+        _hasLost = true;
+        await UnmarkAsLoss();
+    }
+
+    async Task UnmarkAsLoss()
+    {
+        await Task.Delay(2000);
+        _hasLost = false;
     }
 }

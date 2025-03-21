@@ -6,6 +6,7 @@ using NaughtyAttributes;
 using UnityEngine.Tilemaps;
 using TMPro;
 using MoreMountains.Feedbacks;
+using System.Threading.Tasks;
 
 public class PlayerGridMovement : MonoBehaviour
 {
@@ -206,6 +207,12 @@ public class PlayerGridMovement : MonoBehaviour
 
             // consommer de l'oxyg�ne apr�s le d�placement
             _oxygenManager.LoseOxygen();
+
+            if (_oxygenManager.CurrentOxygen == 0)
+            {
+                _actionQueue.Clear();
+            }
+
             _isRotationLocked = false;
         }
         else
@@ -293,16 +300,16 @@ public class PlayerGridMovement : MonoBehaviour
         _isInAction = false;
     }
 
-    void Teleport(Vector3Int pos)
+    async void Teleport(Vector3Int pos)
     {
-        StartCoroutine(TeleportMovement(pos));
+        await TeleportMovement(pos);
     }
 
-    IEnumerator TeleportMovement(Vector3Int pos)
+    async Task TeleportMovement(Vector3Int pos)
     {
         _isMoving = true;
         Vector3 targetPos = _grid.GetCellCenterWorld(new Vector3Int(pos.x, pos.y, 0));
-        yield return new WaitForSeconds(_moveDuration);
+        await Task.Delay(Mathf.FloorToInt(_moveDuration * 1000));
         transform.position = targetPos;
         _gridPosition = (Vector2Int)pos;
         _isMoving = false;

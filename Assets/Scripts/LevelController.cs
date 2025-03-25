@@ -166,6 +166,18 @@ public class LevelController : MonoBehaviour
             int tempID = GameManager.CurrentLevelID;
             LevelStructure tempLevel = Levels.Find(x => x.idLevel == tempID);
 
+            switch (tempLevel.idLevel)
+            {
+                case 101:
+                    GooglePlayManager.UnlockAchievement((GPGSlds.achievement_see_double));
+                    break;
+                case 102:
+                    GooglePlayManager.UnlockAchievement((GPGSlds.achievement_ghost_are_you_there));
+                    break;
+                case 103:
+                    GooglePlayManager.UnlockAchievement((GPGSlds.achievement_mirror_my_beautiful_mirror));
+                    break;
+            }
             GameManager.CurrentLevelID = 0;
 
             LevelStructure tempNextLevel = Levels.Find(x => x.orderAmongLevels == tempLevel.orderAmongLevels + 1);

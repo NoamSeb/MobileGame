@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 
@@ -16,11 +17,19 @@ public class BiomeManager : MonoBehaviour
 
     public List<BiomeStructure> Biomes;
     internal int _currentBiomeID = 1;
-    public int CurrentBiomeID { get { return _currentBiomeID; } }
-    
-    [Header("Glitch Filter")]
-    [SerializeField] SwitchScreen _glitchFilter;
+
+    public int CurrentBiomeID
+    {
+        get { return _currentBiomeID; }
+    }
+
+    private bool CanUpdateVisibility = true;
+
+    [Header("Glitch Filter")] [SerializeField]
+    SwitchScreen _glitchFilter;
+
     [SerializeField] private AudioSource _audioSource;
+
 
     void Start()
     {
@@ -44,16 +53,30 @@ public class BiomeManager : MonoBehaviour
         {
             _currentBiomeID = 1;
         }
-        
+
         UpdateBiomeVisibility();
     }
 
     public static event Action<LevelController> OnBiomeChange;
+
+    /// <summary>
+    /// The delay value should be in second
+    ///
+    /// For Example, CanUpdateVisibilityUpdater(2) will wait 2s
+    /// </summary>
+    /// <param name="delay"></param>
+    async Task CanUpdateVisibilityUpdater(int delay)
+    {
+        CanUpdateVisibility = false;
+        await Task.Delay(delay * 1000);
+        CanUpdateVisibility = true;
+    }
+
     void UpdateBiomeVisibility()
     {
         BiomeStructure currentBiome = Biomes.Find(b => b.idBiome == _currentBiomeID);
 
-        print( "_currentBiomeID =" + _currentBiomeID);
+        print("_currentBiomeID =" + _currentBiomeID);
         if (currentBiome.biome != null)
         {
             currentBiome.biome.SetActive(true);
@@ -63,6 +86,8 @@ public class BiomeManager : MonoBehaviour
         {
             Debug.LogError($"Aucun biome trouvé avec l'ID {_currentBiomeID} ou le champ 'biome' est null !");
         }
+
+        CanUpdateVisibilityUpdater(1);
 
         // associe le LevelController du biome actif
         Debug.Log(_currentBiomeID);
@@ -81,7 +106,6 @@ public class BiomeManager : MonoBehaviour
                 }
             }
         }
-        
     }
 
     public void NextBiome()
@@ -89,6 +113,9 @@ public class BiomeManager : MonoBehaviour
         BiomeStructure currentBiome = Biomes.Find(b => b.idBiome == _currentBiomeID);
         if (currentBiome.biome.GetComponentInChildren<LevelController>().AreAllLevelsFinishedInThisBiome())
         {
+            if (!CanUpdateVisibility)
+                return;
+
             if (1 <= _currentBiomeID && _currentBiomeID < 5)
             {
                 int nextBiomeID = _currentBiomeID + 1;
@@ -100,19 +127,20 @@ public class BiomeManager : MonoBehaviour
 
                 switch (_currentBiomeID)
                 {
-                    case 2 :
+                    case 2:
                         GooglePlayManager.UnlockAchievement((GPGSlds.achievement_eternal_rest));
                         break;
-                    case 3 : 
+                    case 3:
                         GooglePlayManager.UnlockAchievement((GPGSlds.achievement_unblocked_track));
                         break;
-                    case 4 :
+                    case 4:
                         GooglePlayManager.UnlockAchievement((GPGSlds.achievement_care_under_surveillance));
                         break;
-                    case 5 :
+                    case 5:
                         GooglePlayManager.UnlockAchievement((GPGSlds.achievement_congested_track));
                         break;
                 }
+
                 UpdateBiomeVisibility();
             }
         }
@@ -122,6 +150,9 @@ public class BiomeManager : MonoBehaviour
     {
         if (_currentBiomeID > 1)
         {
+            if (!CanUpdateVisibility)
+                return;
+
             int previousBiomeID = _currentBiomeID - 1;
             _glitchFilter._prevScreen = Biomes.Find(b => b.idBiome == _currentBiomeID).biome;
             _glitchFilter._nextScreen = Biomes.Find(b => b.idBiome == previousBiomeID).biome;
@@ -130,7 +161,7 @@ public class BiomeManager : MonoBehaviour
             UpdateBiomeVisibility();
         }
     }
-    
+
     /// <summary>
     /// Just For biome 3 => Unlock Captain Harlock achievement if click on eye
     /// </summary>

@@ -4,6 +4,7 @@ using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     private float _cameraSize;
     private Vector3 _cameraPos;
+    private float _inactivityThreshold = 300f; // 5 minutes
+    private float _inactivityTimer = 0f;
 
     [SerializeField] GameObject _victoryCanvas;
     [SerializeField] GameObject _defeatCanvas;
@@ -29,7 +32,7 @@ public class GameManager : MonoBehaviour
     public GameObject DefeatCanvas { get { return _defeatCanvas; } }
     public GameObject GameLoadTablette { get { return _tabletteLoadGame; } }
     public GameObject GameUnloadTablette { get { return _tabletteUnloadGame; } }
-
+    
     private void Awake()
     {
         if (Instance == null || Instance != this)
@@ -71,6 +74,8 @@ public class GameManager : MonoBehaviour
             Camera.main.orthographicSize = 5;
             Camera.main.transform.position = new(0, 0, -10);
         }
+
+        CheckPlayerActivity();
     }
 
     public static void OnSave(int currentScore)
@@ -115,4 +120,20 @@ public class GameManager : MonoBehaviour
         SaveSystem.SavePlayer(playerData);
     }
 
+    void CheckPlayerActivity()
+    {
+        if (Touchscreen.current.primaryTouch.press.isPressed || Mouse.current.leftButton.isPressed)
+        {
+            _inactivityTimer = 0f; 
+        }
+        else
+        {
+            _inactivityTimer += Time.deltaTime;
+        }
+        
+        if (_inactivityTimer >= _inactivityThreshold)
+        {
+            GooglePlayManager.UnlockAchievement((GPGSlds.achievement_whos_the_craziest));
+        }
+    }
 }

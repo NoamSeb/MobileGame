@@ -13,6 +13,7 @@ public class GridBatteryModifier : GridObject
     protected override void Effect()
     {
         OnBatteryModification?.Invoke(_batteryModifyAmount);
+        GooglePlayManager.UnlockAchievement((GPGSlds.achievement_dont_forget_your_mask));
         _audioSource.PlayOneShot(_batteryModifySound);
         Destroy(gameObject);
     }

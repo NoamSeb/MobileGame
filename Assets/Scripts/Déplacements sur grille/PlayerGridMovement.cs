@@ -377,4 +377,11 @@ public class PlayerGridMovement : MonoBehaviour
     {
         player.PlayFeedbacks();
     }
+
+    private void OnDestroy()
+    {
+        GridTeleporter.OnTeleport -= Teleport;
+        GridPusher.OnPush -= Push;
+        GridRotationLocker.OnRotate -= ForceRotation;
+    }
 }

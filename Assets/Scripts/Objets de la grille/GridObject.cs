@@ -78,4 +78,10 @@ public class GridObject : MonoBehaviour
     {
         player.PlayFeedbacks();
     }
+
+    private void OnDestroy()
+    {
+        PlayerGridMovement.OnInteraction -= Interaction;
+        PlayerMirrorMovement.OnInteraction -= MirrorInteraction;
+    }
 }

@@ -145,13 +145,13 @@ public class PauseMenu : MonoBehaviour
 
     #endregion
 
-    public static event Action OnSeeCreditsInGame;
-    public void LoadCredits()
+    public static event Action OnReturnalToBiome;
+    public void LoadCreditsOrReturnToBiome()
     {
         if (_type == Type.InBiome) { StartCoroutine(PlayLaunchSFXAndLoadCredits()); }
         else if (_type == Type.InGame) 
         { 
-            OnSeeCreditsInGame?.Invoke(); Resume(); 
+            OnReturnalToBiome?.Invoke(); Resume(); 
         }
     }
 

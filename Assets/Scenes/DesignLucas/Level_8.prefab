@@ -594,7 +594,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1594247958636510859, guid: 4a2279fd621e09145a64305cfca0962d, type: 3}
       propertyPath: _verticalInitialDirection
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1594247958636510859, guid: 4a2279fd621e09145a64305cfca0962d, type: 3}
       propertyPath: _horizontalInitialDirection

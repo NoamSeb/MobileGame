@@ -1471,6 +1471,10 @@ PrefabInstance:
       propertyPath: _verticalInitialDirection
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1594247958636510859, guid: 4a2279fd621e09145a64305cfca0962d, type: 3}
+      propertyPath: _horizontalInitialDirection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4651563589963896665, guid: 4a2279fd621e09145a64305cfca0962d, type: 3}
       propertyPath: m_Name
       value: EnemySleep

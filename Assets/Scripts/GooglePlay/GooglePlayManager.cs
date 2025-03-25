@@ -5,7 +5,6 @@ using GooglePlayGames.BasicApi;
 
 public class GooglePlayManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _failToConnectScreen;
     public static GooglePlayManager Instance { get; private set; }
 
     void Awake()
@@ -29,8 +28,6 @@ public class GooglePlayManager : MonoBehaviour
     internal void ProcessAuthentication(SignInStatus status) {
         if (status == SignInStatus.Success) {
             
-            _failToConnectScreen?.SetActive(false);
-            
             PlayGamesPlatform.Instance.LoadAchievements(achievements =>
             {
                 if (achievements.Length > 0)
@@ -44,26 +41,7 @@ public class GooglePlayManager : MonoBehaviour
             });
         } else {
             Debug.LogWarning($"Google Play Games Authentication Failed: {status}");
-            
-            _failToConnectScreen?.SetActive(true);
         }
-    }
-
-    public void ManualConnect()
-    {
-        PlayGamesPlatform.Instance.ManuallyAuthenticate(success =>
-        {
-
-            if (success == SignInStatus.Success)
-            {
-                _failToConnectScreen?.SetActive(false);
-            }
-            else
-            {
-                _failToConnectScreen?.SetActive(true);
-            }
-        });
-        _failToConnectScreen?.SetActive(false);
     }
 
     /// <summary>

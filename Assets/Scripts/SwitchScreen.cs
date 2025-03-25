@@ -22,7 +22,9 @@ public class SwitchScreen : MonoBehaviour
     {
         _material.SetFloat("_Shake", 2f);
         _material.SetFloat("_Scale", 300f);
+        _audioSource.volume -= 0.2f;
         _audioSource.PlayOneShot(_switchSound);
+        _audioSource.volume += 0.2f;
         yield return new WaitForSeconds(0.25f);
         
         _prevScreen.SetActive(false);

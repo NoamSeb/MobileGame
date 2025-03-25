@@ -145,23 +145,23 @@ public class PauseMenu : MonoBehaviour
 
     #endregion
 
-    public static event Action OnReturnToMenuInGame;
-    public void LoadMenu()
+    public static event Action OnSeeCreditsInGame;
+    public void LoadCredits()
     {
-        if (_type == Type.InBiome) { StartCoroutine(PlayLaunchSFXAndLoadMenuScene()); }
+        if (_type == Type.InBiome) { StartCoroutine(PlayLaunchSFXAndLoadCredits()); }
         else if (_type == Type.InGame) 
         { 
-            OnReturnToMenuInGame?.Invoke(); Resume(); 
+            OnSeeCreditsInGame?.Invoke(); Resume(); 
         }
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
-    private IEnumerator PlayLaunchSFXAndLoadMenuScene()
+    private IEnumerator PlayLaunchSFXAndLoadCredits()
     {
         if (_launchSFX)
         {
             _audioSource.PlayOneShot(_launchSFX);
-            _levelManager.ChangeLevel("MainMenu");
+            _levelManager.ChangeLevel("CreditScene");
             _loadScreen.SetActive(true);
             yield return new WaitForSecondsRealtime(_launchSFX.length);
             StartCoroutine(LoadNextLevelAsync());
@@ -170,13 +170,13 @@ public class PauseMenu : MonoBehaviour
         {
             Debug.LogWarning("Launch SFX is not assigned.");
         }
-        SceneManager.LoadSceneAsync("MainMenu");
+            SceneManager.LoadSceneAsync("CreditScene");
     }
 
     private IEnumerator LoadNextLevelAsync()
     {
-        AsyncOperation loadOperation = SceneManager.LoadSceneAsync("MainMenu");
-
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync("CreditScene");
+    
         while (!loadOperation.isDone)
         {
             _progressValue.text = (int)loadOperation.progress + "%";

@@ -56,6 +56,7 @@ public class GridLaserBlock : GridObject
         yield return new WaitForSeconds(GameManager.Instance.PlayerScript.MoveDuration);
         if (Vector3.Distance(_playerPos.position, transform.position) < _killDistance && _isActive)
         {
+            GooglePlayManager.UnlockAchievement((GPGSlds.achievement_fatal_burn));
             GameManager.Instance.PlayerOxygen.StopPlayer();
         }
     }

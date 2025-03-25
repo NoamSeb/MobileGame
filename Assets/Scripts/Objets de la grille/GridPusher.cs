@@ -13,7 +13,7 @@ public class GridPusher : GridObject
     }
     [SerializeField] private PushDirection _pushDirection;
 
-    private Vector2Int _pushVector;
+    [SerializeField, HideInInspector] private Vector2Int _pushVector;
 
     public Vector3 PushVector { get { return new(_pushVector.x, _pushVector.y, 0); } }
 

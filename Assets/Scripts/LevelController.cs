@@ -46,7 +46,7 @@ public class LevelController : MonoBehaviour
         Oxygen.OnDeath += Defeat;
         WinPanel.OnLevelEnd += UnloadCurrentLevelAsWin;
         LossPanel.OnLevelEnd += UnloadCurrentLevelAsLoss;
-        PauseMenu.OnSeeCreditsInGame += UnloadCurrentLevelAsLoss;
+        PauseMenu.OnReturnalToBiome += UnloadCurrentLevelAsLoss;
         BiomeManager.OnBiomeChange += SetLevelControllerUsedByMenus;
     }
 

@@ -76,6 +76,8 @@ public class PlayerGridMovement : MonoBehaviour
 
     [SerializeField] private MMF_Player _loadingFeedbacks;
 
+    int deltaOxygen;
+
     private void Awake()
     {
         _loadingFeedbacks.Initialization();
@@ -113,6 +115,8 @@ public class PlayerGridMovement : MonoBehaviour
         }
 
         PlayFeedbacks(_loadingFeedbacks);
+
+        deltaOxygen = _oxygenManager.CurrentOxygen;
     }
 
     [ExecuteInEditMode]
@@ -159,6 +163,7 @@ public class PlayerGridMovement : MonoBehaviour
     public static event Action OnActionExecuted;
     private void ExecuteActionQueue()
     {
+        deltaOxygen = _oxygenManager.CurrentOxygen;
         OnActionExecuted?.Invoke();
         ActionType action = _actionQueue.Dequeue();
 
@@ -183,6 +188,11 @@ public class PlayerGridMovement : MonoBehaviour
 
     IEnumerator MoveCoroutine()
     {
+        if ((_oxygenManager.CurrentOxygen >= 5 && deltaOxygen <= 4))
+        {
+            yield return new WaitForSeconds(_moveDuration);
+        }
+
         _isMoving = true;
         Vector2Int direction = GetDirectionVector();
         Vector2Int targetPosition = _gridPosition + direction;
@@ -203,16 +213,20 @@ public class PlayerGridMovement : MonoBehaviour
 
             transform.position = targetPositionWorld;
             _gridPosition = targetPosition;
-            _isMoving = false;
 
-            // consommer de l'oxyg�ne apr�s le d�placement
             _oxygenManager.LoseOxygen();
+
+            if ((_oxygenManager.CurrentOxygen <= 4 && deltaOxygen >= 5))
+            {
+                yield return new WaitForSeconds(_moveDuration);
+            }
 
             if (_oxygenManager.CurrentOxygen == 0)
             {
                 _actionQueue.Clear();
             }
 
+            _isMoving = false;
             _isRotationLocked = false;
         }
         else
@@ -300,16 +314,20 @@ public class PlayerGridMovement : MonoBehaviour
         _isInAction = false;
     }
 
+
+    bool _isTeleporting;
     async void Teleport(Vector3Int pos)
     {
+        _isTeleporting = true;
         await TeleportMovement(pos);
+        _isTeleporting = false;
     }
 
     async Task TeleportMovement(Vector3Int pos)
     {
         _isMoving = true;
         Vector3 targetPos = _grid.GetCellCenterWorld(new Vector3Int(pos.x, pos.y, 0));
-        await Task.Delay(Mathf.FloorToInt(_moveDuration * 1000));
+        await Task.Delay(Mathf.FloorToInt(_moveDuration * 1000f));
         transform.position = targetPos;
         _gridPosition = (Vector2Int)pos;
         _isMoving = false;
@@ -317,7 +335,6 @@ public class PlayerGridMovement : MonoBehaviour
 
     void Push(Vector2Int direction)
     {
-        OnActionExecuted?.Invoke();
         StartCoroutine(PushMovement(direction));
     }
 
@@ -331,6 +348,7 @@ public class PlayerGridMovement : MonoBehaviour
 
         if (IsNextGridCaseAValidDestination(targetPositionWorld))
         {
+            OnActionExecuted?.Invoke();
             float elapsedTime = 0f;
 
             while (elapsedTime < _moveDuration)
@@ -370,7 +388,7 @@ public class PlayerGridMovement : MonoBehaviour
     public void DisableActions()
     {
         _executeAction = false;
-        _actionQueue.Clear(); 
+        _actionQueue.Clear();
     }
 
     void PlayFeedbacks(MMF_Player player)

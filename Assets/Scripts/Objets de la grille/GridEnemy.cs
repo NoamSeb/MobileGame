@@ -129,21 +129,6 @@ public class GridEnemy : GridObject
         }
     }
 
-    bool IsNextGridCaseAValidDestination(Vector3 pos)
-    {
-        RaycastHit2D hit = Physics2D.Raycast(pos, pos, Mathf.Infinity);
-        if (hit.collider != null)
-        {
-            if (hit.collider.gameObject.TryGetComponent(out GridObject obj))
-            {
-                if (obj.IsImpassable) { return false; }
-                return true;
-            }
-            return true;
-        }
-        return false;
-    }
-
     Vector2Int GetDirectionVector()
     {
         if (_currentRotation == 0) return Vector2Int.up;

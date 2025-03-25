@@ -9990,7 +9990,11 @@ PrefabInstance:
     - target: {fileID: 7248111435682088747, guid: 11741e08f04418244921c10ca6257c28, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 90682727}
+      objectReference: {fileID: 1569149816}
+    - target: {fileID: 7248111435682088747, guid: 11741e08f04418244921c10ca6257c28, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadLevel
+      objectReference: {fileID: 0}
     - target: {fileID: 7248111435682088747, guid: 11741e08f04418244921c10ca6257c28, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 21

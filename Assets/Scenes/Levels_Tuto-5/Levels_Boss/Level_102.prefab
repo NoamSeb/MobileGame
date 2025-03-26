@@ -2389,6 +2389,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3924585298776998924, guid: ccd295636ef58054cb81a83a04b0cf62, type: 3}
+      propertyPath: _rotation
+      value: 270
+      objectReference: {fileID: 0}
+    - target: {fileID: 3924585298776998924, guid: ccd295636ef58054cb81a83a04b0cf62, type: 3}
       propertyPath: _rotateDirection
       value: 1
       objectReference: {fileID: 0}
@@ -2418,6 +2422,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4242792037265887433}
     m_Modifications:
+    - target: {fileID: 3490927613903351360, guid: cc552adfd9670f04a9908e13ca4b8c83, type: 3}
+      propertyPath: _pushVector.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3490927613903351360, guid: cc552adfd9670f04a9908e13ca4b8c83, type: 3}
+      propertyPath: _pushVector.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3490927613903351360, guid: cc552adfd9670f04a9908e13ca4b8c83, type: 3}
       propertyPath: _pushDirection
       value: 2
@@ -2485,6 +2497,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 4242792037265887433}
     m_Modifications:
     - target: {fileID: 3490927613903351360, guid: cc552adfd9670f04a9908e13ca4b8c83, type: 3}
+      propertyPath: _pushVector.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3490927613903351360, guid: cc552adfd9670f04a9908e13ca4b8c83, type: 3}
+      propertyPath: _pushVector.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3490927613903351360, guid: cc552adfd9670f04a9908e13ca4b8c83, type: 3}
       propertyPath: _pushDirection
       value: 3
       objectReference: {fileID: 0}
@@ -2550,6 +2570,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4242792037265887433}
     m_Modifications:
+    - target: {fileID: 3490927613903351360, guid: cc552adfd9670f04a9908e13ca4b8c83, type: 3}
+      propertyPath: _pushVector.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3490927613903351360, guid: cc552adfd9670f04a9908e13ca4b8c83, type: 3}
+      propertyPath: _pushVector.y
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 3490927613903351360, guid: cc552adfd9670f04a9908e13ca4b8c83, type: 3}
       propertyPath: _pushDirection
       value: 3
@@ -2823,6 +2851,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 4242792037265887433}
     m_Modifications:
     - target: {fileID: 3490927613903351360, guid: cc552adfd9670f04a9908e13ca4b8c83, type: 3}
+      propertyPath: _pushVector.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3490927613903351360, guid: cc552adfd9670f04a9908e13ca4b8c83, type: 3}
+      propertyPath: _pushVector.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3490927613903351360, guid: cc552adfd9670f04a9908e13ca4b8c83, type: 3}
       propertyPath: _pushDirection
       value: 2
       objectReference: {fileID: 0}
@@ -3094,6 +3130,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4242792037265887433}
     m_Modifications:
+    - target: {fileID: 3490927613903351360, guid: cc552adfd9670f04a9908e13ca4b8c83, type: 3}
+      propertyPath: _pushVector.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3490927613903351360, guid: cc552adfd9670f04a9908e13ca4b8c83, type: 3}
+      propertyPath: _pushVector.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3490927613903351360, guid: cc552adfd9670f04a9908e13ca4b8c83, type: 3}
       propertyPath: _pushDirection
       value: 2

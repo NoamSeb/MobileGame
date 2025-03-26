@@ -327,7 +327,7 @@ public class PlayerGridMovement : MonoBehaviour
     {
         _isMoving = true;
         Vector3 targetPos = _grid.GetCellCenterWorld(new Vector3Int(pos.x, pos.y, 0));
-        await Task.Delay(Mathf.FloorToInt(_moveDuration * 1000f));
+        await Task.Delay(Mathf.FloorToInt(_moveDuration * 1000f / 2f));
         transform.position = targetPos;
         _gridPosition = (Vector2Int)pos;
         _isMoving = false;

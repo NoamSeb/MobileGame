@@ -46,6 +46,12 @@ public class Oxygen : MonoBehaviour
         _oxygenLabel.text = text;
 
         if (_oxygenSlider != null) _oxygenSlider.value = Mathf.Lerp(_oxygenSlider.value, _currentOxygen, Time.fixedDeltaTime * _lerpSpeed);
+
+        if (_currentOxygen <= 0)
+        {
+            _currentOxygen = 0;
+            Die();
+        }
     }
 
     public static event Action OnUnderOxygenThreshold;

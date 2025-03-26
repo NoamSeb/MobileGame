@@ -256,7 +256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 218235321997896878, guid: 32c0e4f4318fbd14fa1f39e8c1a135c2, type: 3}
       propertyPath: _laserLength
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1022989866724234934, guid: 32c0e4f4318fbd14fa1f39e8c1a135c2, type: 3}
       propertyPath: m_Name
@@ -3032,11 +3032,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2485536994506532453, guid: 61add02f7a63e894d863a930c1be8201, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2485536994506532453, guid: 61add02f7a63e894d863a930c1be8201, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2485536994506532453, guid: 61add02f7a63e894d863a930c1be8201, type: 3}
       propertyPath: m_LocalPosition.z

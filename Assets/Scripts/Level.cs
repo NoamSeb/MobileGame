@@ -61,10 +61,10 @@ public class Level : MonoBehaviour
             Vector3Int point = new(Mathf.FloorToInt(bounds.max.x), Mathf.FloorToInt(bounds.center.y), 0);
             Vector3 realpoint = map.CellToWorld(point);
 
-            float mapCenterXCorrection = bounds.size.x / 3f;
+            float mapCenterXCorrection = bounds.size.x / 3.666f;
             correctionX2 = new(mapCenterXCorrection, 0, 0);
 
-            LevelCenter = realpoint + correctionX + correctionX2 +correctionY;
+            LevelCenter = realpoint + correctionX + correctionX2 + correctionY;
         }
     }
 

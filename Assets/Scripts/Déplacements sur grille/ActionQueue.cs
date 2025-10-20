@@ -173,27 +173,34 @@ public class ActionQueue : MonoBehaviour
                 var nextPos = currentRot switch
                 {
                     0 => Vector3.up,
-                    90 => Vector3.right,
+                    90 => Vector3.left,
                     180 => Vector3.down,
-                    270 => Vector3.left,
+                    270 => Vector3.right,
                     _ => throw new Exception("The player's rotation isn't correct"),
                 };
 
                 for (int i = 0; i < action.count; i++)
                 {
-                    bool hasHitTilemap = false, hasHitTeleporter = false, hasHitPusher = false, hasHitLocker = false;
-
+                    bool hasHitTilemap = false, hasHitTeleporter = false, hasHitPusher = false, hasHitLocker = false,
+                        hasHitEnemy = false;
+                    
                     Vector3 possibleNextPos = Vector3.zero;
                     Vector3 possibleAdditionalMove = Vector3.zero;
                     int possibleNextRot = 0;
 
                     currentPos += nextPos;
+                    
                     Collider2D[] colliders = Physics2D.OverlapPointAll(currentPos);
                     foreach (var collider in colliders)
                     {
                         if (collider.gameObject.layer == _playzoneLayer)
                         {
                             hasHitTilemap = true;
+                        }
+                        if (collider.gameObject.TryGetComponent(out GridSleepingEnemy enemy))
+                        {
+                            hasHitEnemy = true;
+                            currentPos -= nextPos;
                         }
                         if (collider.gameObject.TryGetComponent(out GridTeleporter teleport))
                         {
@@ -212,7 +219,7 @@ public class ActionQueue : MonoBehaviour
                         }
                     }
 
-                    if (hasHitTilemap && currentPrevisAmount < _maxPrevisAmount)
+                    if (hasHitTilemap && currentPrevisAmount < _maxPrevisAmount && !hasHitEnemy)
                     {
                         if (hasHitTeleporter && !hasHitPusher && !hasHitLocker)
                         {
@@ -244,17 +251,16 @@ public class ActionQueue : MonoBehaviour
             {
                 for (int i = 0; i < action.count; i++)
                 {
-                    currentRot = (currentRot + 90) % 360;
+                    currentRot = (currentRot - 90 + 360) % 360;
                 }
             }
             if (action.actionType == PlayerGridMovement.ActionType.TurnLeft)
             {
                 for (int i = 0; i < action.count; i++)
                 {
-                    currentRot = (currentRot - 90 + 360) % 360;
+                    currentRot = (currentRot + 90) % 360;
                 }
             }
-            else { }
         }
     }
 

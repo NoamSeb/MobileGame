@@ -122,7 +122,8 @@ public class GameManager : MonoBehaviour
 
     void CheckPlayerActivity()
     {
-        if (Touchscreen.current.primaryTouch.press.isPressed || Mouse.current.leftButton.isPressed)
+        if ((Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed) 
+            || (Mouse.current != null && Mouse.current.leftButton.isPressed))
         {
             _inactivityTimer = 0f; 
         }
